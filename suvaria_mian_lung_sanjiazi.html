@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Map of Sanjianzi</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="favicon.ico" href="images/favicon.ico" />
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+	<link rel="stylesheet" type="text/css" href="rrose/leaflet.rrose.css"/>
+	<link rel="stylesheet" type="text/css" href="graphicscale/Leaflet.GraphicScale.css"/>
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Italianno|Reem+Kufi|Zhi+Mang+Xing&display=swap"/>
+	<link rel="stylesheet" type="text/css" href="./main.css"/>
+
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <script src="rrose/leaflet.rrose-src.js"></script>
+    <script src="graphicscale/Leaflet.GraphicScale.js"></script>
+    <script src="https://www.unpkg.com/turf@3.0.14/turf.js"></script>
+    <script src="./parsemd.js"></script>
+    <script src="./main.js"></script>
+	<!-- not needed
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	-->
+</head>
+<body>
+
+<div id='map'></div>
+
+<script>
+	buildMap( 
+		modeCartograph = false,
+		mapAsset = "images/suvaria/sanjiazi.svg",
+		mapAssetWidth = 800,
+		mapAssetHeight = 640,
+		mapWindowWidth = 686,
+		mapMaxZoomMultiplier = 3,
+		unitName = "ft",
+		unitsAcross = 7500,
+		unitsPerGrid = 1000,
+		buildLayers(),
+		layerNames = [
+			"Sanjiazi",
+			"Present Day - Year Zero",
+			"Vex Incursion - 2 BYZ",
+			"Amenities"
+		],
+		mapNameZh = "三家子村"
+	);
+
+	/* Layers */		
+	function buildLayers() {
+		var layers = new Array();
+		var layerColors = [ "black", "blueLight", "greenLight" ];
+		var nodes = new Array();
+		var paths = new Array();
+
+		layers[0] = L.layerGroup();
+
+		nodes[0] = [{
+				"label": "Cohong Trade Bldg",
+				"loc": [415.84, 254.55],
+				"shape": "shield-large",
+				"symbol": "pagoda",
+				"text": '公行' + zhSlash() + 'Cohong Trade Building is used as temporary storage for caravans and goods in transit through Sanjiazi. It is rumored some rare treasures are kept here, but Cohong bosses keep tight security in the area.',
+				"footnote": '',
+				"staticlabel": true
+			},{
+				"label":"鹈 Tí Road",
+				"loc":[428.67, 60.33],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": true
+			},{
+				"label":"Precinct",
+				"loc":[355.29, 475.33],
+				"shape": "shield-large",
+				"symbol": "ra-knight-helmet",
+				"text": '缅' + zhSlash() + 'Mian government sentries are posted at Sanjiazi since the incursion event two years ago.',
+				"footnote": '',
+				"staticlabel": true
+			},{
+				"label":"Duidian",
+				"loc":[373.32, 367.58],
+				"shape": "shield-large",
+				"symbol": "ra-gold-bar",
+				"text": '兌店' + zhSlash() + '*Duidian* “exchange house” is part of a local banking network not connected to 缅' + zhSlash() + 'Mian government. This local *duidian* is heavily protected by the Mian government sentry presence, however.',
+				"footnote": '',
+				"staticlabel": true
+			},{
+				"label":"Narrows",
+				"loc":[294.86, 270.114],
+				"shape": "pin-large",
+				"symbol": "home-lg-alt",
+				"text": 'Many in Sanjiazi were affected negatively by the incursion two years ago. Poverty is common and is accompanied by opium use, crime, and sex trade. Most of the survivors of Vex\'s slaughter at the Plaza, Sanjiazi\'s original people, live in the Narrows.',
+				"footnote": '',
+				"staticlabel": true
+			 },{
+				"label":"ZYZ Safe House",
+				"loc":[337.75, 506.82],
+				"shape": "pin-large",
+				"symbol": "mask",
+				"text": 'A new criminal element has entered Sanjiazi following the tragedy of the incursion. 在阴影中' + zhSlash() + 'Zài Yinying Zhong (meaning “in the shadows”), or ZYZ operate in plain sight of the precinct. Bribery, forgery, and petty crimes are their typical *modus operandi*.',
+				"footnote": '',
+				"staticlabel": true
+			},{
+				"label":"Fenghuang Tower",
+				"loc":[242.5, 250.5],
+				"shape": "pin-large",
+				"symbol": "wizard-staff",
+				"text": '凤凰' + zhSlash() + 'Fenghuang (meaning “phoenix”) is a 缅' + zhSlash() + 'Mian government shadow order of sorcery. They have established a quiet presence in Sanjiazi since the incursion. The tower is rarely approached by locals.',
+				"footnote": '',
+				"staticlabel": true
+			},{
+				"label":"潘 Pan Inlet",
+				"loc":[229.80, 333.40],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": true
+			}
+		];
+
+		paths[0] = [{
+			"route":"Cohong Wagon Route", 
+			"pdata": [{
+				"label": "Cohong route 1",
+				"waypoint" : true,
+				"loc": [425.67, 25.33],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label": "Cohong Wagon Route",
+				"waypoint" : true,
+				"loc": [438, 128.67],
+				"shape": "pin-large",
+				"symbol": "wagon-covered",
+				"text": '公行' + zhSlash() + 'Cohong wagons carry spices, rum, and in rare cases opium and contraband. The Cohong are the source of the largest influx of gold into Sanjiazi. The trade masters are spenders, but they generally keep to themselves.',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"Cohong route 2",
+				"waypoint" : true,
+				"loc":[447.33, 199],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"Cohong route 3",
+				"waypoint" : true,
+				"loc":[445.33, 282.33],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"Cohong Goods Dropoff",
+				"waypoint" : true,
+				"loc":[423.33, 283.33],
+				"shape": "pin-small",
+				"symbol": "guards",
+				"text": 'The Cohong wagon dropoff point at their trade house is often accompanied by heavy security and reinforced by 缅' + zhSlash() + 'Mian government sentries.',
+				"footnote": '',
+				"staticlabel": false
+			},],
+		}];
+
+		layers[1] = L.layerGroup();
+
+		nodes[1] = [{
+				"label":"Sanjiazi Plaza",
+				"loc":[445.67, 416.33],
+				"shape": "flag-large",
+				"symbol": "magic-gate",
+				"text": 'In year 2 BYZ, Ulysses Vex and a band of Erinyes descend on Sanjiazi, slaughtering the villagers to a man. No one is left alive, including Fang Ro\'s parents. The Night Tigers, a kensei 缅' + zhSlash() + 'Mian soldier unit rushes in to defend the civilians but they are captured. Some are killed, others crucified. Present day Sanjiazi is settled by outsiders.',
+				"footnote": '',
+				"staticlabel": true
+			},{
+				"label":"Fang Citadel",
+				"loc":[364.53, 448.65],
+				"shape": "shield-large",
+				"symbol": "ra-tower-demolish",
+				"text": 'Sanjiazi used to be a summer residence for ennobled 方' + zhSlash() + 'Fangs (at best indirect relation to Fang Ro\'s bloodline). Vex and his marauders destroyed the citadel during the incursion and executed any Fangs barricaded inside. The citadel was never rebuilt, and the Fangs never returned to Sanjiazi.',
+				"footnote": '',
+				"staticlabel": true
+			},
+		];
+
+		paths[1] = [{
+			"route":"Night Tigers Incursion Advance", 
+			"pdata": [{
+				"label":"NT Attack Path",
+				"waypoint" : true,
+				"loc":[236.67, 758],
+				"shape": "pin-large",
+				"symbol": "ra-knight-helmet",
+				"text": '暗夜之虎' + zhSlash() + 'Night Tigers advance over a hill and down the bend into Sanjiazi to intercept Vex and his marauders.',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"NT advance 1",
+				"waypoint" : true,
+				"loc":[326, 667.33],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"NT advance 2",
+				"waypoint" : true,
+				"loc":[333.33, 643.67],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"NT advance 3",
+				"waypoint" : true,
+				"loc":[359, 549],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"NT advance 4",
+				"waypoint" : true,
+				"loc":[371.33, 536.33],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"NT advance 5",
+				"waypoint" : true,
+				"loc":[395, 486.67],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"NT Bridge Massacre",
+				"waypoint" : true,
+				"loc":[412, 451],
+				"shape": "pin-large",
+				"symbol": "ra-cracked-helm",
+				"text": '暗夜之虎' + zhSlash() + 'Night Tigers are unable to secure the main bridge. The kensei are captured, tortured, and the majority are crucified and killed.',
+				"footnote": '',
+				"staticlabel": false
+			},],
+		},{
+			"route":"Night Tigers Second Battery Advance", 
+			"pdata": [{
+				"label":"NT 2nd Battery Attack Path",
+				"waypoint" : true,
+				"shape": "pin-large",
+				"symbol": "ra-knight-helmet",
+				"loc":[499.67, 190.35],
+				"text": 'A second battery of 暗夜之虎' + zhSlash() + 'Night Tiger kensei advance on Vex\'s marauders from the west.',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"NTB2 advance 1",
+				"waypoint" : true,
+				"loc":[495, 197.67],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"NTB2 advance 2",
+				"waypoint" : true,
+				"loc":[473, 244.33],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"NTB2 advance 3",
+				"waypoint" : true,
+				"loc":[446, 255.33],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"NTB2 advance 4",
+				"waypoint" : true,
+				"loc":[445.33, 282.67],
+				"shape": "none",
+				"symbol": "",
+				"text": '',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"NT Plaza Breach",
+				"waypoint" : true,
+				"loc":[466.33, 371],
+				"shape": "pin-large",
+				"symbol": "ra-cracked-helm",
+				"text": '暗夜之虎' + zhSlash() + 'Night Tigers cannot breach the blockade at the plaza. The soldiers are beaten back and killed in the streets.',
+				"footnote": '',
+				"staticlabel": false
+			},]
+		},];
+
+		layers[2] = L.layerGroup();
+
+		nodes[2] = [{
+				"label":"Pan Chicken Farm",
+				"loc":[135.54, 668.54],
+				"shape": "pin-large",
+				"symbol": "rooster",
+				"text": 'A chicken and livestock farm owned by the 潘' + zhSlash() + 'Pan family (whom the river inlet is named after).',
+				"footnote": '',
+				"staticlabel": true
+			},{
+				"label":"Grain Farms",
+				"loc":[371.03, 744.36],
+				"shape": "pin-large",
+				"symbol": "wheat",
+				"text": 'Millet farms, wheat farms, and rice paddies owned by various families.',
+				"footnote": '',
+				"staticlabel": false
+			},{
+				"label":"Boat House",
+				"loc":[508.87, 538.74],
+				"shape": "pin-large",
+				"symbol": "fishing-boat",
+				"text": 'Local manufacture of fishing boats and rowboats for use on the 玄济' + zhSlash() + 'Xuán Ji river.',
+				"footnote": '',
+				"staticlabel": true
+			},{
+				"label":"Sturgeon Fishing",
+				"loc":[560.09, 632.93],
+				"shape": "pin-large",
+				"symbol": "ra-fish",
+				"text": 'Fishing and hunting are common professions in Sanjiazi, and the 玄济' + zhSlash() + 'Xuán Ji river is teeming with activity, especially in the warmer months.',
+				"footnote": '',
+				"staticlabel": false
+			},
+		];
+
+		// put the layers together
+		for ( let i = 0; i < layers.length; i++ ) { buildMarkers( layerColors[i], layers[i], nodes[i] ); }
+		for ( let i = 0; i < paths.length; i++ ) {
+			for ( let p = 0; p < paths[i].length; p++ ) { 
+				buildMarkers( layerColors[i], layers[i], paths[i][p].pdata, true, paths[i][p].route ); 
+			}
+		}
+
+		return layers;
+	}
+
+</script>
+</body>
+</html>
