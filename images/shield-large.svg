@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="48px" height="48px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<path id="path-1" d="M30,58 C30,58 55,46.6 55,29.5 L55,9.55 L30,1 L5,9.55 L5,29.5 C5,46.6 30,58 30,58 Z"/>
+		<filter filterUnits="objectBoundingBox" id="invert" x="0" y="0" height="1" width="1">
+			<feBlend mode="normal" in="SourceGraphic" in2="background" />
+				<feComponentTransfer>
+					<feFuncR type="table" tableValues="1 0"/>
+					<feFuncG type="table" tableValues="1 0"/>
+					<feFuncB type="table" tableValues="1 0"/>
+				</feComponentTransfer>
+		</filter>
+	</defs>
+	<g id="UI/Pins/PrimaryLg-Copy-17" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+		<path d="M30,58 C30,58 55,46.6 55,29.5 L55,9.55 L30,1 L5,9.55 L5,29.5 C5,46.6 30,58 30,58 Z" id="Path" fill="addColor" fill-rule="nonzero"/>
+		<g id="Path" fill-rule="nonzero" stroke-linejoin="square">
+			<path stroke="#FFFFFF" stroke-width="6" d="M30,54.6573874 C30.7384535,54.2790102 31.5511074,53.8408648 32.4206409,53.3452307 C35.2235395,51.7475785 38.026228,49.8944409 40.6287759,47.8176076 C47.7990943,42.0956935 52,35.8699513 52,29.5 L52,11.6945955 L30,4.17059553 L8,11.6945955 L8,29.5 C8,35.8699513 12.2009057,42.0956935 19.3712241,47.8176076 C21.973772,49.8944409 24.7764605,51.7475785 27.5793591,53.3452307 C28.4488926,53.8408648 29.2615465,54.2790102 30,54.6573874 Z"/>
+			<path stroke="#000000" stroke-width="3" d="M30,56.336643 C30.1196465,56.2775713 30.252589,56.2112416 30.3982003,56.1377287 C31.2307991,55.7173852 32.1607492,55.2199334 33.1634454,54.6483966 C36.0297385,53.0146096 38.8959265,51.1194861 41.5643879,48.9900538 C49.0557972,43.0119092 53.5,36.4256007 53.5,29.5 L53.5,10.6222978 L30,2.58529776 L6.5,10.6222978 L6.5,29.5 C6.5,36.4256007 10.9442028,43.0119092 18.4356121,48.9900538 C21.1040735,51.1194861 23.9702615,53.0146096 26.8365546,54.6483966 C27.8392508,55.2199334 28.7692009,55.7173852 29.6017997,56.1377287 C29.747411,56.2112416 29.8803535,56.2775713 30,56.336643 Z"/>
+		</g>
+	</g>
+	<g transform="translate(16,12)"> <!-- 16 + 28 + 16 equals 60 -->
+		<image width="28" height="28" href="addSymbol"/>
+	</g>
+</svg>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="48px" height="48px" viewBox="0 0 58 70" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<path id="a" d="M61.676 36.13v25.546H36.13c-14.11 0-25.547-11.438-25.547-25.547 0-14.11 11.438-25.547 25.547-25.547 14.11 0 25.547 11.438 25.547 25.547z"/>
+		<filter filterUnits="objectBoundingBox" id="invert" x="0" y="0" height="1" width="1">
+			<feBlend mode="normal" in="SourceGraphic" in2="background" />
+				<feComponentTransfer>
+					<feFuncR type="table" tableValues="1 0"/>
+					<feFuncG type="table" tableValues="1 0"/>
+					<feFuncB type="table" tableValues="1 0"/>
+				</feComponentTransfer>
+		</filter>
+	</defs>
+	<g transform="translate(-7.000000, -7.000000) translate(36.129126, 36.129126) rotate(45.000000) translate(-36.129126, -36.129126) " fill-rule="nonzero" stroke="none" stroke-width="3" fill="none">
+		<use fill="addColor" href="#a"/>
+		<path stroke="#0d0c0a" stroke-width="4" d="M63.176 36.13v27.046H36.13c-14.938 0-27.047-12.11-27.047-27.047 0-14.938 12.11-27.047 27.047-27.047 14.938 0 27.047 12.11 27.047 27.047z"/>
+		<path stroke="#fff" stroke-width="4" d="M60.176 60.176V36.13c0-13.28-10.766-24.047-24.047-24.047-13.28 0-24.047 10.766-24.047 24.047s10.766 24.047 24.047 24.047h24.047z" stroke-linejoin="square"/>
+	</g>
+	<g transform="translate(13,13)"> <!-- 13 + 32 + 13 equals 58 -->
+		<image width="32" height="32" href="addSymbol"/>
+	</g>
+</svg>
