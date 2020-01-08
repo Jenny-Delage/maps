@@ -1,6 +1,6 @@
 // marker construction
 function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = '' ) {
-	let c = { black: "#000000", red: "#d33e00", gold: "#cb9300", blue: "#0079d3", green: "#009f82", purple: "#8c13d4", grey: "#cfcdce", redLight: "#edc8b2", goldLight: "#eddfcc", blueLight: "#b3d7ef", greenLight: "#b2e1d9", purpleLight: "#d9c0ef" }
+	let c = { black: "#000000", red: "#d33e00", gold: "#cb9300", blue: "#0079d3", green: "#009f82", purple: "#8c13d4", brown: "#543928", grey: "#cfcdce", redLight: "#edc8b2", goldLight: "#eddfcc", blueLight: "#b3d7ef", greenLight: "#b2e1d9", purpleLight: "#d9c0ef", brownLight: "#d2ad80" }
 	var marker;
 	var rRose = new Array();
 	var paths = new Array();
@@ -26,7 +26,7 @@ function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = ''
 			iconDataUri( color, nodeObject[i].shape, nodeObject[i].symbol, marker, iconCallback );
 			// replacement with Rrose popup
 			// marker.bindPopup( rnodes[i].pop + '(<a href="' + rnodes[i].link + '">more...</a>)' );
-			rRose[i] = new L.Rrose( { offset: new L.Point(0,-10), closeButton: false, autoPan: true } ).setContent( symFloat( nodeObject[i].symbol ) + parse( nodeObject[i].text ) + ( ( nodeObject[i].footnote.length > 0 ) ? '<hr/>' + parse( nodeObject[i].footnote ) : '' ) );
+			rRose[i] = new L.Rrose( { offset: new L.Point( 0, -10 ), closeButton: false, autoPan: true } ).setContent( symFloat( nodeObject[i].symbol ) + parse( nodeObject[i].text ) + ( ( nodeObject[i].footnote.length > 0 ) ? '<hr/>' + parse( nodeObject[i].footnote ) : '' ) );
 
 			// console.log( parse( nodeObject[i].pop ) );
 			marker.bindPopup( rRose[i] );
@@ -44,7 +44,7 @@ function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = ''
 	}
 
 	// construct paths
-	if( color == "grey" || color == "redLight" || color == "goldLight" || color == "blueLight" || color == "greenLight" || color == "purpleLight" )
+	if( color == "grey" || color == "redLight" || color == "goldLight" || color == "blueLight" || color == "greenLight" || color == "purpleLight" || color == "brownLight" )
 	{
 		pathColor = LightenDarkenColor( c[color], -40 );
 	}
@@ -53,12 +53,12 @@ function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = ''
 
 // inline icon svg construction
 function iconDataUri( color, shape, symbol, markerObject, iconCallback ) {
-	let c = { black: "#000000", red: "#d33e00", gold: "#cb9300", blue: "#0079d3", green: "#009f82", purple: "#8c13d4", grey: "#cfcdce", redLight: "#edc8b2", goldLight: "#eddfcc", blueLight: "#b3d7ef", greenLight: "#b2e1d9", purpleLight: "#d9c0ef" }
+	let c = { black: "#000000", red: "#d33e00", gold: "#cb9300", blue: "#0079d3", green: "#009f82", purple: "#8c13d4", brown: "#543928", grey: "#cfcdce", redLight: "#edc8b2", goldLight: "#eddfcc", blueLight: "#b3d7ef", greenLight: "#b2e1d9", purpleLight: "#d9c0ef", brownLight: "#d2ad80" }
 	var shapeSize = shape.substring( shape.length - 5, shape.length );
 	var fileShape = "images/" + shape + ".svg";
 	var loadXmlShape = new XMLHttpRequest();
 	loadXmlShape.onreadystatechange = function() {
-		if ( this.readyState == 4 && this.status == 200 ) {
+		if( this.readyState == 4 && this.status == 200 ) {
 			var shapeSvg = loadXmlShape.responseText;
 
 			if( shapeSize == "small" ) {
@@ -71,9 +71,9 @@ function iconDataUri( color, shape, symbol, markerObject, iconCallback ) {
 				var fileSymbol = "images/symbols/" + symbol + ".svg";
 				var loadXmlSymbol =  new XMLHttpRequest();
 				loadXmlSymbol.onreadystatechange = function() {
-					if ( this.readyState == 4 &&  this.status == 200 ) {
+					if( this.readyState == 4 &&  this.status == 200 ) {
 						var symbolSvg = loadXmlSymbol.responseText;
-						if( color == "black" || color == "red" || color == "gold" || color == "blue" || color == "green" || color == "purple" ) {
+						if( color == "black" || color == "red" || color == "gold" || color == "blue" || color == "green" || color == "purple" || color == "brown" ) {
 							symbolSvg = symbolSvg
 								.replace( /\#000000/g, "#fff" )
 								.replace( /\#000/g, "#fff" );
@@ -104,7 +104,7 @@ function iconDataUri( color, shape, symbol, markerObject, iconCallback ) {
 // icon svg to icon object callback
 function iconCallback( shapeSize, markerObject, iconUrl ) {
 	/* Icon initialization */
-	var iconLarge = L.Icon.extend({
+	var iconLarge = L.Icon.extend( {
 		options: {
 			iconUrl: "images/ffffff-0.png",
 			iconRetinaUrl: "images/ffffff-0.png",
@@ -116,8 +116,8 @@ function iconCallback( shapeSize, markerObject, iconUrl ) {
 			shadowSize: [64, 64],
 			shadowAnchor: [20, 64],
 		}
-	});
-	var iconSmall = L.Icon.extend({
+	} );
+	var iconSmall = L.Icon.extend( {
 		options: {
 			iconUrl: "images/ffffff-0.png",
 			iconRetinaUrl: "images/ffffff-0.png",
@@ -129,7 +129,7 @@ function iconCallback( shapeSize, markerObject, iconUrl ) {
 			shadowSize: [48, 48],
 			shadowAnchor: [15, 48],
 		}
-	});
+	} );
 	var iconNew;
 
 	if ( shapeSize == "small" ) { iconNew = new iconSmall( {iconUrl: iconUrl, iconRetinaUrl: iconUrl} ); }
@@ -141,16 +141,15 @@ function iconCallback( shapeSize, markerObject, iconUrl ) {
 function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeight, mapWindowWidth = 686, mapMaxZoomMultiplier, unitName, unitsAcross, unitsPerGrid, layers, layerNames, mapNameZh ) {
 	var mapWindowHeight = Math.floor( mapWindowWidth / mapAssetWidth * mapAssetHeight );
 	var mapMinZoom = Math.log10( mapWindowWidth / mapAssetWidth ) / Math.log10( 2 );
-	var mapMaxZoom = Math.log10( mapMaxZoomMultiplier ) / Math.log10 ( 2 ); // max zoom 3x
-	var unitScale = unitsAcross / mapMaxZoomMultiplier;
-	var gridsAcross = unitsAcross / unitsPerGrid;
+	var mapMaxZoom = Math.log10( mapMaxZoomMultiplier ) / Math.log10 ( 2 );
+	var unitScale = unitsAcross * mapWindowWidth / ( mapAssetWidth * mapMaxZoomMultiplier );
 
 	document.getElementById( "map" ).style.width = mapWindowWidth + "px";
 	document.getElementById( "map" ).style.height = mapWindowHeight + "px";
 	
 	// initialize main map
 	var landmap = L.tileLayer( '', { id: 'mapbox.land' } );
-	var bounds = [[0,0], [mapAssetHeight, mapAssetWidth]];
+	var bounds = [[0, 0], [mapAssetHeight, mapAssetWidth]];
 	var map = L.map( "map", {
 		minZoom: mapMinZoom,
 		maxZoom: mapMaxZoom,
@@ -178,7 +177,7 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 	// see changes by Das123 @ https://gis.stackexchange.com/questions/151745/leafletjs-how-to-set-custom-map-scale-for-a-flat-image-map-crs-simple
 	var graphicScale = L.control.graphicScale({
 		doubleLine: true,
-		fill: 'hollow',
+		fill: "hollow",
 		showSubunits: true,
 		minUnitWidth: 30,
 		maxUnitsWidth: 240,
@@ -191,11 +190,11 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 	scaleText.innerHTML = parse( '# ' + ( ( mapNameZh.length > 0 ) ? mapNameZh + zhSlash() : '' ) + layerNames[0] + '\n' + unitsPerGrid + unitName + ' per grid unit' );
 
 	// add hex grid
-	loadTurfHexGrid( map, mapAssetWidth, mapAssetHeight, mapWindowWidth, gridsAcross );
+	loadTurfHexGrid( map, mapAssetWidth, mapAssetHeight, unitsAcross, unitsPerGrid );
 	
 	// popup to give coordinates
 	function onMapOver( e ) {
-		var popup = new L.Rrose( { offset: new L.Point(0,-10), maxWidth:200, closeButton: false, autoPan: false } )
+		var popup = new L.Rrose( { offset: new L.Point( 0,-10 ), maxWidth: 200, closeButton: false, autoPan: false } )
 			.setLatLng( e.latlng )
 			.setContent( symFloat( "treasure-map" ) + 'You are located at ' + e.latlng.toString() )
 			.openOn(map);
@@ -214,29 +213,29 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 		var width = document.documentElement.clientWidth;
 		// tablets are between 768 and 922 pixels wide
 		// phones are less than 768 pixels wide
-		if (width < 768) {
+		if( width < 768 ) {
 			// set the zoom level to 10
-			map.setZoom(-1);
-		}  else {
+			map.setZoom( -1 );
+		} else {
 			// set the zoom level to 8
-			map.setZoom(1);
+			map.setZoom( 1 );
 		}
-	});
+	} );
 	*/
 }
 
 // hex grid
-function loadTurfHexGrid( map, mapAssetWidth, mapAssetHeight, mapWindowWidth, gridsAcross ) {
+function loadTurfHexGrid( map, mapAssetWidth, mapAssetHeight, unitsAcross, unitsPerGrid ) {
 	var gridExtent = Math.max( mapAssetWidth, mapAssetHeight );
-	var gridSize = 1000 / 108 * mapWindowWidth / gridsAcross; // 1000 mile hex grid is 108 pixels wide
-	var bbox = [0, 0, gridExtent, gridExtent];
-	var geojson = turf.hexGrid( bbox, gridSize, 'miles' );
+	var gridCellSide = mapAssetWidth * unitsPerGrid / unitsAcross / 2;
+	var bbox = [-2 * gridCellSide, -2 * gridCellSide, gridExtent + 2 * gridCellSide, gridExtent + 2 * gridCellSide];
+	var geojson = turf.hexGrid( bbox, gridCellSide, { options: { units: "miles" } } );
 	var gridLayer = L.geoJson( geojson, {
 		style: {
 			weight: 3,
 			fillOpacity: 0,
 			color: '#000000',
-			opacity: 0.05,
+			opacity: 0.075,
 			interactive: false
 		}
 	} );
@@ -248,35 +247,34 @@ function loadTurfHexGrid( map, mapAssetWidth, mapAssetHeight, mapWindowWidth, gr
 function zhSlash() { return '&nbsp;&nbsp;<div style="display:inline-block;position:relative;left:-4px;-webkit-transform:scale(0.6,0.4);letter-spacing:-20px;-webkit-text-stroke-width:2px;-webkit-text-stroke-color:#6b3720;">&#10744;</div>&nbsp;&nbsp;'; }
 
 // quick style: symbol right-float
-function symFloat( symbol ) { return '<img style="float:right;padding:2px;padding-top:0px;filter:invert(0.3) sepia(1);" width="36" height="32" src="images/symbols/' + symbol + '.svg" alt="">'; }
+function symFloat( symbol ) { return '<img style="float:right;padding:2px;padding-top:0px;filter:invert(0.3) sepia(1);" width="32" height="32" src="images/symbols/' + symbol + '.svg" alt="">'; }
 
 // color shift function
 // Courtesy of Pimp Trizkit
 // https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
-
 function LightenDarkenColor(col,amt) {
     var usePound = false;
-    if ( col[0] == "#" ) {
-        col = col.slice(1);
+    if( col[0] == "#" ) {
+        col = col.slice( 1 );
         usePound = true;
     }
 
-    var num = parseInt(col,16);
+    var num = parseInt( col, 16 );
 
-    var r = (num >> 16) + amt;
+    var r = ( num >> 16 ) + amt;
 
     if ( r > 255 ) r = 255;
-    else if  (r < 0) r = 0;
+    else if( r < 0 ) r = 0;
 
-    var b = ((num >> 8) & 0x00FF) + amt;
+    var b = ( ( num >> 8 ) & 0x00FF ) + amt;
 
-    if ( b > 255 ) b = 255;
-    else if  (b < 0) b = 0;
+    if( b > 255 ) b = 255;
+    else if( b < 0 ) b = 0;
 
-    var g = (num & 0x0000FF) + amt;
+    var g = ( num & 0x0000FF ) + amt;
 
     if ( g > 255 ) g = 255;
     else if  ( g < 0 ) g = 0;
 
-    return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
+    return ( usePound ? "#" : "" ) + ( g | ( b << 8 ) | ( r << 16 )).toString( 16 );
 }

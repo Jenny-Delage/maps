@@ -18,7 +18,9 @@
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
     <script src="rrose/leaflet.rrose-src.js"></script>
     <script src="graphicscale/Leaflet.GraphicScale.js"></script>
-    <script src="https://www.unpkg.com/turf@3.0.14/turf.js"></script>
+    <!-- <script src="https://www.unpkg.com/turf@3.0.14/turf.js"></script> -->
+    <!-- <script src="https://www.unpkg.com/@turf/turf@5.1.6/turf.min.js"></script> -->
+	<script src="./turf/turf.js"></script>
     <script src="./parsemd.js"></script>
     <script src="./main.js"></script>
 	<!-- not needed
@@ -33,10 +35,10 @@
 	buildMap( 
 		modeCartograph = false,
 		mapAsset = "images/suvaria/sanjiazi.svg",
-		mapAssetWidth = 800,
-		mapAssetHeight = 640,
-		mapWindowWidth = 686,
-		mapMaxZoomMultiplier = 3,
+		mapAssetWidth = 3242,
+		mapAssetHeight = 2587,
+		mapWindowWidth = 1000,
+		mapMaxZoomMultiplier = 0.75,
 		unitName = "ft",
 		unitsAcross = 7500,
 		unitsPerGrid = 1000,
@@ -61,7 +63,7 @@
 
 		nodes[0] = [{
 				"label": "Cohong Trade Bldg",
-				"loc": [415.84, 254.55],
+				"loc": [1685.19, 1031.56],
 				"shape": "shield-large",
 				"symbol": "pagoda",
 				"text": '公行' + zhSlash() + 'Cohong Trade Building is used as temporary storage for caravans and goods in transit through Sanjiazi. It is rumored some rare treasures are kept here, but Cohong bosses keep tight security in the area.',
@@ -69,7 +71,7 @@
 				"staticlabel": true
 			},{
 				"label":"鹈 Tí Road",
-				"loc":[428.67, 60.33],
+				"loc":[1737.19, 244.49],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -77,23 +79,23 @@
 				"staticlabel": true
 			},{
 				"label":"Precinct",
-				"loc":[355.29, 475.33],
+				"loc":[1439.81, 1926.27],
 				"shape": "shield-large",
 				"symbol": "ra-knight-helmet",
 				"text": '缅' + zhSlash() + 'Mian government sentries are posted at Sanjiazi since the incursion event two years ago.',
 				"footnote": '',
 				"staticlabel": true
 			},{
-				"label":"Duidian",
-				"loc":[373.32, 367.58],
+				"label":"Qiandian",
+				"loc":[1512.88, 1489.62],
 				"shape": "shield-large",
 				"symbol": "ra-gold-bar",
-				"text": '兌店' + zhSlash() + '*Duidian* “exchange house” is part of a local banking network not connected to 缅' + zhSlash() + 'Mian government. This local *duidian* is heavily protected by the Mian government sentry presence, however.',
+				"text": '錢店' + zhSlash() + '*Qiandian* “exchange house” is part of a local banking network not connected to 缅' + zhSlash() + 'Mian government. This local *qiandian* is heavily protected by the Mian government sentry presence, however.',
 				"footnote": '',
 				"staticlabel": true
 			},{
 				"label":"Narrows",
-				"loc":[294.86, 270.114],
+				"loc":[1194.92, 1094.64],
 				"shape": "pin-large",
 				"symbol": "home-lg-alt",
 				"text": 'Many in Sanjiazi were affected negatively by the incursion two years ago. Poverty is common and is accompanied by opium use, crime, and sex trade. Most of the survivors of Vex\'s slaughter at the Plaza, Sanjiazi\'s original people, live in the Narrows.',
@@ -101,7 +103,7 @@
 				"staticlabel": true
 			 },{
 				"label":"ZYZ Safe House",
-				"loc":[337.75, 506.82],
+				"loc":[1368.73, 2053.89],
 				"shape": "pin-large",
 				"symbol": "mask",
 				"text": 'A new criminal element has entered Sanjiazi following the tragedy of the incursion. 在阴影中' + zhSlash() + 'Zài Yinying Zhong (meaning “in the shadows”), or ZYZ operate in plain sight of the precinct. Bribery, forgery, and petty crimes are their typical *modus operandi*.',
@@ -109,7 +111,7 @@
 				"staticlabel": true
 			},{
 				"label":"Fenghuang Tower",
-				"loc":[242.5, 250.5],
+				"loc":[982.73, 1015.15],
 				"shape": "pin-large",
 				"symbol": "wizard-staff",
 				"text": '凤凰' + zhSlash() + 'Fenghuang (meaning “phoenix”) is a 缅' + zhSlash() + 'Mian government shadow order of sorcery. They have established a quiet presence in Sanjiazi since the incursion. The tower is rarely approached by locals.',
@@ -117,7 +119,7 @@
 				"staticlabel": true
 			},{
 				"label":"潘 Pan Inlet",
-				"loc":[229.80, 333.40],
+				"loc":[931.26, 1351.1],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -131,7 +133,7 @@
 			"pdata": [{
 				"label": "Cohong route 1",
 				"waypoint" : true,
-				"loc": [425.67, 25.33],
+				"loc": [1725.03, 102.65],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -140,7 +142,7 @@
 			},{
 				"label": "Cohong Wagon Route",
 				"waypoint" : true,
-				"loc": [438, 128.67],
+				"loc": [1775, 521.44],
 				"shape": "pin-large",
 				"symbol": "wagon-covered",
 				"text": '公行' + zhSlash() + 'Cohong wagons carry spices, rum, and in rare cases opium and contraband. The Cohong are the source of the largest influx of gold into Sanjiazi. The trade masters are spenders, but they generally keep to themselves.',
@@ -149,7 +151,7 @@
 			},{
 				"label":"Cohong route 2",
 				"waypoint" : true,
-				"loc":[447.33, 199],
+				"loc":[1812.8, 806.45],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -158,7 +160,7 @@
 			},{
 				"label":"Cohong route 3",
 				"waypoint" : true,
-				"loc":[445.33, 282.33],
+				"loc":[1804.7, 1144.14],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -167,7 +169,7 @@
 			},{
 				"label":"Cohong Goods Dropoff",
 				"waypoint" : true,
-				"loc":[423.33, 283.33],
+				"loc":[1715.54, 1148.19],
 				"shape": "pin-small",
 				"symbol": "guards",
 				"text": 'The Cohong wagon dropoff point at their trade house is often accompanied by heavy security and reinforced by 缅' + zhSlash() + 'Mian government sentries.',
@@ -180,7 +182,7 @@
 
 		nodes[1] = [{
 				"label":"Sanjiazi Plaza",
-				"loc":[445.67, 416.33],
+				"loc":[1802.67, 1686.67],
 				"shape": "flag-large",
 				"symbol": "magic-gate",
 				"text": 'In year 2 BYZ, Ulysses Vex and a band of Erinyes descend on Sanjiazi, slaughtering the villagers to a man. No one is left alive, including Fang Ro\'s parents. The Night Tigers, a kensei 缅' + zhSlash() + 'Mian soldier unit rushes in to defend the civilians but they are captured. Some are killed, others crucified. Present day Sanjiazi is settled by outsiders.',
@@ -188,7 +190,7 @@
 				"staticlabel": true
 			},{
 				"label":"Fang Citadel",
-				"loc":[364.53, 448.65],
+				"loc":[1477.26, 1818.15],
 				"shape": "shield-large",
 				"symbol": "ra-tower-demolish",
 				"text": 'Sanjiazi used to be a summer residence for ennobled 方' + zhSlash() + 'Fangs (at best indirect relation to Fang Ro\'s bloodline). Vex and his marauders destroyed the citadel during the incursion and executed any Fangs barricaded inside. The citadel was never rebuilt, and the Fangs never returned to Sanjiazi.',
@@ -202,7 +204,7 @@
 			"pdata": [{
 				"label":"NT Attack Path",
 				"waypoint" : true,
-				"loc":[236.67, 758],
+				"loc":[959.11, 3071.8],
 				"shape": "pin-large",
 				"symbol": "ra-knight-helmet",
 				"text": '暗夜之虎' + zhSlash() + 'Night Tigers advance over a hill and down the bend into Sanjiazi to intercept Vex and his marauders.',
@@ -211,7 +213,7 @@
 			},{
 				"label":"NT advance 1",
 				"waypoint" : true,
-				"loc":[326, 667.33],
+				"loc":[1321.12, 2704.35],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -220,7 +222,7 @@
 			},{
 				"label":"NT advance 2",
 				"waypoint" : true,
-				"loc":[333.33, 643.67],
+				"loc":[1350.82, 2608.47],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -229,7 +231,7 @@
 			},{
 				"label":"NT advance 3",
 				"waypoint" : true,
-				"loc":[359, 549],
+				"loc":[1454.85, 2224.82],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -238,7 +240,7 @@
 			},{
 				"label":"NT advance 4",
 				"waypoint" : true,
-				"loc":[371.33, 536.33],
+				"loc":[1504.81, 2173.48],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -247,7 +249,7 @@
 			},{
 				"label":"NT advance 5",
 				"waypoint" : true,
-				"loc":[395, 486.67],
+				"loc":[1600.74, 1972.23],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -256,7 +258,7 @@
 			},{
 				"label":"NT Bridge Massacre",
 				"waypoint" : true,
-				"loc":[412, 451],
+				"loc":[1669.63, 1827.68],
 				"shape": "pin-large",
 				"symbol": "ra-cracked-helm",
 				"text": '暗夜之虎' + zhSlash() + 'Night Tigers are unable to secure the main bridge. The kensei are captured, tortured, and the majority are crucified and killed.',
@@ -270,14 +272,14 @@
 				"waypoint" : true,
 				"shape": "pin-large",
 				"symbol": "ra-knight-helmet",
-				"loc":[499.67, 190.35],
+				"loc":[2024.91, 771.39],
 				"text": 'A second battery of 暗夜之虎' + zhSlash() + 'Night Tiger kensei advance on Vex\'s marauders from the west.',
 				"footnote": '',
 				"staticlabel": false
 			},{
 				"label":"NTB2 advance 1",
 				"waypoint" : true,
-				"loc":[495, 197.67],
+				"loc":[2005.99, 801.06],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -286,7 +288,7 @@
 			},{
 				"label":"NTB2 advance 2",
 				"waypoint" : true,
-				"loc":[473, 244.33],
+				"loc":[1916.83, 990.15],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -295,7 +297,7 @@
 			},{
 				"label":"NTB2 advance 3",
 				"waypoint" : true,
-				"loc":[446, 255.33],
+				"loc":[1807.42, 1034.72],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -304,7 +306,7 @@
 			},{
 				"label":"NTB2 advance 4",
 				"waypoint" : true,
-				"loc":[445.33, 282.67],
+				"loc":[1804.7, 1145.52],
 				"shape": "none",
 				"symbol": "",
 				"text": '',
@@ -313,7 +315,7 @@
 			},{
 				"label":"NT Plaza Breach",
 				"waypoint" : true,
-				"loc":[466.33, 371],
+				"loc":[1889.8, 1503.48],
 				"shape": "pin-large",
 				"symbol": "ra-cracked-helm",
 				"text": '暗夜之虎' + zhSlash() + 'Night Tigers cannot breach the blockade at the plaza. The soldiers are beaten back and killed in the streets.',
@@ -326,7 +328,7 @@
 
 		nodes[2] = [{
 				"label":"Pan Chicken Farm",
-				"loc":[135.54, 668.54],
+				"loc":[549.28, 2709.26],
 				"shape": "pin-large",
 				"symbol": "rooster",
 				"text": 'A chicken and livestock farm owned by the 潘' + zhSlash() + 'Pan family (whom the river inlet is named after).',
@@ -334,7 +336,7 @@
 				"staticlabel": true
 			},{
 				"label":"Grain Farms",
-				"loc":[371.03, 744.36],
+				"loc":[1503.6, 3016.52],
 				"shape": "pin-large",
 				"symbol": "wheat",
 				"text": 'Millet farms, wheat farms, and rice paddies owned by various families.',
@@ -342,7 +344,7 @@
 				"staticlabel": false
 			},{
 				"label":"Boat House",
-				"loc":[508.87, 538.74],
+				"loc":[2062.2, 2183.24],
 				"shape": "pin-large",
 				"symbol": "fishing-boat",
 				"text": 'Local manufacture of fishing boats and rowboats for use on the 玄济' + zhSlash() + 'Xuán Ji river.',
@@ -350,7 +352,7 @@
 				"staticlabel": true
 			},{
 				"label":"Sturgeon Fishing",
-				"loc":[560.09, 632.93],
+				"loc":[2269.76, 2564.95],
 				"shape": "pin-large",
 				"symbol": "ra-fish",
 				"text": 'Fishing and hunting are common professions in Sanjiazi, and the 玄济' + zhSlash() + 'Xuán Ji river is teeming with activity, especially in the warmer months.',
