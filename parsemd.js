@@ -21,7 +21,12 @@ function parse(md){
   md = md.replace(/[\#]{4}(.+)/g, '<h4>$1</h4>');
   md = md.replace(/[\#]{3}(.+)/g, '<h3>$1</h3>');
   md = md.replace(/[\#]{2}(.+)/g, '<h2>$1</h2>');
-  md = md.replace(/\w*(?<!&)[\#]{1}(.+)/g, '<h1>$1</h1>'); // modified to not catch unicode, ie: &#10339;
+  // negative lookbehind not supported on Safari (Webkit)
+  // md = md.replace(/\w*(?<!&)[\#]{1}(.+)/g, '<h1>$1</h1>'); // modified to not catch unicode, ie: &#10339;
+  // See Okku's post: https://stackoverflow.com/questions/641407/javascript-negative-lookbehind-equivalent
+  // Open Safari bug https://bugs.webkit.org/show_bug.cgi?id=174931
+  // have to use lookahead instead: https://stackoverflow.com/questions/50011366/javascript-regex-negative-lookbehind-not-working-in-firefox
+  md = md.replace(/((?!&).|^)[\#]{1}(.+)/g, '<h1>$2</h1>'); // modified to not catch unicode, ie: &#10339;
   
   //alt h
   md = md.replace(/^(.+)\n\=+/gm, '<h1>$1</h1>');
