@@ -40,8 +40,9 @@ function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = ''
 			}
 		}
 		if( nodeObject[i].staticlabel == true  ) {
-			marker.bindTooltip( nodeObject[i].label, {permanent: true, offset: [0, -32], opacity: 1.0, direction: "center", className: 'leaflet-tooltip-static'} );
+			marker.bindTooltip( '<div style="text-align:center;">' + parse( nodeObject[i].label ) + '</span>', {permanent: true, offset: [0, -32], opacity: 1.0, direction: "center", className: 'leaflet-tooltip-static'} );
 		} else if ( nodeObject[i].shape != "none" ) {
+			// no parse() for tooltip. I don't expect line feeds for such labels!
 			marker.bindTooltip( nodeObject[i].label + '<div style="margin-bottom:-4px;font-size:0;"</div>&nbsp;</div>' ); <!-- contains css fix for font size change -->
 		}
 	}
@@ -150,7 +151,7 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 	var mapMaxZoom = Math.log10( mapMaxZoomMultiplier ) / Math.log10 ( 2 );
 	var unitScale = unitsAcross * mapWindowWidth / ( mapAssetWidth * mapMaxZoomMultiplier ); // x units per 1000 pixels at max zoom. Metres is default. Has's note - how many units will the map scale within its window at max zoom?, or # of units covered by window width at max zoom
 	var scaleTextHtml = parse( '# ' + ( ( mapNameZh.length > 0 ) ? mapNameZh + zhSlash() : '' ) + layerNames[0] + '\n' + unitsPerGrid + unitName + ' per grid unit' );
-	console.log( scaleTextHtml );
+//	console.log( scaleTextHtml );
 
 	document.getElementById( "map" ).style.width = mapWindowWidth + "px";
 	document.getElementById( "map" ).style.height = mapWindowHeight + "px";
@@ -205,8 +206,8 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 	// popup to give coordinates
 	function onMapOver( event ) {
 		var popup = new L.Rrose( { offset: new L.Point( 0,-10 ), maxWidth: 200, closeButton: false, autoPan: false } )
-			.setLatLng( e.latlng )
-			.setContent( symFloat( "treasure-map" ) + 'You are located at ' + e.latlng.toString() )
+			.setLatLng( event.latlng )
+			.setContent( symFloat( "treasure-map" ) + 'You are located at ' + event.latlng.toString() )
 			.openOn( map );
 	}
 
