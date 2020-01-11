@@ -113,7 +113,7 @@ function iconCallback( shapeSize, markerObject, iconUrl ) {
 			iconRetinaUrl: "images/ffffff-0.png",
 			shadowUrl: "images/marker-shadow.png",
 			iconSize: [48, 48],
-			iconAnchor: [24, 50],
+			iconAnchor: [24, 50], // using 48 instead of 50 to reduce fixed label overlap with flag-large marker shape
 			popupAnchor: [0, 0],
 			tooltipAnchor: [20, -30],
 			shadowSize: [64, 64],
