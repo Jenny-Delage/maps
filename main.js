@@ -27,8 +27,8 @@ function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = ''
 			// replacement with Rrose popup
 			// marker.bindPopup( rnodes[i].pop + '(<a href="' + rnodes[i].link + '">more...</a>)' );
 			rRose[i] = new L.Rrose( { offset: new L.Point( 0, -10 ), closeButton: false, autoPan: true } ).setContent( symFloat( nodeObject[i].symbol ) + parse( nodeObject[i].text ) + ( ( nodeObject[i].footnote.length > 0 ) ? '<hr/>' + parse( nodeObject[i].footnote ) : '' ) );
+			// console.log( parse( nodeObject[i].text ) );
 
-			// console.log( parse( nodeObject[i].pop ) );
 			marker.bindPopup( rRose[i] );
 			/*
 			marker.on('mouseover', function(e) {
@@ -110,7 +110,7 @@ function iconCallback( shapeSize, markerObject, iconUrl ) {
 			iconRetinaUrl: "images/ffffff-0.png",
 			shadowUrl: "images/marker-shadow.png",
 			iconSize: [48, 48],
-			iconAnchor: [24, 48],
+			iconAnchor: [24, 50],
 			popupAnchor: [0, 0],
 			tooltipAnchor: [20, -30],
 			shadowSize: [64, 64],
@@ -138,11 +138,14 @@ function iconCallback( shapeSize, markerObject, iconUrl ) {
 };
 
 // map constructor
-function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeight, mapWindowWidth = 686, mapMaxZoomMultiplier, unitName, unitsAcross, unitsPerGrid, layers, layerNames, mapNameZh ) {
-	var mapWindowHeight = Math.floor( mapWindowWidth / mapAssetWidth * mapAssetHeight );
-	var mapMinZoom = Math.log10( mapWindowWidth / mapAssetWidth ) / Math.log10( 2 );
+function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeight, mapMaxZoomMultiplier, unitName, unitsAcross, unitsPerGrid, layers, layerNames, mapNameZh ) {
+	var mapWindowWidth = Math.min( mapAssetWidth * mapMaxZoomMultiplier, window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth );
+//	var mapWindowHeight = Math.floor( mapWindowWidth / mapAssetWidth * mapAssetHeight );
+	var mapWindowHeight = Math.min( mapAssetHeight * mapMaxZoomMultiplier, window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight );
+	var mapMinZoom = calcMapMinZoom( mapWindowWidth, mapWindowHeight, mapAssetWidth, mapAssetHeight );
 	var mapMaxZoom = Math.log10( mapMaxZoomMultiplier ) / Math.log10 ( 2 );
-	var unitScale = unitsAcross * mapWindowWidth / ( mapAssetWidth * mapMaxZoomMultiplier );
+	var unitScale = unitsAcross * mapWindowWidth / ( mapAssetWidth * mapMaxZoomMultiplier ); // x units per 1000 pixels at max zoom. Metres is default. Has's note - how many units will the map scale within its window at max zoom?, or # of units covered by window width at max zoom
+	var scaleTextHtml = parse( '# ' + ( ( mapNameZh.length > 0 ) ? mapNameZh + zhSlash() : '' ) + layerNames[0] + '\n' + unitsPerGrid + unitName + ' per grid unit' );
 
 	document.getElementById( "map" ).style.width = mapWindowWidth + "px";
 	document.getElementById( "map" ).style.height = mapWindowHeight + "px";
@@ -175,53 +178,75 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 	
 	// add graphicScale
 	// see changes by Das123 @ https://gis.stackexchange.com/questions/151745/leafletjs-how-to-set-custom-map-scale-for-a-flat-image-map-crs-simple
-	var graphicScale = L.control.graphicScale({
+	var graphicScale = new L.control.graphicScale( {
 		doubleLine: true,
 		fill: "hollow",
 		showSubunits: true,
-		minUnitWidth: 30,
-		maxUnitsWidth: 240,
+		minUnitWidth: 80, // recommended 30
+		maxUnitsWidth: 300, // recommended 240
 		unitsPer1000px: unitScale, // x units per 1000 pixels at max zoom. Metres is default. Has's note - how many units will the map scale within its window at max zoom?, or # of units covered by window width at max zoom
 		scaleUnit: unitName // override with your own unit designation. null is default and will revert to m / km
-	}).addTo(map);
+	} );
 
-	var scaleText = L.DomUtil.create('div', 'scaleText' );
-	graphicScale._container.insertBefore(scaleText, graphicScale._container.firstChild);
-	scaleText.innerHTML = parse( '# ' + ( ( mapNameZh.length > 0 ) ? mapNameZh + zhSlash() : '' ) + layerNames[0] + '\n' + unitsPerGrid + unitName + ' per grid unit' );
+	graphicScale.addTo( map );
+
+	var scaleText = L.DomUtil.create( "div", "scaleText" );
+	graphicScale._container.insertBefore( scaleText, graphicScale._container.firstChild );
+	scaleText.innerHTML = scaleTextHtml;
 
 	// add hex grid
 	loadTurfHexGrid( map, mapAssetWidth, mapAssetHeight, unitsAcross, unitsPerGrid );
 	
 	// popup to give coordinates
-	function onMapOver( e ) {
+	function onMapOver( event ) {
 		var popup = new L.Rrose( { offset: new L.Point( 0,-10 ), maxWidth: 200, closeButton: false, autoPan: false } )
 			.setLatLng( e.latlng )
 			.setContent( symFloat( "treasure-map" ) + 'You are located at ' + e.latlng.toString() )
-			.openOn(map);
+			.openOn( map );
 	}
 
 	if ( modeCartograph == true ) {
-		map.on( 'mouseover mousemove', onMapOver );
-		map.on( 'mouseout', function(e){map.closePopup()} );
+		map.on( "mouseover mousemove", onMapOver );
+		map.on( "mouseout", function( event ){ map.closePopup() } );
 	}
-
+	
 	// listen for screen resize events
 	// h/t https://stackoverflow.com/a/23917779/2418186
-	/*
-	window.addEventListener('resize', function(event){
-		// get the width of the screen after the resize event
-		var width = document.documentElement.clientWidth;
-		// tablets are between 768 and 922 pixels wide
-		// phones are less than 768 pixels wide
-		if( width < 768 ) {
-			// set the zoom level to 10
-			map.setZoom( -1 );
-		} else {
-			// set the zoom level to 8
-			map.setZoom( 1 );
-		}
-	} );
-	*/
+	function onWindowResize( event ) {
+		// note down old width, height, and zoom of map
+		var widthOld = document.getElementById( "map" ).style.width;
+		var heightOld = document.getElementById( "map" ).style.height;
+		var zoomOld = map.getZoom();
+		var zoomOldMultiplier = Math.pow( 2, zoomOld );
+		
+		
+		// get the width and height of the screen after the resize event
+		var widthNew = Math.min( mapAssetWidth * mapMaxZoomMultiplier, window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth );
+		var heightNew = Math.min( mapAssetHeight * mapMaxZoomMultiplier, window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight );
+		var boundsNew = [[0, 0], [heightNew, widthNew]];
+		var minZoomNew = calcMapMinZoom( widthNew, heightNew, mapAssetWidth, mapAssetHeight );
+		var unitScaleNew = unitsAcross * widthNew / ( mapAssetWidth * mapMaxZoomMultiplier );
+		
+		// set new window width and minZoom
+		map.setMinZoom( minZoomNew );
+		document.getElementById( "map" ).style.width = widthNew + "px";
+		document.getElementById( "map" ).style.height = heightNew + "px";
+		
+		// adjust current zoom level
+		if( zoomOld < minZoomNew ) { map.setZoom( minZoomNew ); }
+		
+		// fix scale
+		graphicScale.remove();
+//		graphicScale.options.minUnitWidth = 0.05 * widthNew;
+//		graphicScale.options.maxUnitsWidth = 0.25 * widthNew;
+		graphicScale.options.unitsPer1000px = unitScaleNew;
+		graphicScale.addTo( map );
+		var scaleText = L.DomUtil.create( "div", "scaleText" );
+		graphicScale._container.insertBefore( scaleText, graphicScale._container.firstChild );
+		scaleText.innerHTML = scaleTextHtml;
+	};
+
+	window.addEventListener( "resize", onWindowResize );
 }
 
 // hex grid
@@ -243,8 +268,15 @@ function loadTurfHexGrid( map, mapAssetWidth, mapAssetHeight, unitsAcross, units
 	map.addLayer( gridLayer );
 }
 
+// calculate minimum map zoom
+function calcMapMinZoom( mapWindowWidth, mapWindowHeight, mapAssetWidth, mapAssetHeight ) {
+	// no need to bound upper end as mapMaxZoom since we are setting max mapWindow dimensions to mapAsset dimensions x 3
+	if( mapWindowHeight > mapWindowWidth ) { return Math.log10( mapWindowHeight / mapAssetHeight ) / Math.log10( 2 ); }
+	else { return Math.log10( mapWindowWidth / mapAssetWidth ) / Math.log10( 2 ); }
+}
+
 // quick text: forward slash for lang_zh
-function zhSlash() { return '&nbsp;&nbsp;<div style="display:inline-block;position:relative;left:-4px;-webkit-transform:scale(0.6,0.4);letter-spacing:-20px;-webkit-text-stroke-width:2px;-webkit-text-stroke-color:#6b3720;">&#10744;</div>&nbsp;&nbsp;'; }
+function zhSlash() { return '&nbsp;&nbsp;<div style="display:inline-block;position:relative;left:-4px;-webkit-transform:scale(0.6,0.4);-moz-transform:scale(0.6,0.4);transform:scale(0.6,0.4);letter-spacing:-20px;-webkit-text-stroke:2px #6b3720;text-stroke:2px #6b3720;">&#10744;</div>&nbsp;&nbsp;'; }
 
 // quick style: symbol right-float
 function symFloat( symbol ) { return '<img style="float:right;padding:2px;padding-top:0px;filter:invert(0.3) sepia(1);" width="32" height="32" src="images/symbols/' + symbol + '.svg" alt="">'; }
@@ -252,29 +284,29 @@ function symFloat( symbol ) { return '<img style="float:right;padding:2px;paddin
 // color shift function
 // Courtesy of Pimp Trizkit
 // https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
-function LightenDarkenColor(col,amt) {
-    var usePound = false;
-    if( col[0] == "#" ) {
-        col = col.slice( 1 );
-        usePound = true;
-    }
+function LightenDarkenColor( col, amt ) {
+	var usePound = false;
+	if( col[0] == "#" ) {
+		col = col.slice( 1 );
+		usePound = true;
+	}
 
-    var num = parseInt( col, 16 );
+	var num = parseInt( col, 16 );
 
-    var r = ( num >> 16 ) + amt;
+	var r = ( num >> 16 ) + amt;
 
-    if ( r > 255 ) r = 255;
-    else if( r < 0 ) r = 0;
+	if ( r > 255 ) r = 255;
+	else if( r < 0 ) r = 0;
 
-    var b = ( ( num >> 8 ) & 0x00FF ) + amt;
+	var b = ( ( num >> 8 ) & 0x00FF ) + amt;
 
-    if( b > 255 ) b = 255;
-    else if( b < 0 ) b = 0;
+	if( b > 255 ) b = 255;
+	else if( b < 0 ) b = 0;
 
-    var g = ( num & 0x0000FF ) + amt;
+	var g = ( num & 0x0000FF ) + amt;
 
-    if ( g > 255 ) g = 255;
-    else if  ( g < 0 ) g = 0;
+	if ( g > 255 ) g = 255;
+	else if  ( g < 0 ) g = 0;
 
-    return ( usePound ? "#" : "" ) + ( g | ( b << 8 ) | ( r << 16 )).toString( 16 );
+	return ( usePound ? "#" : "" ) + ( g | ( b << 8 ) | ( r << 16 )).toString( 16 );
 }
