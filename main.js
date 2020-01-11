@@ -216,8 +216,8 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 	
 	// listen for screen resize events
 	// h/t https://stackoverflow.com/a/23917779/2418186
-	function onWindowResize( event ) {
-/*		// note down old width, height, and zoom of map
+/*	function onWindowResize( event ) {
+		// note down old width, height, and zoom of map
 		var widthOld = document.getElementById( "map" ).style.width;
 		var heightOld = document.getElementById( "map" ).style.height;
 		var zoomOld = map.getZoom();
