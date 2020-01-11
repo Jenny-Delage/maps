@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="height: 256px; width: 256px;">
+	<g class="" style="touch-action: none;">
+		<circle cx="128" cy="128" r="128" fill="#000" fill-opacity="1"></circle>
+		<circle stroke="#fff" stroke-opacity="1" fill="addColor" fill-opacity="1" stroke-width="18" cx="128" cy="128" r="101"></circle>
+		<path fill="#fff" fill-opacity="1" d="MZ"></path>
+	</g>
+	<g transform="translate(68,68)"> <!-- 60 + 136 + 60 equals viewbox width -->
+		<image width="120" height="120" href="addSymbol"/>
+	</g>
+</svg>
