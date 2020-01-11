@@ -142,9 +142,10 @@ function iconCallback( shapeSize, markerObject, iconUrl ) {
 
 // map constructor
 function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeight, mapMaxZoomMultiplier, unitName, unitsAcross, unitsPerGrid, layers, layerNames, mapNameZh ) {
-	var mapWindowWidth = Math.min( mapAssetWidth * mapMaxZoomMultiplier, window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth );
-//	var mapWindowHeight = Math.floor( mapWindowWidth / mapAssetWidth * mapAssetHeight );
-	var mapWindowHeight = Math.min( mapAssetHeight * mapMaxZoomMultiplier, window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight );
+	var mapWindowWidth = 400;
+	var mapWindowHeight = Math.floor( mapWindowWidth / mapAssetWidth * mapAssetHeight );
+//	var mapWindowWidth = Math.min( mapAssetWidth * mapMaxZoomMultiplier, window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth );
+//	var mapWindowHeight = Math.min( mapAssetHeight * mapMaxZoomMultiplier, window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight );
 	var mapMinZoom = calcMapMinZoom( mapWindowWidth, mapWindowHeight, mapAssetWidth, mapAssetHeight );
 	var mapMaxZoom = Math.log10( mapMaxZoomMultiplier ) / Math.log10 ( 2 );
 	var unitScale = unitsAcross * mapWindowWidth / ( mapAssetWidth * mapMaxZoomMultiplier ); // x units per 1000 pixels at max zoom. Metres is default. Has's note - how many units will the map scale within its window at max zoom?, or # of units covered by window width at max zoom
