@@ -21,7 +21,7 @@ function parse(md){
   md = md.replace(/[\#]{4}(.+)/g, '<h4>$1</h4>');
   md = md.replace(/[\#]{3}(.+)/g, '<h3>$1</h3>');
   md = md.replace(/[\#]{2}(.+)/g, '<h2>$1</h2>');
-  md = md.replace(/[\#]{1}(.+)/g, '<h1>$1</h1>');
+  md = md.replace(/\w*(?<!&)[\#]{1}(.+)/g, '<h1>$1</h1>'); // modified to not catch unicode, ie: &#10339;
   
   //alt h
   md = md.replace(/^(.+)\n\=+/gm, '<h1>$1</h1>');

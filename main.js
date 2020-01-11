@@ -14,8 +14,8 @@ function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = ''
 	});
 
 	for ( let i = 0; i < nodeObject.length; i++ ) {
-		if( nodeObject[i].shape != "none" ) { marker = L.marker( nodeObject[i].loc, { icon: iconNone } ).addTo( layerGroup ); }
-		else { marker = L.marker( nodeObject[i].loc, { icon: iconNone, interactive: false } ).addTo( layerGroup ); }
+		if( nodeObject[i].shape == "none" || !nodeObject[i].text.length ) { marker = L.marker( nodeObject[i].loc, { icon: iconNone, interactive: false } ).addTo( layerGroup ); }
+		else { marker = L.marker( nodeObject[i].loc, { icon: iconNone } ).addTo( layerGroup ); }
 		if( isPath == true && nodeObject[i].waypoint == true ) { 
 			paths.push( nodeObject[i].loc ); 
 			// do something with route
@@ -26,15 +26,18 @@ function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = ''
 			iconDataUri( color, nodeObject[i].shape, nodeObject[i].symbol, marker, iconCallback );
 			// replacement with Rrose popup
 			// marker.bindPopup( rnodes[i].pop + '(<a href="' + rnodes[i].link + '">more...</a>)' );
-			rRose[i] = new L.Rrose( { offset: new L.Point( 0, -10 ), closeButton: false, autoPan: true } ).setContent( symFloat( nodeObject[i].symbol ) + parse( nodeObject[i].text ) + ( ( nodeObject[i].footnote.length > 0 ) ? '<hr/>' + parse( nodeObject[i].footnote ) : '' ) );
-			// console.log( parse( nodeObject[i].text ) );
+			if( nodeObject[i].text.length )
+			{
+				rRose[i] = new L.Rrose( { offset: new L.Point( 0, -10 ), closeButton: false, autoPan: true } ).setContent( symFloat( nodeObject[i].symbol ) + parse( nodeObject[i].text ) + ( ( nodeObject[i].footnote.length > 0 ) ? '<hr/>' + parse( nodeObject[i].footnote ) : '' ) );
+				console.log( parse( nodeObject[i].text ) );
 
-			marker.bindPopup( rRose[i] );
-			/*
-			marker.on('mouseover', function(e) {
-				e.target.openPopup();
-			});
-			*/
+				marker.bindPopup( rRose[i] );
+				/*
+				marker.on('mouseover', function(e) {
+					e.target.openPopup();
+				});
+				*/
+			}
 		}
 		if( nodeObject[i].staticlabel == true  ) {
 			marker.bindTooltip( nodeObject[i].label, {permanent: true, offset: [0, -32], opacity: 1.0, direction: "center", className: 'leaflet-tooltip-static'} );
@@ -48,7 +51,7 @@ function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = ''
 	{
 		pathColor = LightenDarkenColor( c[color], -40 );
 	}
-	if( paths.length ) L.polyline( paths, { color: pathColor, weight:7 } ).addTo( layerGroup );
+	if( paths.length ) L.polyline( paths, { color: pathColor, weight: 7, interactive: false } ).addTo( layerGroup );
 }
 
 // inline icon svg construction
@@ -281,7 +284,7 @@ function calcMapMinZoom( mapWindowWidth, mapWindowHeight, mapAssetWidth, mapAsse
 }
 
 // quick text: forward slash for lang_zh
-function zhSlash() { return '&nbsp;&nbsp;<div style="display:inline-block;position:relative;left:-4px;-webkit-transform:scale(0.6,0.4);-moz-transform:scale(0.6,0.4);transform:scale(0.6,0.4);letter-spacing:-20px;-webkit-text-stroke:2px #6b3720;text-stroke:2px #6b3720;">&#10744;</div>&nbsp;&nbsp;'; }
+function zhSlash() { return '&nbsp;&nbsp;<span style="display:inline-block;position:relative;left:-4px;-webkit-transform:scale(0.6,0.4);-moz-transform:scale(0.6,0.4);transform:scale(0.6,0.4);letter-spacing:-20px;-webkit-text-stroke:2px rgb(107,55,32);text-stroke:2px rgb(107,55,32);">&#10744;</span>&nbsp;&nbsp;'; }
 
 // quick style: symbol right-float
 function symFloat( symbol ) { return '<img style="float:right;padding:2px;padding-top:0px;filter:invert(0.3) sepia(1);" width="32" height="32" src="images/symbols/' + symbol + '.svg" alt="">'; }
