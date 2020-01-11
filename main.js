@@ -216,7 +216,7 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 	// listen for screen resize events
 	// h/t https://stackoverflow.com/a/23917779/2418186
 	function onWindowResize( event ) {
-		// note down old width, height, and zoom of map
+/*		// note down old width, height, and zoom of map
 		var widthOld = document.getElementById( "map" ).style.width;
 		var heightOld = document.getElementById( "map" ).style.height;
 		var zoomOld = map.getZoom();
@@ -224,8 +224,8 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 		
 		
 		// get the width and height of the screen after the resize event
-		var widthNew = Math.min( mapAssetWidth * mapMaxZoomMultiplier, window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth );
-		var heightNew = Math.min( mapAssetHeight * mapMaxZoomMultiplier, window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight );
+		var widthNew = Math.min( mapAssetWidth * mapMaxZoomMultiplier, ( window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth ) );
+		var heightNew = Math.min( mapAssetHeight * mapMaxZoomMultiplier, ( window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight ) );
 		var boundsNew = [[0, 0], [heightNew, widthNew]];
 		var minZoomNew = calcMapMinZoom( widthNew, heightNew, mapAssetWidth, mapAssetHeight );
 		var unitScaleNew = unitsAcross * widthNew / ( mapAssetWidth * mapMaxZoomMultiplier );
@@ -237,6 +237,9 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 		
 		// adjust current zoom level
 		if( zoomOld < minZoomNew ) { map.setZoom( minZoomNew ); }
+		
+		// repaint
+		map.invalidateSize();
 		
 		// fix scale
 		graphicScale.remove();
@@ -250,6 +253,7 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 	};
 
 	window.addEventListener( "resize", onWindowResize );
+*/
 }
 
 // hex grid
