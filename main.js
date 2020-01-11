@@ -1,6 +1,6 @@
 // marker construction
 function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = '' ) {
-	let c = { black: "#000000", red: "#d33e00", gold: "#cb9300", blue: "#0079d3", green: "#009f82", purple: "#8c13d4", brown: "#543928", grey: "#cfcdce", redLight: "#edc8b2", goldLight: "#eddfcc", blueLight: "#b3d7ef", greenLight: "#b2e1d9", purpleLight: "#d9c0ef", brownLight: "#d2ad80" }
+	let c = getColors();
 	var marker;
 	var rRose = new Array();
 	var paths = new Array();
@@ -53,7 +53,7 @@ function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = ''
 
 // inline icon svg construction
 function iconDataUri( color, shape, symbol, markerObject, iconCallback ) {
-	let c = { black: "#000000", red: "#d33e00", gold: "#cb9300", blue: "#0079d3", green: "#009f82", purple: "#8c13d4", brown: "#543928", grey: "#cfcdce", redLight: "#edc8b2", goldLight: "#eddfcc", blueLight: "#b3d7ef", greenLight: "#b2e1d9", purpleLight: "#d9c0ef", brownLight: "#d2ad80" }
+	let c = getColors();
 	var shapeSize = shape.substring( shape.length - 5, shape.length );
 	var fileShape = "images/" + shape + ".svg";
 	var loadXmlShape = new XMLHttpRequest();
@@ -266,6 +266,11 @@ function loadTurfHexGrid( map, mapAssetWidth, mapAssetHeight, unitsAcross, units
 	} );
 
 	map.addLayer( gridLayer );
+}
+
+// colors
+function getColors() {
+	return { black: "#000000", red: "#d33e00", gold: "#cb9300", blue: "#0079d3", green: "#009f82", purple: "#8c13d4", brown: "#543928", grey: "#cfcdce", redLight: "#edc8b2", goldLight: "#eddfcc", blueLight: "#b3d7ef", greenLight: "#b2e1d9", purpleLight: "#d9c0ef", brownLight: "#d2ad80" };
 }
 
 // calculate minimum map zoom
