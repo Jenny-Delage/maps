@@ -14,7 +14,7 @@ function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = ''
 	});
 
 	for ( let i = 0; i < nodeObject.length; i++ ) {
-		if( nodeObject[i].shape == "none" || !nodeObject[i].text.length ) { marker = L.marker( nodeObject[i].loc, { icon: iconNone, interactive: false } ).addTo( layerGroup ); }
+		if( nodeObject[i].shape == "none" || !nodeObject[i].label.length ) { marker = L.marker( nodeObject[i].loc, { icon: iconNone, interactive: false } ).addTo( layerGroup ); }
 		else { marker = L.marker( nodeObject[i].loc, { icon: iconNone } ).addTo( layerGroup ); }
 		if( isPath == true && nodeObject[i].waypoint == true ) { 
 			paths.push( nodeObject[i].loc ); 
@@ -39,11 +39,13 @@ function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = ''
 				*/
 			}
 		}
-		if( nodeObject[i].staticlabel == true  ) {
-			marker.bindTooltip( '<div style="text-align:center;">' + parse( nodeObject[i].label ) + '</span>', {permanent: true, offset: [0, -32], opacity: 1.0, direction: "center", className: 'leaflet-tooltip-static'} );
-		} else if ( nodeObject[i].shape != "none" ) {
-			// no parse() for tooltip. I don't expect line feeds for such labels!
-			marker.bindTooltip( nodeObject[i].label + '<div style="margin-bottom:-4px;font-size:0;"</div>&nbsp;</div>' ); <!-- contains css fix for font size change -->
+		if( nodeObject[i].label.length ) {
+			if( nodeObject[i].staticlabel == true  ) {
+				marker.bindTooltip( '<div style="text-align:center;">' + parse( nodeObject[i].label ) + '</span>', {permanent: true, offset: [0, -32], opacity: 1.0, direction: "center", className: 'leaflet-tooltip-static'} );
+			} else if ( nodeObject[i].shape != "none" ) {
+				// no parse() for tooltip. I don't expect line feeds for such labels!
+				marker.bindTooltip( nodeObject[i].label + '<div style="margin-bottom:-4px;font-size:0;"</div>&nbsp;</div>' ); <!-- contains css fix for font size change -->
+			}
 		}
 	}
 
@@ -147,7 +149,7 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 //	var mapWindowHeight = Math.floor( mapWindowWidth / mapAssetWidth * mapAssetHeight );
 	var mapWindowWidth = Math.min( mapAssetWidth * mapMaxZoomMultiplier, window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth );
 	var mapWindowHeight = Math.min( mapAssetHeight * mapMaxZoomMultiplier, window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight );
-	var mapMinZoom = calcMapMinZoom( mapWindowWidth, mapWindowHeight, mapAssetWidth, mapAssetHeight );
+	var mapMinZoom = calcMapMinZoom( mapWindowWidth, mapWindowHeight, mapAssetWidth, mapAssetHeight, mapMaxZoomMultiplier );
 	var mapMaxZoom = Math.log10( mapMaxZoomMultiplier ) / Math.log10 ( 2 );
 	var unitScale = unitsAcross * mapWindowWidth / ( mapAssetWidth * mapMaxZoomMultiplier ); // x units per 1000 pixels at max zoom. Metres is default. Has's note - how many units will the map scale within its window at max zoom?, or # of units covered by window width at max zoom
 	var scaleTextHtml = parse( '# ' + ( ( mapNameZh.length > 0 ) ? mapNameZh + zhSlash() : '' ) + layerNames[0] + '\n' + unitsPerGrid + unitName + ' per grid unit' );
@@ -230,7 +232,7 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 		var widthNew = Math.min( mapAssetWidth * mapMaxZoomMultiplier, ( window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth ) );
 		var heightNew = Math.min( mapAssetHeight * mapMaxZoomMultiplier, ( window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight ) );
 		var boundsNew = [[0, 0], [heightNew, widthNew]];
-		var minZoomNew = calcMapMinZoom( widthNew, heightNew, mapAssetWidth, mapAssetHeight );
+		var minZoomNew = calcMapMinZoom( widthNew, heightNew, mapAssetWidth, mapAssetHeight, mapMaxZoomMultiplier );
 		var unitScaleNew = unitsAcross * widthNew / ( mapAssetWidth * mapMaxZoomMultiplier );
 		
 		// set new window width and minZoom
@@ -283,10 +285,14 @@ function getColors() {
 }
 
 // calculate minimum map zoom
-function calcMapMinZoom( mapWindowWidth, mapWindowHeight, mapAssetWidth, mapAssetHeight ) {
+function calcMapMinZoom( mapWindowWidth, mapWindowHeight, mapAssetWidth, mapAssetHeight, mapMaxZoomMultiplier ) {
 	// no need to bound upper end as mapMaxZoom since we are setting max mapWindow dimensions to mapAsset dimensions x 3
-	if( mapWindowHeight > mapWindowWidth ) { return Math.log10( mapWindowHeight / mapAssetHeight ) / Math.log10( 2 ); }
-	else { return Math.log10( mapWindowWidth / mapAssetWidth ) / Math.log10( 2 ); }
+	if( ( mapAssetHeight / mapAssetWidth ) < ( mapWindowHeight / mapWindowWidth ) ) {
+		return Math.log10( Math.min( mapMaxZoomMultiplier, mapWindowHeight / mapAssetHeight ) ) / Math.log10( 2 );
+	}
+	else {
+		return Math.log10( Math.min( mapMaxZoomMultiplier, mapWindowWidth / mapAssetWidth ) ) / Math.log10( 2 );
+	}
 }
 
 // quick text: forward slash for lang_zh
