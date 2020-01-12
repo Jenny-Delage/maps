@@ -168,6 +168,7 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 		maxBounds: bounds,
 		maxBoundsViscosity: 1.0,
 		crs: L.CRS.Simple,
+		renderer: L.canvas(),
 		layers: [landmap, layers[0]],
 		attributionControl: false
 	} );
