@@ -183,7 +183,7 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 	var overlays = new Array();
 	for ( let i = 0; i < layers.length; i++ ) { overlays[layerNames[i+1]] = layers[i]; }
 
-	L.control.layers( baseLayers, overlays,{ collapsed: true } ).addTo( map );	
+	L.control.layers( baseLayers, overlays, { collapsed: true } ).addTo( map );	
 	
 	// add graphicScale
 	// see changes by Das123 @ https://gis.stackexchange.com/questions/151745/leafletjs-how-to-set-custom-map-scale-for-a-flat-image-map-crs-simple
