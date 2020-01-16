@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<data>
+	<map 
+		modeCartograph="false"
+		mapAsset="https://i.imgur.com/4RmkRsk.jpg"
+		mapAssetWidth="4560"
+		mapAssetHeight="6060"
+		mapMaxZoomMultiplier="1"
+		unitName="mi"
+		unitsAcross="3751.49"
+		unitsPerGrid="120"
+		mapNameZh=""
+	/>
+	<layers>
+		<layer name="Shou" type="basemap" visibility="true" color="" />
+		<layer name="Locations" type="overlay" visibility="true" color="brown" />
+		<layer name="People" type="overlay" visibility="true" color="purple" />
+		<layer name="Lung Temples" type="overlay" visibility="true" color="red" />
+		<layer name="Provinces" type="overlay" visibility="true" color="green" />
+	</layers>
+	<nodes>
+		<node group="0" label="# Shou Political" positionY="3320.35" positionX="3787.24" shape="none" symbol="" staticLabel="true" />
+		<node group="0" label="Shanlu" positionY="4448" positionX="1448" shape="circle-large" symbol="wheats" staticLabel="true">
+			<popup>
+				<![CDATA[Black Chao was raised in the farming village of 山麓 /// Shanlu. It is situated in the foothills of the Pazruki mountain range which culminates in eastern Chukei. Shanlu produces rice, wheat, millet, and livestock which are taken south via Kuang Chu Road for trade and tribute.]]>
+			</popup>
+		</node>
+		<node group="0" label="Night Tigers Barracks" positionY="2048" positionX="2147" shape="flag-large" symbol="tiger-head" staticLabel="true">
+			<popup>
+				<![CDATA[The 暗夜之虎 /// Night Tigers is a company of soldiers of the Shou government, reporting to a 剑圣 /// *jiàn shèng* named Chao Ping. Their barracks are on a promontory overlooking the cliffs that descend into Wai.]]>
+			</popup>
+		</node>
+		<node group="0" label="Yu Tai Shuni" positionY="3842" positionX="1480" shape="circle-large" symbol="anchor" staticLabel="false">
+			<popup>
+				<![CDATA[A port town under the control of __Gankou__ and __Xie__ clans. The Knights of Schedule expose the corruption of Xie clan, undeath and vampirism, and pursue __Xie Jo Jia__ who is en route to Linshung where Princess Orihime is being taken.]]>
+			</popup>
+		</node>
+		<node group="0" label="Minlow" positionY="3685" positionX="1213" shape="circle-large" symbol="steam" staticLabel="false">
+			<popup>
+				<![CDATA[Minlow is a resort city known as the “hot springs city”. Minlow’s proximity to rice paddy fields makes rice wine abundant here. __Green Mansion__ is a currency house where goods are bought and sold. Chao has a contact named __Shager__ who is the head courtesan of the __Petal’s View__. The headquarters of __Ministry of Spirituality and Preservation__ is located here.]]>
+			</popup>
+		</node>
+		<node group="0" label="Linshung" positionY="3057" positionX="1581" shape="circle-large" symbol="manacles" staticLabel="false">
+			<popup>
+				<![CDATA[Linshung is a prison city, also known to some as the “rat trap”. It is the home of __Da Suo__, or “big lock”, which is the biggest prison in Shou. Divine members of the Celestial Bureaucracy, the equivalent of angels, are stationed here as watchers. There are stories of many aspiring Red Rat Rebels attempting to break out friends and colleagues, only to be caught and imprisoned themselves. Nobles and bureaucrats live in the southern district known as __Brilliance Ascent__.]]>
+			</popup>
+		</node>
+		<node group="0" label="Shou Tu'Lung" positionY="2774" positionX="1881" shape="circle-large" symbol="torii-gate" staticLabel="false">
+			<popup>
+				<![CDATA[Shou Tu'Lung in Wang Kuo province is the capital of Shou. Lythara has contact information for __Fan Li__, a resident noble with rebel sympathies. She could get the Knights access to the imperial library, and to Divine Wind for fast travel in Shou.]]>
+			</popup>
+		</node>
+		<node group="1" label="Hanwei Lee-Ung" positionY="3759" positionX="1941" shape="pin-large" symbol="sea-dragon" staticLabel="false">
+			<popup>
+				<![CDATA[The great sea dragon Hanwei Lee-Ung is blockading the waters by Yu Tai Shuni, as retribution for the kidnapping of his granddaughter __Orihime__.]]>
+			</popup>
+		</node>
+		<node group="2" label="Suzaku" positionY="1768" positionX="1776" shape="shield-large" symbol="dragon-head" staticLabel="true">
+			<popup>
+				<![CDATA[This temple is guarded by __Jirai Xishu__, The Puppet Mistress. She is a Xian or “vessel” for Divine Guardian beasts to the Material Plane.]]>
+			</popup>
+		</node>
+		<node group="2" label="Seiryuu" positionY="3513" positionX="442" shape="shield-large" symbol="dragon-head" staticLabel="true">
+			<popup>
+				<![CDATA[This temple is guarded by __Kojiro Youzui__, The Sword Saint. He is a Xian or “vessel” for Divine Guardian beasts to the Material Plane.]]>
+			</popup>
+		</node>
+		<node group="2" label="Byakko" positionY="4825" positionX="1148" shape="shield-large" symbol="dragon-head" staticLabel="true">
+			<popup>
+				<![CDATA[This temple is guarded by __Ashura Doji__ of the Thousand Hands. He is a Xian or “vessel” for Divine Guardian beasts to the Material Plane.]]>
+			</popup>
+		</node>
+		<node group="2" label="Genbu" positionY="3728" positionX="1861" shape="shield-large" symbol="dragon-head" staticLabel="true">
+			<popup>
+				<![CDATA[This temple is guarded by __Ao Kuang__, The Soothing Song of the Sea. He is a Xian or “vessel” for Divine Guardian beasts to the Material Plane. He is a star of the Concert Halls of Hsiang, and is well known.]]>
+			</popup>
+		</node>
+		<node group="3" label="Wai" positionY="2138.88" positionX="2593.76" shape="pin-large" symbol="ra-spiked-mace" staticLabel="false">
+			<popup>
+				<![CDATA[The province of Wai is the home of bandits and exiles. The 暗夜之虎 /// Night Tigers run raids into Wai to reinforce the presence of Shou government, a convenient cover for their leader Lieutenant Chao Ping, as well as to raid bandit treasure for personal gains.]]>
+			</popup>
+		</node>
+		<node group="3" label="Bashan Do" positionY="1661.25" positionX="2604.4" shape="pin-large" symbol="oni" staticLabel="false">
+			<popup>
+				<![CDATA[Known as the Shadowlands, Bashan Do is a place of demons, oni, gates, and runaway horrors.]]>
+			</popup>
+		</node>
+		<node group="3" label="Pirates" positionY="2634.42" positionX="3060.99" shape="pin-large" symbol="pirate-flag" staticLabel="false" />
+		<node group="3" label="Purang" positionY="1503.16" positionX="3156.16" shape="pin-large" symbol="cowled" staticLabel="false">
+			<popup>
+				<![CDATA[Purang is home to oni worshippers and cultists. The tribes are independent of Shou government.]]>
+			</popup>
+		</node>
+		<node group="3" label="Laothan" positionY="1690.75" positionX="3529.3" shape="pin-large" symbol="byzantin-temple" staticLabel="false">
+			<popup>
+				<![CDATA[Laothan is a desert wasteland with buried ruins, archaelogical sites, and small, scattered settlements. The sand dunes are featureless except for scarce oases and caravans.]]>
+			</popup>
+		</node>
+		<node group="3" label="Fengnao" positionY="1555.66" positionX="2172.88" shape="pin-large" symbol="bindle" staticLabel="false">
+			<popup>
+				<![CDATA[Fengnao is home to exiles from Shou proper. It is the most civil among all the exile states.]]>
+			</popup>
+		</node>
+		<node group="3" label="Kuong Kingdoms" positionY="1013" positionX="2847.95" shape="pin-large" symbol="hanuman" staticLabel="false">
+			<popup>
+				<![CDATA[Kuong is home to the Vanaraa, a simian race, and Tabaxi who live in the jungles.]]>
+			</popup>
+		</node>
+		<node group="3" label="Loxodons" positionY="1106.74" positionX="1578.99" shape="pin-large" symbol="elephant-head" staticLabel="false" />
+		<node group="3" label="The simple life ..." positionY="692.16" positionX="205.49" shape="pin-large" symbol="spearfishing" staticLabel="false" />
+		<node group="3" label="Ama Basin" positionY="5357.03" positionX="857.99" shape="pin-large" symbol="dwarf-helmet" staticLabel="false">
+			<popup>
+				<![CDATA[Ama Basin is home to Korobokoru who are the Shou dwarven people, Shou halfings, and gnomes, known in Kozakura as the Ainu. The status of these races in Shou society is above Hakuma or Hengeyokai, but below Shou humans.]]>
+			</popup>
+		</node>
+	</nodes>
+	<paths>
+		<path group="1" route="Xie Jo Jia Chase Route" style="normal">
+			<waypoint label="Yu Tai Shuni" waypoint="true" positionY="3842" positionX="1480" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Jo Jia Chase route 1" waypoint="true" positionY="3691" positionX="1516" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Xie Jo Jia's Caravan" waypoint="true" positionY="3451" positionX="1514" shape="pin-large" symbol="wagon-covered" staticLabel="false">
+				<popup>
+					<![CDATA[Xie Jo Jia has escaped Yu Tai Shuni and the Knights of Schedule chase him down to bring him to justice and save Princess Orehime. A *chain lightning* spell from Lythara irrevocably turns Jo Jia to ash, preventing the Knights from questioning him further.]]>
+				</popup>
+			</waypoint>
+		</path>
+	</paths>
+</data>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<data>
+	<map 
+		modeCartograph="false"
+		mapAsset="images/120ft/yu_tai_shuni.svg"
+		mapAssetWidth="2885"
+		mapAssetHeight="2907"
+		mapMaxZoomMultiplier="1.5"
+		unitName="ft"
+		unitsAcross="4335"
+		unitsPerGrid="500"
+		mapNameZh=""
+	/>
+	<layers>
+		<layer name="Yu Tai Shuni" type="basemap" visibility="true" color="" />
+		<layer name="Knights of Schedule Adventures" type="overlay" visibility="true" color="black" />
+	</layers>
+	<nodes>
+		<node group="0" label="# Yu Tai Shuni ### Pyint'sien Locality /// Mai Yuan Province" positionY="2604" positionX="1430" shape="none" symbol="" staticLabel="true" />
+		<node group="0" label="Xie Lair Entrance" positionY="1971.33" positionX="1577.33" shape="shield-large" symbol="dungeon" staticLabel="true">
+			<popup>
+				<![CDATA[Close to the location of __Xie Jia__'s murder is a boathouse owned by __Xie__ clan. Inside, a secret entrance is hidden behind a thick wooden wall panel and barred by powerful magic.]]>
+			</popup>
+		</node>
+		<node group="0" label="Xie Jia's Murder" positionY="2006" positionX="1618" shape="pin-large" symbol="skull-crossbones" staticLabel="false">
+			<popup>
+				<![CDATA[The bloody murder of __Xie Jia__ occured here. A gothic portrait of her with flowers and condolence notes can be found at the scene. In the portrait Xie Jia appears young, pale, with a red cross painted on her face. Previously, the connection of this murder to the disapperance and kidnapping of __Orehime__ was not known. The Knights of Schedule now know that the murder itself is a lie.]]>
+			</popup>
+		</node>
+		<node group="0" label="Docks" positionY="1609.33" positionX="1574" shape="pin-large" symbol="galleon" staticLabel="false">
+			<popup>
+				<![CDATA[The ports and docks of Yu Tai Shuni are under the control of the __Gankou__ clan.]]>
+			</popup>
+		</node>
+		<node group="0" label="Tavern" positionY="1641.33" positionX="1518.67" shape="pin-large" symbol="beer" staticLabel="false">
+			<popup>
+				<![CDATA[The Knights of Schedule are staying at this tavern when they meet Black Chao. The Knights are interviewed here by __Mei Mei__ before they change establishments to escape notice of Xie clan.]]>
+			</popup>
+		</node>
+		<node group="0" label="Docks" positionY="1296" positionX="1688" shape="pin-large" symbol="galleon" staticLabel="false">
+			<popup>
+				<![CDATA[The ports and docks of Yu Tai Shuni are under the control of the __Gankou__ clan.]]>
+			</popup>
+		</node>
+		<node group="0" label="Xie Manor" positionY="2086" positionX="1230" shape="shield-large" symbol="vihara" staticLabel="true">
+			<popup>
+				<![CDATA[Main residence of the __Xie__ clan. Here the Knights of Schedule visit __Xie Jo Jia__, __Xie Jia__'s son and successor. The atmosphere inside the mansion gives off strange vibes - silver, preserved skulls; gothic artwork; grotesque poses; a black table with a reflecting surface like a mirror. Xie Jo Jia abandons this manor after Xie Jia is found mysteriously alive in the lair beneath __Xie boathouse__.]]>
+			</popup>
+		</node>
+		<node group="0" label="Naval Academy" positionY="2370.67" positionX="1420" shape="shield-large" symbol="anchor" staticLabel="true">
+			<popup>
+				<![CDATA[Though __Gankou__ clan controls the city administration, the Naval Academy is under the control of __Xie__ clan.]]>
+			</popup>
+		</node>
+		<node group="0" label="Sewer Entrance" positionY="1982" positionX="1332" shape="pin-small" symbol="eyeball" staticLabel="false">
+			<popup>
+				<![CDATA[Some kidnappings in Yu Tai Shuni occur around the time __Orihime__ disappears. The victims are men and women, mostly young. Blood is spread around the city, often near manhole covers. Lythara sends an *arcane eye* down a manhole to gather more information, but no clues are found in the underground maze.]]>
+			</popup>
+		</node>
+	</nodes>
+</data>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
