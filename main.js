@@ -99,14 +99,14 @@ function mapDataArray() {
 			// get map attributes
 			var mapAttribsXml = mapXml.getElementsByTagName( "map" );
 			mapAttribs = {
-				modeCartograph: mapAttribsXml[0].getAttribute( "modeCartograph" ),
+				modeCartograph: ( mapAttribsXml[0].getAttribute( "modeCartograph" ) == "true" ),
 				mapAsset: mapAttribsXml[0].getAttribute( "mapAsset" ),
-				mapAssetWidth: mapAttribsXml[0].getAttribute( "mapAssetWidth" ),
-				mapAssetHeight: mapAttribsXml[0].getAttribute( "mapAssetHeight" ),
+				mapAssetWidth: parseInt( mapAttribsXml[0].getAttribute( "mapAssetWidth" ) ),
+				mapAssetHeight: parseInt( mapAttribsXml[0].getAttribute( "mapAssetHeight" ) ),
 				mapMaxZoomMultiplier: mapAttribsXml[0].getAttribute( "mapMaxZoomMultiplier" ),
 				unitName: mapAttribsXml[0].getAttribute( "unitName" ),
-				unitsAcross: mapAttribsXml[0].getAttribute( "unitsAcross" ),
-				unitsPerGrid: mapAttribsXml[0].getAttribute( "unitsPerGrid" ),
+				unitsAcross: parseFloat( mapAttribsXml[0].getAttribute( "unitsAcross" ) ),
+				unitsPerGrid: parseFloat( mapAttribsXml[0].getAttribute( "unitsPerGrid" ) ),
 				mapNameZh: mapAttribsXml[0].getAttribute( "mapNameZh" )
 			};
 
