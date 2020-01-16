@@ -1,60 +1,134 @@
-// marker construction
-function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = '' ) {
-	let c = getColors();
-	var marker;
-	var rRose = new Array();
+// get params
+function getUrlParams() {
+    var params = window.location.search.substring( 1 ).split( "&" );
+    var options = {};
+    for ( var i in params ) {
+        var keyvalue = params[i].split( "=" );
+        options[keyvalue[0]] = decodeURI( keyvalue[1] );
+    }
+
+    return options;
+}
+
+/* Layers */		
+function mapDataArray() {
+	var mapAttribs = new Array();
+	var layerAttribs = {
+		name: [],
+		type: [],
+		visibility: [],
+		color: []
+	};
+	var layers = new Array();
+	var nodes = new Array();
+	var n = 0;
 	var paths = new Array();
-	var pathColor = c[color];
-	/* Icon initialization */
-	var iconNone = L.icon({
-		iconUrl: 'images/ffffff-0.png',
-		iconSize: [24,24],
-		iconAnchor: [12, 12],
-		tooltipAnchor: [0, -30]
-	});
+	var options = getUrlParams();
 
-	for ( let i = 0; i < nodeObject.length; i++ ) {
-		if( nodeObject[i].shape == "none" || !nodeObject[i].label.length ) { marker = L.marker( nodeObject[i].loc, { icon: iconNone, interactive: false } ).addTo( layerGroup ); }
-		else { marker = L.marker( nodeObject[i].loc, { icon: iconNone } ).addTo( layerGroup ); }
-		if( isPath == true && nodeObject[i].waypoint == true ) { 
-			paths.push( nodeObject[i].loc ); 
-			// do something with route
-		}
+	var fileMap = "./data/" + ( ( options.campaign ) ? options.campaign + "/" : "" ) + ( ( options.map ) ? options.map + ".xml" : "" );
+	var loadXmlMapData = new XMLHttpRequest();
+	loadXmlMapData.overrideMimeType('application/xml');
+	loadXmlMapData.onreadystatechange = function() {
+		if( this.readyState == 4 && this.status == 200 ) {
+			var mapXml = loadXmlMapData.responseXML;
 
-		if( nodeObject[i].shape != "none" )
-		{
-			iconDataUri( color, nodeObject[i].shape, nodeObject[i].symbol, marker, iconCallback );
-			// replacement with Rrose popup
-			// marker.bindPopup( rnodes[i].pop + '(<a href="' + rnodes[i].link + '">more...</a>)' );
-			if( nodeObject[i].text.length )
-			{
-				rRose[i] = new L.Rrose( { offset: new L.Point( 0, -10 ), closeButton: false, autoPan: true } ).setContent( symFloat( nodeObject[i].symbol ) + parse( nodeObject[i].text ) + ( ( nodeObject[i].footnote.length > 0 ) ? '<hr/>' + parse( nodeObject[i].footnote ) : '' ) );
-//				console.log( parse( nodeObject[i].text ) );
+			// get layer attributes
+			var layerAttribsXml = mapXml.getElementsByTagName( "layer" );
 
-				marker.bindPopup( rRose[i] );
-				/*
-				marker.on('mouseover', function(e) {
-					e.target.openPopup();
-				});
-				*/
+			for ( let i = 0; i < layerAttribsXml.length; i++ ) {
+				layerAttribs.name[i] = layerAttribsXml[i].getAttribute( "name" );
+				layerAttribs.type[i] = layerAttribsXml[i].getAttribute( "type" );
+				layerAttribs.visibility[i] = ( layerAttribsXml[i].getAttribute( "visibility" ) == "true" );
+				layerAttribs.color[i] = layerAttribsXml[i].getAttribute( "color" );
 			}
-		}
-		if( nodeObject[i].label.length ) {
-			if( nodeObject[i].staticlabel == true  ) {
-				marker.bindTooltip( '<div style="text-align:center;">' + parse( nodeObject[i].label ) + '</span>', {permanent: true, offset: [0, -32], opacity: 1.0, direction: "center", className: 'leaflet-tooltip-static'} );
-			} else if ( nodeObject[i].shape != "none" ) {
-				// no parse() for tooltip. I don't expect line feeds for such labels!
-				marker.bindTooltip( nodeObject[i].label + '<div style="margin-bottom:-4px;font-size:0;"</div>&nbsp;</div>' ); <!-- contains css fix for font size change -->
-			}
-		}
-	}
 
-	// construct paths
-	if( color == "grey" || color == "redLight" || color == "goldLight" || color == "blueLight" || color == "greenLight" || color == "purpleLight" || color == "brownLight" )
-	{
-		pathColor = LightenDarkenColor( c[color], -40 );
-	}
-	if( paths.length ) L.polyline( paths, { color: pathColor, weight: 7, interactive: false } ).addTo( layerGroup );
+			// get node data
+			var nodeXml = mapXml.getElementsByTagName( "node" );
+			for ( let i = 0; i < nodeXml.length; i++ ) {
+				var group = parseInt( nodeXml[i].getAttribute( "group" ) );
+
+				if ( !nodes[group] ) { nodes[group] = []; n = 0; }
+				if ( !paths[group] ) { paths[group] = []; }
+				nodes[group][n] = [];
+				
+				nodes[group][n] = {
+					label: nodeXml[i].getAttribute( "label" ),
+					location: [parseFloat( nodeXml[i].getAttribute( "positionY" ) ), parseFloat( nodeXml[i].getAttribute( "positionX" ) )],
+					shape: nodeXml[i].getAttribute( "shape" ),
+					symbol: nodeXml[i].getAttribute( "symbol" ),
+					staticLabel: ( nodeXml[i].getAttribute( "staticLabel" ) == "true" ),
+					popup: getOptionalContent( nodeXml[i], "popup" ),
+					sidebar: getOptionalContent( nodeXml[i], "sidebar" ),
+					footnote: getOptionalContent( nodeXml[i], "footnote" )
+				};
+				n++;
+			}
+
+			// get path data
+			var pathXml = mapXml.getElementsByTagName( "path" );
+			for ( let i = 0; i < pathXml.length; i++ ) {
+				var group = parseInt( pathXml[i].getAttribute( "group" ) );
+				if( !paths[group].length ) { n = 0; }
+				paths[group][n] = [];
+				paths[group][n] = { 
+					route: pathXml[i].getAttribute( "route" ),
+					style: pathXml[i].getAttribute( "style" ),
+					pathData: []
+				};
+				
+				var waypointXml = pathXml[i].getElementsByTagName( "waypoint" );
+				for ( let p = 0; p < waypointXml.length; p++ ) {
+					paths[group][n].pathData[p] = {
+						label: waypointXml[p].getAttribute( "label" ),
+						waypoint: ( waypointXml[p].getAttribute( "waypoint" ) == "true" ),
+						location: [parseFloat( waypointXml[p].getAttribute( "positionY" ) ), parseFloat( waypointXml[p].getAttribute( "positionX" ) )],
+						shape: waypointXml[p].getAttribute( "shape" ),
+						symbol: waypointXml[p].getAttribute( "symbol" ),
+						staticLabel: ( waypointXml[p].getAttribute( "staticLabel" ) == "true" ),
+						popup: getOptionalContent( waypointXml[p], "popup" ),
+						sidebar: getOptionalContent( waypointXml[p], "sidebar" ),
+						footnote: getOptionalContent( waypointXml[p], "footnote" )
+					};
+				}
+				n++;
+			}
+			
+			// ready to build layers
+			layers = buildLayers( layerAttribs.color, nodes, paths );
+
+			// get map attributes
+			var mapAttribsXml = mapXml.getElementsByTagName( "map" );
+			mapAttribs = {
+				modeCartograph: mapAttribsXml[0].getAttribute( "modeCartograph" ),
+				mapAsset: mapAttribsXml[0].getAttribute( "mapAsset" ),
+				mapAssetWidth: mapAttribsXml[0].getAttribute( "mapAssetWidth" ),
+				mapAssetHeight: mapAttribsXml[0].getAttribute( "mapAssetHeight" ),
+				mapMaxZoomMultiplier: mapAttribsXml[0].getAttribute( "mapMaxZoomMultiplier" ),
+				unitName: mapAttribsXml[0].getAttribute( "unitName" ),
+				unitsAcross: mapAttribsXml[0].getAttribute( "unitsAcross" ),
+				unitsPerGrid: mapAttribsXml[0].getAttribute( "unitsPerGrid" ),
+				mapNameZh: mapAttribsXml[0].getAttribute( "mapNameZh" )
+			};
+
+			// ready to build map
+			buildMap( 
+				mapAttribs.modeCartograph,
+				mapAttribs.mapAsset,
+				mapAttribs.mapAssetWidth,
+				mapAttribs.mapAssetHeight,
+				mapAttribs.mapMaxZoomMultiplier,
+				mapAttribs.unitName,
+				mapAttribs.unitsAcross,
+				mapAttribs.unitsPerGrid,
+				layers,
+				layerAttribs,
+				mapAttribs.mapNameZh
+			);
+		}
+	};
+
+	loadXmlMapData.open( "GET", fileMap, true );
+	loadXmlMapData.send();
 }
 
 // inline icon svg construction
@@ -95,7 +169,7 @@ function iconDataUri( color, shape, symbol, markerObject, iconCallback ) {
 							.replace( /addSymbol/g, symbolUrl );
 						var iconUrl = encodeURI( "data:image/svg+xml;charset=utf8," + iconSvg ).replace( /\#/g, "%23" );
 
-						iconCallback( shapeSize, markerObject, iconUrl );
+						buildIcon( shapeSize, markerObject, iconUrl );
 					}
 				}
 				loadXmlSymbol.open( "GET", fileSymbol, true );
@@ -107,8 +181,8 @@ function iconDataUri( color, shape, symbol, markerObject, iconCallback ) {
 	loadXmlShape.send();
 };
 
-// icon svg to icon object callback
-function iconCallback( shapeSize, markerObject, iconUrl ) {
+// icon construction: icon svg extractor to icon object constructor callback
+function buildIcon( shapeSize, markerObject, iconUrl ) {
 	/* Icon initialization */
 	var iconLarge = L.Icon.extend( {
 		options: {
@@ -138,13 +212,93 @@ function iconCallback( shapeSize, markerObject, iconUrl ) {
 	} );
 	var iconNew;
 
-	if ( shapeSize == "small" ) { iconNew = new iconSmall( {iconUrl: iconUrl, iconRetinaUrl: iconUrl} ); }
-	else if ( shapeSize == "large" ) { iconNew = new iconLarge( {iconUrl: iconUrl, iconRetinaUrl: iconUrl} ); }
+	if ( shapeSize == "small" ) { iconNew = new iconSmall( { iconUrl: iconUrl, iconRetinaUrl: iconUrl } ); }
+	else if ( shapeSize == "large" ) { iconNew = new iconLarge( { iconUrl: iconUrl, iconRetinaUrl: iconUrl } ); }
 	markerObject.setIcon( iconNew );
 };
 
-// map constructor
-function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeight, mapMaxZoomMultiplier, unitName, unitsAcross, unitsPerGrid, layers, layerNames, mapNameZh ) {
+// marker construction
+function buildMarkers( color, layerGroup, nodeObject, isPath = false, route = "", style="normal" ) {
+	let c = getColors();
+	var marker;
+	var rRose = new Array();
+	var paths = new Array();
+	var pathColor = c[color];
+	var pathWeight = ( ( style == "normal" ) ? 7 : 4 );
+	/* Icon initialization */
+	var iconNone = L.icon({
+		iconUrl: 'images/ffffff-0.png',
+		iconSize: [24,24],
+		iconAnchor: [12, 12],
+		tooltipAnchor: [0, -30]
+	});
+
+	for ( let i = 0; i < nodeObject.length; i++ ) {
+		if( nodeObject[i].shape == "none" || !nodeObject[i].label.length ) { marker = L.marker( nodeObject[i].location, { icon: iconNone, interactive: false } ).addTo( layerGroup ); }
+		else { marker = L.marker( nodeObject[i].location, { icon: iconNone } ).addTo( layerGroup ); }
+		if( isPath == true && nodeObject[i].waypoint == true ) { 
+			paths.push( nodeObject[i].location ); 
+			// do something with route
+		}
+
+		if( nodeObject[i].shape != "none" )
+		{
+			iconDataUri( color, nodeObject[i].shape, nodeObject[i].symbol, marker, buildIcon );
+			// replacement with Rrose popup
+			// marker.bindPopup( rnodes[i].pop + '(<a href="' + rnodes[i].link + '">more...</a>)' );
+			if( nodeObject[i].popup.length )
+			{
+				rRose[i] = new L.Rrose( { offset: new L.Point( 0, -10 ), closeButton: false, autoPan: true } ).setContent( symFloat( nodeObject[i].symbol ) + parse( nodeObject[i].popup ) + ( ( nodeObject[i].footnote.length > 0 ) ? '<hr/>' + parse( nodeObject[i].footnote ) : '' ) );
+//				console.log( parse( nodeObject[i].text ) );
+
+				marker.bindPopup( rRose[i] );
+				/*
+				marker.on('mouseover', function(e) {
+					e.target.openPopup();
+				});
+				*/
+			}
+		}
+		if( nodeObject[i].label.length ) {
+			if( nodeObject[i].staticLabel == true  ) {
+				marker.bindTooltip( '<div style="text-align:center;">' + parse( nodeObject[i].label ) + '</span>', { permanent: true, offset: [0, -32], opacity: 1.0, direction: "center", className: "leaflet-tooltip-static" } );
+			} else if ( nodeObject[i].shape != "none" ) {
+				// no parse() for tooltip. I don't expect line feeds for such labels!
+				marker.bindTooltip( nodeObject[i].label + '<div style="margin-bottom:-4px;font-size:0;"</div>&nbsp;</div>' ); // contains css fix for font size change -->
+			}
+		}
+	}
+
+	// construct paths
+	if( color == "grey" || color == "redLight" || color == "goldLight" || color == "blueLight" || color == "greenLight" || color == "purpleLight" || color == "brownLight" )
+	{
+		pathColor = LightenDarkenColor( c[color], -40 );
+	}
+	if( paths.length ) L.polyline( paths, { color: pathColor, weight: pathWeight, interactive: false } ).addTo( layerGroup );
+}
+
+// layer construction: layer xml extractor to layer object constructor callback
+function buildLayers( layerColors, nodes, paths ) {
+	var layers = new Array();
+
+	// initialize layer array object
+	for( let i = 0; i < nodes.length; i ++ ) { layers[i] = L.layerGroup(); }
+
+	// put the layers together
+	if( layers.length ) for ( let i = 0; i < layers.length; i++ ) { buildMarkers( layerColors[i+1], layers[i], nodes[i] ); };
+	if( paths.length ) {
+		for ( let i = 0; i < paths.length; i++ ) {
+			for ( let p = 0; p < paths[i].length; p++ ) { 
+				buildMarkers( layerColors[i+1], layers[i], paths[i][p].pathData, true, paths[i][p].route, paths[i][p].style ); 
+			}
+		}
+	}
+	
+	return layers;
+}
+
+// map construction: layer xml extractor to map object constructor callback
+function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeight, mapMaxZoomMultiplier, unitName, unitsAcross, unitsPerGrid, layers, layerAttribs, mapNameZh ) {
 //	var mapWindowWidth = 400;
 //	var mapWindowHeight = Math.floor( mapWindowWidth / mapAssetWidth * mapAssetHeight );
 	var mapWindowWidth = Math.min( mapAssetWidth * mapMaxZoomMultiplier, window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth );
@@ -152,15 +306,22 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 	var mapMinZoom = calcMapMinZoom( mapWindowWidth, mapWindowHeight, mapAssetWidth, mapAssetHeight, mapMaxZoomMultiplier );
 	var mapMaxZoom = Math.log10( mapMaxZoomMultiplier ) / Math.log10 ( 2 );
 	var unitScale = unitsAcross * mapWindowWidth / ( mapAssetWidth * mapMaxZoomMultiplier ); // x units per 1000 pixels at max zoom. Metres is default. Has's note - how many units will the map scale within its window at max zoom?, or # of units covered by window width at max zoom
-	var scaleTextHtml = parse( '# ' + ( ( mapNameZh.length > 0 ) ? mapNameZh + zhSlash() : '' ) + layerNames[0] + '\n' + unitsPerGrid + unitName + ' per grid unit' );
+	var scaleTextHtml = parse( "# " + ( ( mapNameZh.length ) ? mapNameZh + zhSlash() : "" ) + layerAttribs.name[0] + "\n" + unitsPerGrid + unitName + " per grid unit" );
 //	console.log( scaleTextHtml );
 
+	// set html dom elements
+	document.title = "Map of " + layerAttribs.name[0];
 	document.getElementById( "map" ).style.width = mapWindowWidth + "px";
 	document.getElementById( "map" ).style.height = mapWindowHeight + "px";
 	
 	// initialize main map
-	var landmap = L.tileLayer( '', { id: 'mapbox.land' } );
+	var landmap = L.tileLayer( "", { id: "mapbox.land" } );
 	var bounds = [[0, 0], [mapAssetHeight, mapAssetWidth]];
+	var visibleLayers = new Array();
+	visibleLayers.push( landmap );
+	for ( let i = 0; i < layers.length; i++ ) {
+		if( layerAttribs.visibility[i+1] == true ) { visibleLayers.push( layers[i] ); }
+	}
 	var map = L.map( "map", {
 		minZoom: mapMinZoom,
 		maxZoom: mapMaxZoom,
@@ -169,19 +330,20 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 		maxBoundsViscosity: 1.0,
 		crs: L.CRS.Simple,
 		renderer: L.canvas(),
-		layers: [landmap, layers[0]],
+		layers: visibleLayers,
 		attributionControl: false
 	} );
+	// not yet tiling base map images in this implementation version
 	var image = L.imageOverlay( mapAsset, bounds ).addTo( map );
 
 	map.fitBounds( bounds );
 
 	// layer control
-	let baseLayers = new Array();
-	baseLayers[layerNames[0]] = landmap;
+	var baseLayers = new Array();
+	baseLayers[layerAttribs.name[0]] = landmap;
 
 	var overlays = new Array();
-	for ( let i = 0; i < layers.length; i++ ) { overlays[layerNames[i+1]] = layers[i]; }
+	for ( let i = 0; i < layers.length; i++ ) { overlays[layerAttribs.name[i+1]] = layers[i]; }
 
 	L.control.layers( baseLayers, overlays, { collapsed: true } ).addTo( map );	
 	
@@ -249,8 +411,8 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 		
 		// fix scale
 		graphicScale.remove();
-//		graphicScale.options.minUnitWidth = 0.05 * widthNew;
-//		graphicScale.options.maxUnitsWidth = 0.25 * widthNew;
+		graphicScale.options.minUnitWidth = Math.min( 80, widthNew * 0.1 );
+		graphicScale.options.maxUnitsWidth = Math.min( 300, widthNew * 0.5 );
 		graphicScale.options.unitsPer1000px = unitScaleNew;
 		graphicScale.addTo( map );
 		var scaleText = L.DomUtil.create( "div", "scaleText" );
@@ -280,9 +442,17 @@ function loadTurfHexGrid( map, mapAssetWidth, mapAssetHeight, unitsAcross, units
 	map.addLayer( gridLayer );
 }
 
+// get optional content from XML; allows exclusion of XML tags in XML when no content is specified
+function getOptionalContent( tree, leaf ) {
+    var content = tree.getElementsByTagName( leaf );
+    var text = "";
+    if ( content[0] ) { text = content[0].childNodes[0].wholeText; }
+    return( text );
+}
+
 // colors
 function getColors() {
-	return { black: "#000000", red: "#d33e00", gold: "#cb9300", blue: "#0079d3", green: "#009f82", purple: "#8c13d4", brown: "#543928", grey: "#cfcdce", redLight: "#edc8b2", goldLight: "#eddfcc", blueLight: "#b3d7ef", greenLight: "#b2e1d9", purpleLight: "#d9c0ef", brownLight: "#d2ad80" };
+	return { black: "#000000", red: "#d33e00", gold: "#cb9300", blue: "#0079d3", green: "#00775d", purple: "#8c13d4", brown: "#543928", grey: "#cfcdce", redLight: "#edc8b2", goldLight: "#eddfcc", blueLight: "#b3d7ef", greenLight: "#b2e1d9", purpleLight: "#d9c0ef", brownLight: "#d2ad80" };
 }
 
 // calculate minimum map zoom
@@ -297,7 +467,7 @@ function calcMapMinZoom( mapWindowWidth, mapWindowHeight, mapAssetWidth, mapAsse
 }
 
 // quick text: forward slash for lang_zh
-function zhSlash() { return '&nbsp;&nbsp;<span style="display:inline-block;position:relative;left:-4px;-webkit-transform:scale(0.6,0.4);-moz-transform:scale(0.6,0.4);transform:scale(0.6,0.4);letter-spacing:-20px;-webkit-text-stroke:2px rgb(107,55,32);text-stroke:2px rgb(107,55,32);">&#10744;</span>&nbsp;&nbsp;'; }
+function zhSlash() { return '&nbsp;<span style="display:inline-block;position:relative;left:-4px;-webkit-transform:scale(0.6,0.4);-moz-transform:scale(0.6,0.4);transform:scale(0.6,0.4);letter-spacing:-20px;-webkit-text-stroke:2px rgb(107,55,32);text-stroke:2px rgb(107,55,32);">&#10744;</span>&nbsp;'; }
 
 // quick style: symbol right-float
 function symFloat( symbol ) { return '<img style="float:right;padding:2px;padding-top:0px;filter:invert(0.3) sepia(1);" width="32" height="32" src="images/symbols/' + symbol + '.svg" alt="">'; }
@@ -331,3 +501,5 @@ function LightenDarkenColor( col, amt ) {
 
 	return ( usePound ? "#" : "" ) + ( g | ( b << 8 ) | ( r << 16 )).toString( 16 );
 }
+
+mapDataArray();
