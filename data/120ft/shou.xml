@@ -115,7 +115,7 @@
 		</node>
 	</nodes>
 	<paths>
-		<path group="1" route="Xie Jo Jia Chase Route" style="normal">
+		<path group="1" route="Xie Jo Jia Chase Route" style="normal dashed" symbol="arrow">
 			<waypoint label="Yu Tai Shuni" waypoint="true" positionY="3842" positionX="1480" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="Jo Jia Chase route 1" waypoint="true" positionY="3691" positionX="1516" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="Xie Jo Jia's Caravan" waypoint="true" positionY="3451" positionX="1514" shape="pin-large" symbol="wagon-covered" staticLabel="false">
