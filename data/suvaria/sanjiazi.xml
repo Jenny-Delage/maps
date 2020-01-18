@@ -23,7 +23,7 @@
 				<![CDATA[公行 /// Cohong Trade Building is used as temporary storage for caravans and goods in transit through Sanjiazi. It is rumored some rare treasures are kept here, but Cohong bosses keep tight security in the area.]]>
 			</popup>
 		</node>
-		<node group="0" label="鹈 Tí Road" positionY="1737.19" positionX="244.49" shape="none" symbol="" staticLabel="true" />
+		<node group="0" label="鹈 Tí Road" positionY="1767.19" positionX="244.49" shape="none" symbol="" staticLabel="true" rotateLabel="6.5" />
 		<node group="0" label="Precinct" positionY="1439.81" positionX="1926.27" shape="shield-large" symbol="ra-knight-helmet" staticLabel="true">
 			<popup>
 				<![CDATA[缅 /// Mian government sentries are posted at Sanjiazi since the incursion event two years ago.]]>
@@ -49,7 +49,7 @@
 				<![CDATA[凤凰 /// Fenghuang (meaning “phoenix”) is a 缅 /// Mian government shadow order of sorcery. They have established a quiet presence in Sanjiazi since the incursion. The tower is rarely approached by locals.]]>
 			</popup>
 		</node>
-		<node group="0" label="潘 Pan Inlet" positionY="931.26" positionX="1351.1" shape="none" symbol="" staticLabel="true" />
+		<node group="0" label="潘 Pan Inlet" positionY="931.26" positionX="1351.1" shape="none" symbol="" staticLabel="true" rotateLabel="75.0" />
 		<node group="1" label="Sanjiazi Plaza" positionY="1802.67" positionX="1686.67" shape="flag-large" symbol="magic-gate" staticLabel="true">
 			<popup>
 				<![CDATA[In year 2 BYZ, Ulysses Vex and a band of Erinyes descend on Sanjiazi, slaughtering the villagers to a man. No one is left alive, including Fang Ro's parents. The Night Tigers, a kensei 缅 /// Mian soldier unit rushes in to defend the civilians but they are captured. Some are killed, others crucified. Present day Sanjiazi is settled by outsiders.]]>
@@ -82,7 +82,7 @@
 		</node>
 	</nodes>
 	<paths>
-		<path group="0" route="Cohong Wagon Route" style="normal">
+		<path group="0" route="Cohong Wagon Route">
 			<waypoint label="Cohong route 1" waypoint="true" positionY="1725.03" positionX="102.65" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="Cohong Wagon Route" waypoint="true" positionY="1775" positionX="521.44" shape="pin-large" symbol="wagon-covered" staticLabel="false">
 				<popup>
@@ -97,7 +97,7 @@
 				</popup>
 			</waypoint>
 		</path>
-		<path group="1" route="Night Tigers Incursion Advance" style="normal">
+		<path group="1" route="Night Tigers Incursion Advance" symbol="arrow">
 			<waypoint label="NT Attack Path" waypoint="true" positionY="959.11" positionX="3071.8" shape="pin-large" symbol="ra-knight-helmet" staticLabel="false">
 				<popup>
 					<![CDATA[暗夜之虎 /// Night Tigers advance over a hill and down the bend into Sanjiazi to intercept Vex and his marauders.]]>
@@ -114,7 +114,7 @@
 				</popup>
 			</waypoint>
 		</path>
-		<path group="1" route="Night Tigers Second Squad Advance" style="normal">
+		<path group="1" route="Night Tigers Second Squad Advance" symbol="arrow">
 			<waypoint label="NT 2nd Squad Attack Path" waypoint="true" positionY="2024.91" positionX="771.39" shape="pin-large" symbol="ra-knight-helmet" staticlabel="false">
 				<popup>
 					<![CDATA[A second squad of 暗夜之虎 /// Night Tiger kensei advance on Vex's marauders from the west.]]>
