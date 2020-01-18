@@ -5,7 +5,7 @@ function getUrlParams() {
     var params = window.location.search.substring( 1 ).split( "&" );
     var options = {};
     for ( var i in params ) {
-        var keyvalue = params[i].split( "=" );
+        var keyvalue = params[i].toLowerCase().split( "=" );
         options[keyvalue[0]] = decodeURI( keyvalue[1] );
     }
 
