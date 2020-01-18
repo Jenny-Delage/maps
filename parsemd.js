@@ -76,3 +76,6 @@ function parse(md){
   
   return md;
 }
+
+// quick text: forward slash for lang_zh
+function zhSlash() { return '&nbsp;<span style="display:inline-block;position:relative;left:-4px;-webkit-transform:scale(0.6,0.4);-moz-transform:scale(0.6,0.4);transform:scale(0.6,0.4);letter-spacing:-20px;-webkit-text-stroke:2px rgb(107,55,32);text-stroke:2px rgb(107,55,32);">&#10744;</span>&nbsp;'; }
