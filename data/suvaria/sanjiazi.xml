@@ -2,13 +2,15 @@
 <data>
 	<map 
 		modeCartograph="false"
-		mapAsset="images/suvaria/sanjiazi.svg"
+		mapAsset="./images/suvaria/sanjiazi.svg"
 		mapAssetWidth="3242"
 		mapAssetHeight="2587"
 		mapMaxZoomMultiplier="0.75"
 		unitName="ft"
 		unitsAcross="7500"
 		unitsPerGrid="1000"
+		mapAttribution="Watabou"
+		mapAttributionUrl="https://watabou.itch.io/medieval-fantasy-city-generator"
 		mapNameZh="三家子村"
 	/>
 	<layers>
@@ -18,20 +20,26 @@
 		<layer name="Amenities" type="overlay" visibility="true" color="greenLight" />
 	</layers>
 	<nodes>
-		<node group="0" label="Cohong Trade Bldg" positionY="1685.19" positionX="1031.56" shape="shield-large" symbol="pagoda" staticLabel="true">
-			<popup>
+		<node group="0" label="Cohong Trade Bldg" positionY="1685.19" positionX="1031.56" shape="shield-large" symbol="pagoda" image="https://i.imgur.com/LEb60D8.jpg" staticLabel="true">
+			<sidebar>
 				<![CDATA[公行 /// Cohong Trade Building is used as temporary storage for caravans and goods in transit through Sanjiazi. It is rumored some rare treasures are kept here, but Cohong bosses keep tight security in the area.]]>
-			</popup>
+			</sidebar>
+			<attributions>
+				<attribution name="Ryan Vinson" url="https://www.artstation.com/ryanvinson" />
+			</attributions>
 		</node>
 		<node group="0" label="鹈 Tí Road" positionY="1767.19" positionX="244.49" shape="none" symbol="" staticLabel="true" rotateLabel="6.5" />
-		<node group="0" label="Precinct" positionY="1439.81" positionX="1926.27" shape="shield-large" symbol="ra-knight-helmet" staticLabel="true">
-			<popup>
+		<node group="0" label="Precinct" positionY="1439.81" positionX="1926.27" shape="shield-large" symbol="ra-knight-helmet" image="https://i.imgur.com/LUfljIz.jpg" staticLabel="true">
+			<sidebar>
 				<![CDATA[缅 /// Mian government sentries are posted at Sanjiazi since the incursion event two years ago.]]>
-			</popup>
+			</sidebar>
+			<attributions>
+				<attribution name="Jia How" url="https://www.artstation.com/jiahow" />
+			</attributions>
 		</node>
 		<node group="0" label="Qiandian" positionY="1512.88" positionX="1489.62" shape="shield-large" symbol="ra-gold-bar" staticLabel="true">
 			<popup>
-				<![CDATA[錢店 /// *Qiandian* “exchange house” is part of a local banking network not connected to 缅 /// Mian government. This local *qiandian* is heavily protected by the Mian government sentry presence, however.]]>
+				<![CDATA[錢店 /// *Qiandian* "exchange house" is part of a local banking network not connected to 缅 /// Mian government. This local *qiandian* is heavily protected by the Mian government sentry presence, however.]]>
 			</popup>
 		</node>
 		<node group="0" label="Narrows" positionY="1194.92" positionX="1094.64" shape="pin-large" symbol="home-lg-alt" staticLabel="true">
@@ -39,21 +47,30 @@
 				<![CDATA[Many in Sanjiazi were affected negatively by the incursion two years ago. Poverty is common and is accompanied by opium use, crime, and sex trade. Most of the survivors of Vex's slaughter at the Plaza, Sanjiazi's original people, live in the Narrows.]]>
 			</popup>
 		</node>
-		<node group="0" label="ZYZ Safe House" positionY="1368.73" positionX="2053.89" shape="pin-large" symbol="mask" staticLabel="true">
-			<popup>
-				<![CDATA[A new criminal element has entered Sanjiazi following the tragedy of the incursion. 在阴影中 /// Zài Yinying Zhong (meaning “in the shadows”), or ZYZ operate in plain sight of the precinct. Bribery, forgery, and petty crimes are their typical *modus operandi*.]]>
-			</popup>
+		<node group="0" label="ZYZ Safe House" positionY="1368.73" positionX="2053.89" shape="pin-large" symbol="mask" image="https://i.imgur.com/pwk5mZE.jpg" staticLabel="true">
+			<sidebar>
+				<![CDATA[A new criminal element has entered Sanjiazi following the tragedy of the incursion. 在阴影中 /// Zài Yinying Zhong (meaning "in the shadows"), or ZYZ operate in plain sight of the precinct. Bribery, forgery, and petty crimes are their typical *modus operandi*.]]>
+			</sidebar>
+			<attributions>
+				<attribution name="Hugh Pindur" url="https://www.artstation.com/pindurski" />
+			</attributions>
 		</node>
-		<node group="0" label="Fenghuang Tower" positionY="982.73" positionX="1015.15" shape="pin-large" symbol="wizard-staff" staticLabel="true">
-			<popup>
-				<![CDATA[凤凰 /// Fenghuang (meaning “phoenix”) is a 缅 /// Mian government shadow order of sorcery. They have established a quiet presence in Sanjiazi since the incursion. The tower is rarely approached by locals.]]>
-			</popup>
+		<node group="0" label="Fenghuang Tower" positionY="982.73" positionX="1015.15" shape="pin-large" symbol="wizard-staff" image="https://i.imgur.com/hH4Qx5q.jpg" staticLabel="true">
+			<sidebar>
+				<![CDATA[凤凰 /// Fenghuang (meaning "phoenix") is a 缅 /// Mian government shadow order of sorcery. They have established a quiet presence in Sanjiazi since the incursion. The tower is rarely approached by locals.]]>
+			</sidebar>
+			<attributions>
+				<attribution name="Jun Osone / 大曽根純" url="https://www.artstation.com/osonejun" />
+			</attributions>
 		</node>
 		<node group="0" label="潘 Pan Inlet" positionY="931.26" positionX="1351.1" shape="none" symbol="" staticLabel="true" rotateLabel="75.0" />
-		<node group="1" label="Sanjiazi Plaza" positionY="1802.67" positionX="1686.67" shape="flag-large" symbol="magic-gate" staticLabel="true">
-			<popup>
+		<node group="1" label="Sanjiazi Plaza" positionY="1802.67" positionX="1686.67" shape="flag-large" symbol="magic-gate" image="https://i.imgur.com/pWIc5r9.jpg" staticLabel="true">
+			<sidebar>
 				<![CDATA[In year 2 BYZ, Ulysses Vex and a band of Erinyes descend on Sanjiazi, slaughtering the villagers to a man. No one is left alive, including Fang Ro's parents. The Night Tigers, a kensei 缅 /// Mian soldier unit rushes in to defend the civilians but they are captured. Some are killed, others crucified. Present day Sanjiazi is settled by outsiders.]]>
-			</popup>
+			</sidebar>
+			<attributions>
+				<attribution name="Sifan Wang" url="https://www.artstation.com/swang492" />
+			</attributions>
 		</node>
 		<node group="1" label="Fang Citadel" positionY="1477.26" positionX="1818.15" shape="shield-large" symbol="ra-tower-demolish" staticLabel="true">
 			<popup>
@@ -65,15 +82,21 @@
 				<![CDATA[A chicken and livestock farm owned by the 潘 /// Pan family, whom the river inlet is named after.]]>
 			</popup>
 		</node>
-		<node group="2" label="Grain Farms" positionY="1503.6" positionX="3016.52" shape="pin-large" symbol="wheat" staticLabel="false">
-			<popup>
+		<node group="2" label="Grain Farms" positionY="1503.6" positionX="3016.52" shape="pin-large" symbol="wheat" image="https://i.imgur.com/ThKxtyC.jpg" staticLabel="false">
+			<sidebar>
 				<![CDATA[Millet farms, wheat farms, and rice paddies owned by various families.]]>
-			</popup>
+			</sidebar>
+			<attributions>
+				<attribution name="Nils Arenz" url="https://www.artstation.com/nilsarenz" />
+			</attributions>
 		</node>
-		<node group="2" label="Boat House" positionY="2062.2" positionX="2183.24" shape="pin-large" symbol="fishing-boat" staticLabel="true">
-			<popup>
+		<node group="2" label="Boat House" positionY="2062.2" positionX="2183.24" shape="pin-large" symbol="fishing-boat" image="https://i.imgur.com/t41c4Az.jpg" staticLabel="true">
+			<sidebar>
 				<![CDATA[Local manufacture of fishing boats and rowboats for use on the 玄济 /// Xuán Ji river.]]>
-			</popup>
+			</sidebar>
+			<attributions>
+				<attribution name="John Stevenson" url="https://www.artstation.com/johnstevenson" />
+			</attributions>
 		</node>
 		<node group="2" label="Sturgeon Fishing" positionY="2269.76" positionX="2564.95" shape="pin-large" symbol="ra-fish" staticLabel="false">
 			<popup>
@@ -97,7 +120,7 @@
 				</popup>
 			</waypoint>
 		</path>
-		<path group="1" route="Night Tigers Incursion Advance" symbol="arrow">
+		<path group="1" route="Night Tigers Incursion Advance" decoration="arrow">
 			<waypoint label="NT Attack Path" waypoint="true" positionY="959.11" positionX="3071.8" shape="pin-large" symbol="ra-knight-helmet" staticLabel="false">
 				<popup>
 					<![CDATA[暗夜之虎 /// Night Tigers advance over a hill and down the bend into Sanjiazi to intercept Vex and his marauders.]]>
@@ -114,7 +137,7 @@
 				</popup>
 			</waypoint>
 		</path>
-		<path group="1" route="Night Tigers Second Squad Advance" symbol="arrow">
+		<path group="1" route="Night Tigers Second Squad Advance" decoration="arrow">
 			<waypoint label="NT 2nd Squad Attack Path" waypoint="true" positionY="2024.91" positionX="771.39" shape="pin-large" symbol="ra-knight-helmet" staticlabel="false">
 				<popup>
 					<![CDATA[A second squad of 暗夜之虎 /// Night Tiger kensei advance on Vex's marauders from the west.]]>

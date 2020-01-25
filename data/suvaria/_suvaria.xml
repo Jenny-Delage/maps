@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<data>
+	<campaign name="Suvaria"  subtitle="Tallgarden and other far realms..." symbol="ra-helmet" image="https://i.imgur.com/xaqmZm2.jpg">
+			<description>
+				<![CDATA[
+					Thirty thousand years ago, elves from Middle Earth landed on the shores of this land. They named it Suvaria, after the name of a beautiful forest paradise from Elvish legends. All is quiet until fifteen thousand years ago, when mankind fights demons. The Great Demon War lasts a thousand years.
+
+					Ten thousand years ago, Suvaria is overwhelmed by a rush of human colonists. Demihuman races recede into the mountains and forests. The human kingdoms are corrupted by demonic influences seven thousand years later. A dark period known as The Age of Malice lasts for one thousand, seven hundred years. A war erupts, and the demons are beaten back. The last demon lord, Orcus, is vanquished in the War Against Undeath. The Age of Malice ends with the defeat of King Ronnel and House Vasterly. Peace reigns for four hundred years.
+
+					![Modern Suvaria](https://i.imgur.com/w9WeQsh.jpg)
+					## Modern Suvaria
+
+					The Kingdom of Tallgarden forms in the farmlands of western Suvaria under the rule of House Jaratheon. A century later, Vinyamar Enclave, an elvish dynasty starts to collapse. The Northriki land on the eastern shores of Suvaria and begin their westward expansion conquering all that stands in their way. Orcs from Middle Earth arrive in northern Suvaria and establish the city of Cheddud Bha in the Yundabad Mountains.
+
+					Two hundred years ago, an earthquake strikes in the Qlohsh Highlands and unleashes a Balrog who summons a demon horde. Numerous casualties are inflicted. Suvaria is ripped apart, but the war ends. The Northriki expansion is halted by the Kingdom of Tallgarden and a truce is signed. Tallgarden continues to expand its influence...					
+				]]>
+			</description>
+			<attributions>
+				<attribution name="Todd Lockwood" url="https://www.toddlockwood.com/" />
+			</attributions>
+	</campaign>
+	<xlinks>
+		<xlink type="wiki" url="https://suvaria.obsidianportal.com/" />
+	</xlinks>
+</data>
