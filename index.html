@@ -8,14 +8,14 @@
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 
 	<link rel="stylesheet" type="text/css" href="./main.css"/>
-
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
     <script src="rrose/leaflet.rrose-src.js"></script>
     <script src="graphicscale/Leaflet.GraphicScale.js"></script>
-    <!-- <script src="https://www.unpkg.com/@turf/turf@5.1.6/turf.min.js"></script> -->
-	<script src="./turf/turf.js"></script>
 	<!--	<script src="https://www.unpkg.com/leaflet-textpath@1.2.0/leaflet.textpath.js"></script> -->
 	<script src="./textpath/leaflet-textpath.js"></script>
+    <!-- <script src="https://www.unpkg.com/@turf/turf@5.1.6/turf.min.js"></script> -->
+	<script src="https://www.unpkg.com/leaflet-sidebar-v2@3.2.2/js/leaflet-sidebar.min.js"></script>
+	<script src="./turf/turf.js"></script>
     <script src="./parsemd.js"></script>
     <script src="./main.js"></script>
 	<!-- not needed
@@ -24,5 +24,57 @@
 </head>
 <body>
 	<div id="map"></div>
+	<div id="sidebar" class="leaflet-sidebar collapsed">
+		<div class="leaflet-sidebar-tabs">
+			<!-- top aligned tabs -->
+			<ul role="tablist">
+				<li><a href="#info" role="tab" id="info_button"></a></li>
+				<li id="campaign_tab" style="display:none"><a href="#campaign" role="tab" id="campaign_button"></a></li>
+				<li id="mlinks_tab" style="display:none"><a href="#mlinks" role="tab" id="mlinks_button"></a></li>
+				<li id="xmaps_tab" style="display:none"><a href="#xmaps" role="tab" id="xmaps_button"></a></li>
+			</ul>
+
+			<!-- bottom aligned tabs -->
+			<ul role="tablist">
+				<li id="xlink_wiki" style="display:none"><a href=""></a></li>
+				<li id="xlink_roll20" style="display:none"><a href=""></a></li>
+				<li id="xlink_ddb" style="display:none"><a href=""></a></li>
+				<li id="xlink_discord" style="display:none"><a href=""></a></li>
+				<li id="xlink_gdrive" style="display:none"><a href=""></a></li>
+			</ul>
+		</div>
+
+		<!-- panel content -->
+		<div class="leaflet-sidebar-content">
+			<div class="leaflet-sidebar-pane" id="info">
+				<h1 class="leaflet-sidebar-header">
+					Location
+					<span class="leaflet-sidebar-close"><img src="./images/caret-right.svg"></i></span>
+				</h1>
+				<div id="info_content"></div>
+			</div>
+			<div class="leaflet-sidebar-pane" id="campaign">
+				<h1 class="leaflet-sidebar-header">
+					Campaign
+					<span class="leaflet-sidebar-close"><img src="./images/caret-right.svg"></i></span>
+				</h1>
+				<div id="campaign_content"></div>
+			</div>
+			<div class="leaflet-sidebar-pane" id="mlinks">
+				<h1 class="leaflet-sidebar-header">
+					Maps in this Campaign
+					<span class="leaflet-sidebar-close"><img src="./images/caret-right.svg"></i></span>
+				</h1>
+				<div id="mlinks_content"></div>
+			</div>
+			<div class="leaflet-sidebar-pane" id="xmaps">
+				<h1 class="leaflet-sidebar-header">
+					Places of Interest
+					<span class="leaflet-sidebar-close"><img src="./images/caret-right.svg"></i></span>
+				</h1>
+				<div id="xmaps_content"></div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
