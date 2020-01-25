@@ -9,38 +9,55 @@
 		unitName="ft"
 		unitsAcross="4335"
 		unitsPerGrid="500"
-		mapNameZh=""
+		mapAttribution="Watabou"
+		mapAttributionUrl="https://watabou.itch.io/medieval-fantasy-city-generator"
 	/>
 	<layers>
 		<layer name="Yu Tai Shuni" type="basemap" visibility="true" color="" />
 		<layer name="Knights of Schedule Adventures" type="overlay" visibility="true" color="black" />
 	</layers>
+	<labels>
+		<label positionY="2654" positionX="1430">
+			<text><![CDATA[# Yu Tai Shuni]]></text>
+		</label>
+		<label positionY="2594" positionX="1430">
+			<text><![CDATA[### Pyint'sien Locality / Mai Yuan Province]]></text>
+		</label>
+	</labels>
 	<nodes>
-		<node group="0" label="# Yu Tai Shuni ### Pyint'sien Locality /// Mai Yuan Province" positionY="2604" positionX="1430" shape="none" symbol="" staticLabel="true" />
 		<node group="0" label="Xie Lair Entrance" positionY="1971.33" positionX="1577.33" shape="shield-large" symbol="dungeon" staticLabel="true">
 			<popup>
 				<![CDATA[Close to the location of __Xie Jia__'s murder is a boathouse owned by __Xie__ clan. Inside, a secret entrance is hidden behind a thick wooden wall panel and barred by powerful magic.]]>
 			</popup>
 		</node>
-		<node group="0" label="Xie Jia's Murder" positionY="2006" positionX="1618" shape="pin-large" symbol="skull-crossbones" staticLabel="false">
-			<popup>
+		<node group="0" label="Xie Jia's Murder" positionY="2006" positionX="1618" shape="pin-large" symbol="skull-crossbones" image="https://i.imgur.com/53YeKgV.jpg" staticLabel="false">
+			<sidebar>
 				<![CDATA[The bloody murder of __Xie Jia__ occured here. A gothic portrait of her with flowers and condolence notes can be found at the scene. In the portrait Xie Jia appears young, pale, with a red cross painted on her face. Previously, the connection of this murder to the disapperance and kidnapping of __Orehime__ was not known. The Knights of Schedule now know that the murder itself is a lie.]]>
-			</popup>
+			</sidebar>
+			<attributions>
+				<attribution name="Wangjie Li" url="https://www.artstation.com/wangjieli" />
+			</attributions>
 		</node>
-		<node group="0" label="Docks" positionY="1609.33" positionX="1574" shape="pin-large" symbol="galleon" staticLabel="false">
-			<popup>
+		<node group="0" label="Docks" positionY="1609.33" positionX="1574" shape="pin-large" symbol="galleon" image="https://i.imgur.com/t41c4Az.jpg" staticLabel="false">
+			<sidebar>
 				<![CDATA[The ports and docks of Yu Tai Shuni are under the control of the __Gankou__ clan.]]>
-			</popup>
+			</sidebar>
+			<attributions>
+				<attribution name="John Stevenson" url="https://www.artstation.com/johnstevenson" />
+			</attributions>
 		</node>
 		<node group="0" label="Tavern" positionY="1641.33" positionX="1518.67" shape="pin-large" symbol="beer" staticLabel="false">
 			<popup>
 				<![CDATA[The Knights of Schedule are staying at this tavern when they meet Black Chao. The Knights are interviewed here by __Mei Mei__ before they change establishments to escape notice of Xie clan.]]>
 			</popup>
 		</node>
-		<node group="0" label="Docks" positionY="1296" positionX="1688" shape="pin-large" symbol="galleon" staticLabel="false">
-			<popup>
+		<node group="0" label="Docks" positionY="1296" positionX="1688" shape="pin-large" symbol="galleon" image="https://i.imgur.com/t41c4Az.jpg" staticLabel="false">
+			<sidebar>
 				<![CDATA[The ports and docks of Yu Tai Shuni are under the control of the __Gankou__ clan.]]>
-			</popup>
+			</sidebar>
+			<attributions>
+				<attribution name="John Stevenson" url="https://www.artstation.com/johnstevenson" />
+			</attributions>
 		</node>
 		<node group="0" label="Xie Manor" positionY="2086" positionX="1230" shape="shield-large" symbol="vihara" staticLabel="true">
 			<popup>

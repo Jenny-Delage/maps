@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<data>
+	<campaign name="120 ft."  subtitle="Strangers in a Strange Land..." symbol="samurai-helmet" image="https://i.imgur.com/ZzEwh0r.jpg">
+			<description>
+				<![CDATA[
+					Iymrith the Dragon of Statues spreads chaos in the north, inciting and controlling giants and imprisoning the Giant King Hekaton. She concocts a ritual to summon a second avatar of Tiamat by combining her own draconic magic, the soul of Maegara the dawn titan, a collection of giant artifacts, and the souls of ancient blue dragons. The ritual is held at the Wyrmskull Throne. She gathers her armies and creates a colossal floating Statue of Tiamat above the Anauroch Desert. 
+
+					The party, known as the Knights of the Schedule, gather their friends and allies from all the factions of Faerun to launch an assault to stop this ritual. The Knights succeed at great cost with many sacrifices. With Iymrith dead, the Statue shatters into a thousand pieces and spreads Chromatic Crystals all over the Continent. Those who come into possession of these statues gain great strength, but find themselves afflicted by corruption. Months pass, and traders spread the Crystals all over Toril, and into Kara-Tur. A year after defeat of Iymrith, the Knights hear rumors of Shou-Lung, the biggest country in Kara-Tur. They hear of recently awakened Divine Great Spirit Beasts being on the move. Forces from Kara-Tur invade Faerun and our heroes have to go on an undercover mission to Shou to save their homeland.					
+				]]>
+			</description>
+			<attributions>
+				<attribution name="David Benzal" url="https://www.artstation.com/davidbenzal" />
+			</attributions>
+	</campaign>
+	<xlinks>
+		<xlink type="roll20" url="https://app.roll20.net/campaigns/details/4137230/kara-tur" />
+		<xlink type="gdrive" url="https://docs.google.com/document/d/1gE57c2e92r-P2-sYIbAXXWRldoVXiHq0RWics4fsyb8/edit?usp=sharing" />
+	</xlinks>
+	<mlinks image="" imageAttribution="" imageAttributionUrl="">
+		<mlink name="Shou" type="world" url="shou" />
+		<mlink name="Yu Tai Shuni, a port town" type="city" url="yu_tai_shuni" />
+		<mlink name='Minlow, the "hot springs" city' type="city" url="minlow" />
+	</mlinks>
+</data>
