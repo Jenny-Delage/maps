@@ -7,8 +7,8 @@
 		mapAssetHeight="2226"
 		mapMaxZoomMultiplier="1.5"
 		unitName="ft"
-		unitsAcross="4335"
-		unitsPerGrid="500"
+		unitsAcross="29817.77"
+		unitsPerGrid="600"
 		mapAttribution="Watabou"
 		mapAttributionUrl="https://watabou.itch.io/medieval-fantasy-city-generator"
 	/>
@@ -26,33 +26,23 @@
 		</label>
 	</labels>
 	<nodes>
-		<node group="0" label="Center Square" positionY="1150" positionX="1608.67" shape="pin-large" symbol="water-fountain" image="https://i.imgur.com/URatlz1.jpg" staticLabel="true">
+		<node group="0" label="Branch of Ch'ing Tung River" positionY="948.13" positionX="788.9" shape="none" symbol="" image="https://i.imgur.com/URatlz1.jpg" staticLabel="true" rotateLabel="30.5" />
+		<node group="0" label="Branch of Ch'ing Tung River" positionY="2161.08" positionX="1632.4" shape="none" symbol="" image="https://i.imgur.com/URatlz1.jpg" staticLabel="true" rotateLabel="358" />
+		<node group="0" label="Festival Square" positionY="1150" positionX="1608.67" shape="pin-large" symbol="water-fountain" image="https://i.imgur.com/URatlz1.jpg" staticLabel="true">
 			<sidebar>
-				<![CDATA[Minlow's Center Square is crowded during the daytime, and has an open market. This is where the Festival will be held. New Moon’s festival, like New Year's, is celebrated on 18th day of first month, lasting fifteen days. First nine days are special with respect paid to ancestors. Fourth day involves prayers to ward off evil spirits.]]>
+				<![CDATA[Minlow's center square is crowded during the daytime, and has an open market. This is where the Festival will be held. New Moon’s festival, like New Year's, is celebrated on 18th day of first month, lasting fifteen days. First nine days are special with respect paid to ancestors. Fourth day involves prayers to ward off evil spirits.]]>
 			</sidebar>
 			<attributions>
 				<attribution name="Andreas Rocha" url="https://www.artstation.com/andreasrocha" />
 			</attributions>
 		</node>
 		<node group="0" label="Knights enter from east..." positionY="1756" positionX="2268" shape="pin-large" symbol="ra-knight-helmet" staticLabel="false" />
-		<node group="0" label="Ministry of Spirituality &amp; Preservation" positionY="580" positionX="1974" shape="shield-large" symbol="yoga-lotus" image="https://i.imgur.com/4gmDr6o.jpg" staticLabel="true">
+		<node group="0" label="Ministry of Spirituality &amp; Preservation" positionY="1064" positionX="1730.67" shape="shield-large" symbol="yoga-lotus" image="https://i.imgur.com/4gmDr6o.jpg" staticLabel="true">
 			<sidebar>
 				<![CDATA[A large building to the south is the Headquarters of the Ministry. They oversee and protect agriculture and local nature. The building has an appearance similar to a barn.]]>
 			</sidebar>
 			<attributions>
 				<attribution name="Michael Gerard" url="https://www.artstation.com/unrealmike" />
-			</attributions>
-		</node>
-		<node group="0" label="Petal's View" positionY="966" positionX="1368" shape="shield-large" symbol="geisha" image="https://i.imgur.com/6RCkgBF.jpg" staticLabel="true">
-			<sidebar>
-				<![CDATA[A __Green Mansion__ is an entertainment house, common to large cities in Shou. The building has wide pillars supporting a terrace. A painting of a beautiful man and woman in embrace can be seen on a banner. People with red faces enter a wide open green door. There is a welcoming atmosphere, and sounds of classical music played on sitars. The sweet smell of perfume wafts out from every window and door.
-
-				Just inside the entrace, men and women in nature-themed bath robes patterned with flowers, trees, and autumn colors. A short-haired plain female receptionist is looking through books, noting down names.
-
-				Lythara's contact, named __Shager__, is a particularly charismatic korobokuru and the head courtesan of the __Petal’s View__, a Mansion with many patrons. The Knights meet Shager and are told of a contact at the Aviary who can help Chao reach out to Red Rat. Shager also provides an underground contact in __Linshung__.]]>
-			</sidebar>
-			<attributions>
-				<attribution name="foald eleven" url="https://www.artstation.com/foaldeleven" />
 			</attributions>
 		</node>
 		<node group="0" label="Major Genbu Temple" positionY="1552" positionX="1726.67" shape="shield-large" symbol="dragon-head" image="https://i.imgur.com/3ZsNWK0.jpg" staticLabel="true">
@@ -65,17 +55,29 @@
 				<attribution name="Claudio Pilia" url="https://www.artstation.com/claudiopilia" />
 			</attributions>
 		</node>
-		<node group="1" label="Sorghum Fields" positionY="484" positionX="2169.33" shape="pin-large" symbol="wheat" image="https://i.imgur.com/ThKxtyC.jpg" staticLabel="false">
+		<node group="0" label="Shedinn's Family Home" positionY="484" positionX="2169.33" shape="pin-large" symbol="home-lg" staticLabel="false" />
+		<node group="1" label="Petal's View" positionY="937.33" positionX="1332" shape="shield-large" symbol="geisha" image="https://i.imgur.com/6RCkgBF.jpg" staticLabel="true">
 			<sidebar>
-				<![CDATA[Farmers in these fields grow sorghum, which is used as a mild hallucinant in smoking shishas. The plant is called Geku, which in the Shou language means "song".]]>
+				<![CDATA[A __Green Mansion__ is an entertainment house, common to large cities in Shou. The building has wide pillars supporting a terrace. A painting of a beautiful man and woman in embrace can be seen on a banner. People with red faces enter a wide open green door. There is a welcoming atmosphere, and sounds of classical music played on sitars. The sweet smell of perfume wafts out from every window and door.
+
+				Just inside the entrace, men and women in nature-themed bath robes patterned with flowers, trees, and autumn colors. A short-haired plain female receptionist is looking through books, noting down names.
+
+				Lythara's contact, named __Shager__, is a particularly charismatic korobokuru and the head courtesan of the __Petal’s View__, a Mansion with many patrons. The Knights meet Shager and are told of a contact at the Aviary who can help Chao reach out to Red Rat. Shager also provides an underground contact in __Linshung__.]]>
 			</sidebar>
 			<attributions>
-				<attribution name="Nils Arenz" url="https://www.artstation.com/nilsarenz" />
+				<attribution name="foald eleven" url="https://www.artstation.com/foaldeleven" />
 			</attributions>
 		</node>
+		<node group="1" label="Brewery" positionY="1065.33" positionX="1312.67" shape="pin-large" symbol="beer" staticLabel="false" />
+		<node group="1" label="Drunken Monk Style Dojo" positionY="1096" positionX="1270.67" shape="pin-large" symbol="class-monk" staticLabel="false" />
 		<node group="1" label="Red District" positionY="858" positionX="1400" shape="shield-large" symbol="spa-ornaments" staticLabel="true">
 			<popup>
 				<![CDATA[In the southwestern part of Minlow, one can see people wandering with companions among various massage salons, beauty shops, cosmeticians.]]>
+			</popup>
+		</node>
+		<node group="1" label="Hot Spring District" positionY="895" positionX="1044" shape="shield-large" symbol="steam" staticLabel="true">
+			<popup>
+				<![CDATA[The Hot Spring District has spas, and therapeutic and relaxation facilities. The Knights get into an altercation with some blood thirsty spirits haunting the waters of Fire Salamander Spa.]]>
 			</popup>
 		</node>
 	</nodes>
