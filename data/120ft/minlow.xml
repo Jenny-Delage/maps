@@ -68,8 +68,8 @@
 				<attribution name="foald eleven" url="https://www.artstation.com/foaldeleven" />
 			</attributions>
 		</node>
-		<node group="1" label="Brewery" positionY="1065.33" positionX="1312.67" shape="pin-large" symbol="beer" staticLabel="false" />
-		<node group="1" label="Drunken Monk Style Dojo" positionY="1096" positionX="1270.67" shape="pin-large" symbol="class-monk" staticLabel="false" />
+		<node group="1" label="Brewery" positionY="1378" positionX="750.67" shape="pin-large" symbol="beer" staticLabel="false" />
+		<node group="1" label="Drunken Monk Style Dojo" positionY="1112" positionX="742.67" shape="pin-large" symbol="class-monk" staticLabel="false" />
 		<node group="1" label="Red District" positionY="858" positionX="1400" shape="shield-large" symbol="spa-ornaments" staticLabel="true">
 			<popup>
 				<![CDATA[In the southwestern part of Minlow, one can see people wandering with companions among various massage salons, beauty shops, cosmeticians.]]>

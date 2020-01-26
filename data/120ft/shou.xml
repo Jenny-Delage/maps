@@ -3,6 +3,7 @@
 	<map 
 		modeCartograph="false"
 		mapAsset="https://i.imgur.com/4RmkRsk.jpg"
+		mapAssetLocal="./images/120ft/shou.jpg"
 		mapAssetWidth="4560"
 		mapAssetHeight="6060"
 		mapMaxZoomMultiplier="1"
