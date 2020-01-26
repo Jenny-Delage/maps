@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<data>
+	<map 
+		modeCartograph="false"
+		mapAsset="https://i.imgur.com/oY90495.jpg"
+		mapAssetWidth="6000"
+		mapAssetHeight="3932"
+		mapMaxZoomMultiplier="2.5"
+		unitName="mi"
+		unitsAcross="378.44"
+		unitsPerGrid="25"
+	/>
+	<regions>
+		<region name="rainier_triangle" south="1534.57" west="614.37" north="2719.63" east="2606.72" />
+	</regions>
+	<layers>
+		<layer name="Washington State" type="basemap" visibility="true" color="" />
+		<layer name="Locations" type="overlay" visibility="true" color="brown" />
+		<layer name="Ley Lines" type="overlay" visibility="true" color="brownLight" />
+		<layer name="Blood of Mt. Rainier" type="overlay" visibility="true" color="blue" chapter="rainier" />
+	</layers>
+	<nodes>
+		<node group="0" label="Maka" positionY="2563.06" positionX="708.28" shape="circle-large" symbol="tipi" image="https://i.imgur.com/JC2QW3Q.jpg" staticLabel="true" />
+		<node group="0" label="Te'Lu'Rien's Island" positionY="1341.06" positionX="940.91" shape="pin-large" symbol="ammonite-fossil" staticLabel="true" />
+		<node group="0" label="Raven Island" positionY="1682.17" positionX="966.17" shape="pin-large" symbol="raven" staticLabel="true" />
+		<node group="0" label="Mt. Rainier" positionY="1552" positionX="2462.67" shape="pin-large" symbol="mountain" staticLabel="true" />
+		<node group="0" label="Mt. Olympus" positionY="2468.67" positionX="1261.33" shape="pin-large" symbol="mountain" staticLabel="true" />
+		<node group="0" label="Healer" positionY="1611.33" positionX="966" shape="pin-small" symbol="" staticLabel="true" />
+		<node group="0" label="Spring" positionY="2161.4" positionX="1134.31" shape="pin-small" symbol="" staticLabel="true" />
+		<node group="0" label="Agatha" positionY="2201.9" positionX="1206.52" shape="pin-large" symbol="pick-of-destiny" staticLabel="true" />
+		<node group="0" label="Obsidian" positionY="2207.44" positionX="1183.75" shape="pin-small" symbol="" staticLabel="true" />
+		<node group="0" label="Goblins" positionY="2214.21" positionX="1220.68" shape="pin-small" symbol="" staticLabel="true" />
+	</nodes>
+	<paths>
+		<path group="1" route="La'Poosch'La-Neah Bay Ley Line" style="thin solid" decoration="star">
+			<waypoint label="La'Poosch'La" waypoint="true" positionY="2577.33" positionX="694.67" shape="pin-large" symbol="rolling-energy" staticLabel="true" />
+			<waypoint label="Neah Bay" waypoint="true" positionY="3026.05" positionX="711.94" shape="pin-small" symbol="crab" staticLabel="true" />
+		</path>
+		<path group="1" route="La'Poosch'La-Shi Shi Beach Ley Line" style="thin solid" decoration="star">
+			<waypoint label="La'Poosch'La" waypoint="true" positionY="2577.33" positionX="694.67" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Shi Shi Beach" waypoint="true" positionY="2920.05" positionX="666.45" shape="pin-small" symbol="crab" staticLabel="true" />
+		</path>
+		<path group="1" route="La'Poosch'La-Lummi Ley Line" style="thin solid" decoration="star">
+			<waypoint label="La'Poosch'La" waypoint="true" positionY="2577.33" positionX="694.67" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Lummi" waypoint="true" positionY="3260.79" positionX="1948.59" shape="pin-small" symbol="hidden-berg" staticLabel="true" />
+		</path>
+		<path group="1" route="La'Poosch'La-Te'Ho'La Ley Line" style="thin solid" decoration="star">
+			<waypoint label="La'Poosch'La" waypoint="true" positionY="2577.33" positionX="694.67" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Te'Ho'La" waypoint="true" positionY="2058.25" positionX="871.14" shape="pin-small" symbol="" staticLabel="true" />
+		</path>
+		<path group="1" route="La'Poosch'La-Te'Lu'Rien's Island Ley Line" style="thin solid" decoration="star">
+			<waypoint label="La'Poosch'La" waypoint="true" positionY="2577.33" positionX="694.67" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Te'Lu'Rien's Island" waypoint="true" positionY="1341.06" positionX="940.91" shape="none" symbol="" staticLabel="false" />
+		</path>
+		<path group="1" route="La'Poosch'La-Ha'Tok'La Ley Line" style="thin solid" decoration="star">
+			<waypoint label="La'Poosch'La" waypoint="true" positionY="2577.33" positionX="694.67" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Ha'Tok'La, The Sentinel" waypoint="true" positionY="1060.4" positionX="963.33" shape="pin-small" symbol="" staticLabel="true" />
+		</path>
+		<path group="1" route="La'Poosch'La-Rainier Ley Line" style="thin solid" decoration="star">
+			<waypoint label="La'Poosch'La" waypoint="true" positionY="2577.33" positionX="694.67" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Mt. Rainier" waypoint="true" positionY="1552" positionX="2462.67" shape="none" symbol="" staticLabel="false" />
+		</path>
+		<path group="2" route="Maka-Raven Island" style="normal solid">
+			<waypoint label="Maka" waypoint="true" positionY="2563.06" positionX="708.28" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Maka-Raven Island 1" waypoint="true" positionY="2421.67" positionX="778.12" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Maka-Raven Island 2" waypoint="true" positionY="2248.32" positionX="814.44" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Maka-Raven Island 3" waypoint="true" positionY="2068.61" positionX="831.01" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Maka-Raven Island 4" waypoint="true" positionY="1743.18" positionX="912.37" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Maka-Raven Island 5" waypoint="true" positionY="1661.61" positionX="912.37" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Maka-Raven Island 6" waypoint="true" positionY="1652.36" positionX="930.03" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Maka-Raven Island 7" waypoint="true" positionY="1668.24" positionX="952.01" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Raven Island" waypoint="true" positionY="1682.17" positionX="966.17" shape="none" symbol="" staticLabel="false" />
+		</path>
+		<path group="2" route="Raven Island-Algonquin" style="normal solid" decoration="arrow">
+			<waypoint label="Raven Island" waypoint="true" positionY="1682.17" positionX="966.17" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Raven Island-Algonquin 1" waypoint="true" positionY="1699.86" positionX="987.52" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Isik's Umiak" waypoint="true" positionY="1693.14" positionX="1120.91" shape="pin-small" symbol="" staticLabel="false" />
+			<waypoint label="Uklut" waypoint="true" positionY="1583.41" positionX="1990.4" shape="pin-small" symbol="" staticLabel="true" />
+			<waypoint label="Algonquin" waypoint="true" positionY="1560.7" positionX="2008.9" shape="pin-small" symbol="" staticLabel="true" />
+		</path>
+		<path group="2" route="Algonquin-Rainier" style="normal solid">
+			<waypoint label="Algonquin" waypoint="true" positionY="1560.7" positionX="2008.9" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Algonquin-Rainier 1" waypoint="true" positionY="1545.31" positionX="2059.06" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Algonquin-Rainier 2" waypoint="true" positionY="1548.15" positionX="2243.44" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Mt. Rainier" waypoint="true" positionY="1552" positionX="2462.67" shape="none" symbol="" staticLabel="false" />
+		</path>
+		<path group="2" route="Algonquin-Raven Island" style="normal solid" decoration="arrow">
+			<waypoint label="Algonquin" waypoint="true" positionY="1560.7" positionX="2008.9" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Algonquin Village-Raven's Island 1" waypoint="true" positionY="1657.16" positionX="1243.91" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Algonquin Village-Raven's Island 2" waypoint="true" positionY="1673.63" positionX="1068.17" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Algonquin Village-Raven's Island 3" waypoint="true" positionY="1689.48" positionX="997.45" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Raven Island" waypoint="true" positionY="1682.17" positionX="966.17" shape="none" symbol="" staticLabel="false" />
+		</path>
+	</paths>
+</data>

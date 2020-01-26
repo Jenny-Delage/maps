@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<data>
+	<campaign name="Aegean Mists"  subtitle="to dream, a place becoming" symbol="hunting-horn" image="https://i.imgur.com/0UqN5QK.gif">
+			<description>
+				<![CDATA[
+					This Campaign has its beginnings in the early 1980's, initially framed in the context of Advanced Dungeons & Dragons, over time incorporating cinematic concepts by published authors and filmakers, but retaining the texture of tabletop gaming genre. In the beginning there are random encounters. They are Monsters with "evil" or "good" alignments, beings with unique moral and amoral motivations, fragments of storylines, quests, mysteries, exploration of the unknown, and similar devices to be discovered without a well-developed overarching Storyline.
+
+					The setting of Aegean Mists deepen, broaden, and gradually become more structured and coherent. The game is more satisfying in content and mystery, shaking up core themes in a way similar to the chaos of change we experience in our lives. Philosophical considerations assume greater prominence, leading to exploration of the meaning of "good" and "evil", a curiosity about the origins of magic, and a pursuit of an understanding of the fundamentals of Creation: "where did all of this come from and why" and "where is all of this going"?
+
+					The world of Mists upon the Aegean is wide and there are many wonders therein... go shallow or deep, pursue your dreams and see what happens... and remember, the best thing you’ve ever experienced is yet to come.
+
+					![A New Beginning](https://i.imgur.com/EwKsJ4Y.jpg)
+					## A New Beginning
+					A Quiloté priestess of Raven, an ethnic Aztec shaman with an eccentricity for fire, and an Inuit huntress journey out from the village of Maka in what is modern day Washington State. The shadow of a great curse veils the coast, and acts of ritual defilement along powerful ley lines elude the party.
+				]]>
+			</description>
+			<attributions>
+				<attribution name="Deiv Calviz (David Villegas)" url="https://www.artstation.com/deivcalviz" />
+				<attribution name="Nastya Ermakova" url="https://www.artstation.com/seriouscat" />
+			</attributions>
+	</campaign>
+	<xlinks>
+		<xlink type="wiki" url="http://aegeanmists.tiddlyspot.com/" />
+	</xlinks>
+</data>
