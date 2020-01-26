@@ -698,6 +698,16 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 		map.on( "click", function( e ) {
 			sidebar.close();
 			setSidebarInfo();
+
+			if ( modeCartograph == true ) {
+				var clipText = 'positionY="' + Math.round((e.latlng.lat + Number.EPSILON) * 100) / 100 + '" positionX="' + Math.round((e.latlng.lng + Number.EPSILON) * 100) / 100 + '"';
+				
+				navigator.clipboard.writeText( clipText ).then( function( ) {
+					console.log( "Copied:" + clipText.replace( /position/g, "") );
+				}, function( err ) {
+					console.error( "Copy unsuccessful: ", err );
+				});
+			}
 		} );
 
 		// popup to give coordinates
