@@ -3,11 +3,12 @@
 	<map 
 		modeCartograph="false"
 		mapAsset="https://i.imgur.com/oY90495.jpg"
+		mapAssetLocal="./images/aegean_mists/washington_state.jpg"
 		mapAssetWidth="6000"
 		mapAssetHeight="3932"
 		mapMaxZoomMultiplier="2.5"
 		unitName="mi"
-		unitsAcross="378.44"
+		unitsAcross="721.73"
 		unitsPerGrid="25"
 	/>
 	<regions>
