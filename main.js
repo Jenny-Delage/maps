@@ -649,6 +649,7 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 		// layer control
 		var baseLayers = new Array();
 		var overlays = new Array();
+		var chapters = ( options.chapter ) ? options.chapter.toLowerCase().split( "|" ) : [];
 		baseLayers[layerAttribs.name[0]] = landmap;
 
 		for ( var i = 0; i < layers.length; i++ ) { 
