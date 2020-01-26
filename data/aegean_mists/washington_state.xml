@@ -25,6 +25,7 @@
 		<node group="0" label="Raven Island" positionY="1682.17" positionX="966.17" shape="pin-large" symbol="raven" staticLabel="true" />
 		<node group="0" label="Mt. Rainier" positionY="1552" positionX="2462.67" shape="pin-large" symbol="mountain" staticLabel="true" />
 		<node group="0" label="Mt. Olympus" positionY="2468.67" positionX="1261.33" shape="pin-large" symbol="mountain" staticLabel="true" />
+		<node group="0" label="Evil Place" positionY="2575.25" positionX="729.81" shape="pin-small" symbol="" staticLabel="true" />
 		<node group="0" label="Healer" positionY="1611.33" positionX="966" shape="pin-small" symbol="" staticLabel="true" />
 		<node group="0" label="Spring" positionY="2161.4" positionX="1134.31" shape="pin-small" symbol="" staticLabel="true" />
 		<node group="0" label="Agatha" positionY="2201.9" positionX="1206.52" shape="pin-large" symbol="pick-of-destiny" staticLabel="true" />
