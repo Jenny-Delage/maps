@@ -163,7 +163,7 @@ function mapDataArray() {
 			var mapAttribsXml = mapXml.getElementsByTagName( "map" );
 			mapAttribs = {
 				modeCartograph: ( mapAttribsXml[0].getAttribute( "modeCartograph" ) == "true" ),
-				mapAsset: mapAttribsXml[0].getAttribute( "mapAsset" ),
+				mapAsset: ( window.location.hostname == "localhost" && mapAttribsXml[0].getAttribute( "mapAssetLocal" ) ) ? mapAttribsXml[0].getAttribute( "mapAssetLocal" ) : mapAttribsXml[0].getAttribute( "mapAsset" ),
 				mapAssetWidth: parseInt( mapAttribsXml[0].getAttribute( "mapAssetWidth" ) ),
 				mapAssetHeight: parseInt( mapAttribsXml[0].getAttribute( "mapAssetHeight" ) ),
 				mapMaxZoomMultiplier: parseFloat( mapAttribsXml[0].getAttribute( "mapMaxZoomMultiplier" ) ),
@@ -176,6 +176,8 @@ function mapDataArray() {
 				regionBounds: [],
 				regionCenter: []
 			};
+
+			if( window.location.hostname == "localhost" && mapAttribsXml[0].getAttribute( "mapAssetLocal" ) ) { console.log( "Using local basemap: " + mapAttribsXml[0].getAttribute( "mapAssetLocal" ) ); }
 
 			// get regions and set desired region, if specified
 			var regionXml = mapXml.getElementsByTagName( "region" );
