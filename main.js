@@ -826,8 +826,6 @@ function buildSidebar() {
 
 	// set icons
 	document.getElementById( "info_button" ).innerHTML = '<img src="./images/symbols/book-cover.svg">';
-	document.getElementById( "mlinks_button" ).innerHTML = '<img src="./images/symbols/treasure-map.svg">';
-	document.getElementById( "xmaps_button" ).innerHTML = '<img src="./images/symbols/map-signs.svg">';
 
 	var fileCampaign = "./data/" + ( ( options.campaign ) ? options.campaign.toLowerCase() + "/" : "" ) + "_" + ( ( options.campaign ) ? options.campaign.toLowerCase() + ".xml" : "" );
 	var loadXmlCampaignData = new XMLHttpRequest();
@@ -938,7 +936,6 @@ function buildSidebar() {
 			}
 
 			// add linklist to other campaign maps on sidebar
-
 			if( campaignXml.getElementsByTagName( "mlinks" ).length ) {
 				var mlinks = document.getElementById( "mlinks_content" );
 				var xMapType;
@@ -966,7 +963,7 @@ function buildSidebar() {
 				var xMapsXml = campaignXml.getElementsByTagName( "mlink" );
 
 				if ( xMapsXml.length ) {
-					document.getElementById( "mlinks_button" ).innerHTML = '<img src="./images/symbols/treasure-map.svg">';
+					document.getElementById( "mlinks_button" ).innerHTML = '<img src="./images/symbols/compass.svg">';
 					document.getElementById( "mlinks_tab" ).style = ""; // make mlinks tab visible
 					mlinks.innerHTML += '<img src="' + xMapsImage + '">';
 					mlinks.innerHTML += '<p style="font-size: 0.8em; font-variant: small-caps; opacity: 0.8;">Artwork by <a href="' + xMapsAttributionUrl + '" target="_blank">' + xMapsAttribution + '</a></p>';
@@ -994,6 +991,9 @@ function buildSidebar() {
 					}
 				}
 			}
+
+			// add xlinks
+			// document.getElementById( "xmaps_button" ).innerHTML = '<img src="./images/symbols/map-signs.svg">';
 		}
 	};
 	loadXmlCampaignData.open( "GET", fileCampaign, true );
