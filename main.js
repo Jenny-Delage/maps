@@ -407,7 +407,7 @@ function buildMarkers( color, sidebar, layerGroup, nodeObject, isPath = false, p
 			if( nodeObject[i].label.length ) {
 				if( nodeObject[i].staticLabel == true ) {
 					// additional option to rotate label if static
-					marker.bindTooltip( '<div style="transform:rotate(-' + nodeObject[i].rotateLabel + 'deg);-webkit-transform:rotate(-' + nodeObject[i].rotateLabel + 'deg);-moz-transform:rotate(-' + nodeObject[i].rotateLabel + 'deg);">' + parse( nodeObject[i].label ) + '</div>', { permanent: true, offset: [0, -32], opacity: 1.0, direction: "center", className: "leaflet-tooltip-static" } );
+					marker.bindTooltip( '<div style="transform:rotate(-' + nodeObject[i].rotateLabel + 'deg);-webkit-transform:rotate(-' + nodeObject[i].rotateLabel + 'deg);-moz-transform:rotate(-' + nodeObject[i].rotateLabel + 'deg);">' + parse( nodeObject[i].label ) + '</div>', { permanent: true, pane: "permanentTooltips", offset: [0, -36], opacity: 1.0, direction: "center", className: "leaflet-tooltip-static" } );
 				} else if ( nodeObject[i].shape != "none" ) {
 					// no parse() for tooltip label. I don't expect line feeds for such labels!
 					marker.bindTooltip( nodeObject[i].label + '<div style="margin-bottom:-4px;font-size:0;"</div>&nbsp;</div>' ); // contains css fix for font size change
@@ -640,6 +640,9 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 
 		var polygonsPane = map.createPane( "polygons" );
 		polygonsPane.style.zIndex = 402;
+		var permanentTooltipsPane = map.createPane( "permanentTooltips" );
+		permanentTooltipsPane.style.zIndex = 499;
+
 
 		for ( var i = 0; i < layers.length; i++ ) {
 			panes[i] = map.createPane( "paths" + i );
@@ -658,7 +661,7 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 			if( !layerAttribs.chapter[i+1].length || chapters.findIndex( e => e == layerAttribs.chapter[i+1] ) > -1 ) { overlays[layerAttribs.name[i+1]] = layers[i]; }
 		}
 
-		L.control.layers( baseLayers, overlays, { collapsed: true } ).addTo( map );	
+		L.control.layers( baseLayers, overlays, { collapsed: true, hideSingleBase: true } ).addTo( map );	
 
 		// add graphicScale
 		// see changes by Das123 @ https://gis.stackexchange.com/questions/151745/leafletjs-how-to-set-custom-map-scale-for-a-flat-image-map-crs-simple
@@ -694,7 +697,7 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 			} );
 		}
 
-		// add sidebar
+		// add sidebar and map onClick event
 		setSidebarInfo();
 		sidebar.addTo( map );
 		map.on( "click", function( e ) {
