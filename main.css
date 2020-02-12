@@ -85,7 +85,7 @@ p { font-size: 15px; }
 }
 
 .leaflet-control-graphicscale {
-	background-color: rgb( 254, 246, 237, 0.6 );
+	background-color: rgba( 254, 246, 237, 0.6 );
 	background-image: url( "./images/noise.png" );
 	padding: 5px 15px 5px 10px;
 	box-shadow: 0px 0px 30px rgba( 52, 38, 13, 0.5 );
@@ -146,7 +146,7 @@ p { font-size: 15px; }
 }
 
 .leaflet-rrose-content-wrapper, .leaflet-sidebar-tabs, .leaflet-sidebar-content {
-	background-color: rgb( 254, 246, 237, 0.85 );
+	background-color: rgba( 254, 246, 237, 0.85 );
 	background-image: url( "./images/noise.png" );
 }
 
@@ -159,7 +159,7 @@ p { font-size: 15px; }
 }
 
 .leaflet-sidebar-tabs > li:hover, .leaflet-sidebar-tabs > ul > li:hover, .leaflet-sidebar-tabs > li.active, .leaflet-sidebar-tabs > ul > li.active {
-	background-color: rgb( 219, 194, 171, 0.6 );
+	background-color: rgba( 219, 194, 171, 0.6 );
 }
 
 .leaflet-sidebar-pane {
@@ -167,7 +167,7 @@ p { font-size: 15px; }
 }
 
 .leaflet-sidebar-header {
-	background-color: rgb( 219, 194, 171, 0.6 );
+	background-color: rgba( 219, 194, 171, 0.6 );
 	font-family: 'Italianno', cursive;
 	font-size: 30px;
 	color: rgb( 87, 35, 12 );
@@ -178,9 +178,9 @@ p { font-size: 15px; }
 .leaflet-sidebar-content::-webkit-scrollbar {width: 7px; height: 0;}
 .leaflet-sidebar-content::-webkit-scrollbar-track {margin: 5px 0 5px}
 .leaflet-sidebar-content::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.0);
+    background: rgba( 0, 0, 0, 0.0 );
     border-radius: 10px;
-    box-shadow: rgba(255,255,255,0.3) 0 0 0 1px;
+    box-shadow: rgba( 255, 255, 255, 0.3) 0 0 0 1px;
 }
 .leaflet-sidebar-content:hover::-webkit-scrollbar-thumb {background: rgba(0,0,0,0.45)}
 .leaflet-sidebar-content::-webkit-scrollbar-thumb:hover {background: rgba(0,0,0,0.55)}

@@ -1134,4 +1134,4 @@ function sleep( ms ) {
 // init
 mapDataArray();
 
-});
+} );
