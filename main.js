@@ -170,6 +170,7 @@ function mapDataArray() {
 				unitName: mapAttribsXml[0].getAttribute( "unitName" ),
 				unitsAcross: parseFloat( mapAttribsXml[0].getAttribute( "unitsAcross" ) ),
 				unitsPerGrid: parseFloat( mapAttribsXml[0].getAttribute( "unitsPerGrid" ) ),
+				gridType: ( mapAttribsXml[0].getAttribute( "gridType" ) ) ? mapAttribsXml[0].getAttribute( "gridType" ) : "hex",
 				mapAttribution:  ( mapAttribsXml[0].getAttribute( "mapAttribution" ) ) ? mapAttribsXml[0].getAttribute( "mapAttribution" ) : "",
 				mapAttributionUrl:  ( mapAttribsXml[0].getAttribute( "mapAttributionUrl" ) ) ? mapAttribsXml[0].getAttribute( "mapAttributionUrl" ) : "",
 				mapNameZh:  ( mapAttribsXml[0].getAttribute( "mapNameZh" ) ) ? mapAttribsXml[0].getAttribute( "mapNameZh" ) : "",
@@ -229,6 +230,7 @@ function mapDataArray() {
 				mapAttribs.unitName,
 				mapAttribs.unitsAcross,
 				mapAttribs.unitsPerGrid,
+				mapAttribs.gridType,
 				labelAsset,
 				layers,
 				layerAttribs,
@@ -566,7 +568,25 @@ function buildLayers( layerColors, sidebar, nodes, paths ) {
 }
 
 // map construction: layer xml extractor to map object constructor callback
-function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeight, mapMaxZoomMultiplier, unitName, unitsAcross, unitsPerGrid, labelAsset, layers, layerAttribs, mapAttribution, mapAttributionUrl, mapNameZh, regionBounds, sidebar ) {
+function buildMap(
+	modeCartograph = false,
+	mapAsset,
+	mapAssetWidth,
+	mapAssetHeight,
+	mapMaxZoomMultiplier,
+	unitName,
+	unitsAcross,
+	unitsPerGrid,
+	gridType,
+	labelAsset,
+	layers,
+	layerAttribs,
+	mapAttribution,
+	mapAttributionUrl,
+	mapNameZh,
+	regionBounds,
+	sidebar
+) {
 //	var mapWindowWidth = 400;
 //	var mapWindowHeight = Math.floor( mapWindowWidth / mapAssetWidth * mapAssetHeight );
 	var mapWindowWidth = Math.min( mapAssetWidth * mapMaxZoomMultiplier, window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth );
@@ -685,8 +705,8 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 			scaleText.innerHTML = scaleTextHtml;
 		}
 
-		// add hex grid
-		loadTurfHexGrid( map, mapAssetWidth, mapAssetHeight, unitsAcross, unitsPerGrid );
+		// add hex or square grid
+		loadTurfGrid( map, mapAssetWidth, mapAssetHeight, unitsAcross, unitsPerGrid, gridType );
 
 		// zoom and pan to region
 		//	map.flyTo( regionCenter, calcMapPanZoom( mapWindowWidth, mapWindowHeight, regionWidth, regionHeight, mapMaxZoomMultiplier ) );
@@ -796,11 +816,11 @@ function buildMap( modeCartograph = false, mapAsset, mapAssetWidth, mapAssetHeig
 }
 
 // hex grid
-function loadTurfHexGrid( map, mapAssetWidth, mapAssetHeight, unitsAcross, unitsPerGrid ) {
+function loadTurfGrid( map, mapAssetWidth, mapAssetHeight, unitsAcross, unitsPerGrid, gridType ) {
 	var gridExtent = Math.max( mapAssetWidth, mapAssetHeight );
 	var gridCellSide = mapAssetWidth * unitsPerGrid / unitsAcross / 2;
 	var bbox = [-2 * gridCellSide, -2 * gridCellSide, gridExtent + 2 * gridCellSide, gridExtent + 2 * gridCellSide];
-	var geojson = turf.hexGrid( bbox, gridCellSide, { options: { units: "miles" } } );
+	var geojson = ( gridType == "hex" ) ? turf.hexGrid( bbox, gridCellSide, { options: { units: "miles" } } ) : turf.squareGrid( bbox, gridCellSide, { options: { units: "miles" } } );
 	var gridLayer = L.geoJson( geojson, {
 		style: {
 			weight: 3,
