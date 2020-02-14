@@ -9,6 +9,7 @@
 		unitName="ft"
 		unitsAcross="7500"
 		unitsPerGrid="1000"
+		gridType="square"
 		mapAttribution="Watabou"
 		mapAttributionUrl="https://watabou.itch.io/medieval-fantasy-city-generator"
 		mapNameZh="三家子村"
