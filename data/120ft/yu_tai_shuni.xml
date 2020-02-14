@@ -9,6 +9,7 @@
 		unitName="ft"
 		unitsAcross="4335"
 		unitsPerGrid="500"
+		gridType="hex"
 		mapAttribution="Watabou"
 		mapAttributionUrl="https://watabou.itch.io/medieval-fantasy-city-generator"
 	/>

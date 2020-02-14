@@ -10,6 +10,7 @@
 		unitName="mi"
 		unitsAcross="3751.49"
 		unitsPerGrid="120"
+		gridType="hex"
 		mapAttribution="Mark Taylor"
 		mapAttributionUrl="https://www.deviantart.com/markustay"
 	/>
