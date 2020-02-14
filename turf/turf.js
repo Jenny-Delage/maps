@@ -44025,10 +44025,14 @@ function squareGrid(bbox, cellSide, options) {
     var east = bbox[2];
     var north = bbox[3];
 
-    var xFraction = cellSide / (distance([west, south], [east, south], options));
-    var cellWidth = xFraction * (east - west);
-    var yFraction = cellSide / (distance([west, south], [west, north], options));
-    var cellHeight = yFraction * (north - south);
+    // https://github.com/Turfjs/turf/issues/758
+	// Islander: Edits made to make hexGrid compatible with CRS.Simple instead of WGS84
+	// var xFraction = cellSide / (distance([west, south], [east, south], options));
+    // var cellWidth = xFraction * (east - west);
+    var cellWidth = cellSide * 2;
+	// var yFraction = cellSide / (distance([west, south], [west, north], options));
+    // var cellHeight = yFraction * (north - south);
+    var cellHeight = cellSide * 2;
 
     // rows & columns
     var bboxWidth = (east - west);
