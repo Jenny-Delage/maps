@@ -10,6 +10,7 @@
 		unitName="mi"
 		unitsAcross="721.73"
 		unitsPerGrid="25"
+		gridType="hex"
 	/>
 	<regions>
 		<region name="rainier_triangle" south="1534.57" west="614.37" north="2719.63" east="2606.72" />
