@@ -43676,16 +43676,24 @@ function hexGrid(bbox, cellSide, options) {
     var x_span = (box_width - hex_width) / (hex_width - radius / 2);
     var x_count = Math.floor(x_span);
 
-    var x_adjust = ((x_count * x_interval - radius / 2) - box_width) / 2 - radius / 2 + x_interval / 2;
+    // https://github.com/Turfjs/turf/issues/758
+	// Islander: Edits made to make hexGrid compatible with CRS.Simple instead of WGS84
+    // var x_adjust = ((x_count * x_interval - radius / 2) - box_width) / 2 - radius / 2 + x_interval / 2;
+	var x_adjust = -1 * radius;
 
     // adjust box_height so all hexagons will be inside the bbox
     var y_count = Math.floor((box_height - hex_height) / hex_height);
 
-    var y_adjust = (box_height - y_count * hex_height) / 2;
+    // https://github.com/Turfjs/turf/issues/758
+	// Islander: Edits made to make hexGrid compatible with CRS.Simple instead of WGS84
+    // var y_adjust = (box_height - y_count * hex_height) / 2;
+	var y_adjust = 0;
 
     var hasOffsetY = y_count * hex_height - box_height > hex_height / 2;
     if (hasOffsetY) {
-        y_adjust -= hex_height / 4;
+		// https://github.com/Turfjs/turf/issues/758
+		// Islander: Edits made to make hexGrid compatible with CRS.Simple instead of WGS84
+        // y_adjust -= hex_height / 4;
     }
 
     // Precompute cosines and sines of angles used in hexagon creation for performance gain
@@ -44041,8 +44049,12 @@ function squareGrid(bbox, cellSide, options) {
     var rows = Math.floor(bboxHeight / cellHeight);
 
     // adjust origin of the grid
-    var deltaX = (bboxWidth - columns * cellWidth) / 2;
-    var deltaY = (bboxHeight - rows * cellHeight) / 2;
+    // https://github.com/Turfjs/turf/issues/758
+	// Islander: Edits made to make hexGrid compatible with CRS.Simple instead of WGS84
+    // var deltaX = (bboxWidth - columns * cellWidth) / 2;
+    // var deltaY = (bboxHeight - rows * cellHeight) / 2;
+	var deltaX = 0;
+	var deltaY = 0;
 
     // iterate over columns & rows
     var currentX = west + deltaX;
