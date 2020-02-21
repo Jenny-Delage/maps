@@ -40,10 +40,10 @@ function mapDataArray() {
 
 			for ( var i = 0; i < layerAttribsXml.length; i++ ) {
 				layerAttribs.name[i] = layerAttribsXml[i].getAttribute( "name" );
-				layerAttribs.type[i] = ( layerAttribsXml[i].getAttribute( "type" ) ) ? layerAttribsXml[i].getAttribute( "type" ) : "overlay";
+				layerAttribs.type[i] = layerAttribsXml[i].getAttribute( "type" ) ? layerAttribsXml[i].getAttribute( "type" ) : "overlay";
 				layerAttribs.visibility[i] = ( layerAttribsXml[i].getAttribute( "visibility" ) == "true" );
-				layerAttribs.color[i] = ( layerAttribsXml[i].getAttribute( "color" ) ) ? layerAttribsXml[i].getAttribute( "color" ) : "black";
-				layerAttribs.chapter[i] = ( layerAttribsXml[i].getAttribute( "chapter" ) ) ? layerAttribsXml[i].getAttribute( "chapter" ) : "";
+				layerAttribs.color[i] = layerAttribsXml[i].getAttribute( "color" ) ? layerAttribsXml[i].getAttribute( "color" ) : "black";
+				layerAttribs.chapter[i] = layerAttribsXml[i].getAttribute( "chapter" ) ? layerAttribsXml[i].getAttribute( "chapter" ) : "";
 			}
 
 			// get node data
@@ -58,14 +58,14 @@ function mapDataArray() {
 
 					if( !layerAttribs.chapter[group+1].length || chapters.findIndex( e => e == layerAttribs.chapter[group+1] ) > -1 ) {
 						nodes[group][n] = {
-							label: ( nodeXml[i].getAttribute( "label" ) ) ? nodeXml[i].getAttribute( "label" ) : "",
+							label: nodeXml[i].getAttribute( "label" ) ? nodeXml[i].getAttribute( "label" ) : "",
 							location: [parseFloat( nodeXml[i].getAttribute( "positionY" ) ), parseFloat( nodeXml[i].getAttribute( "positionX" ) )],
 							shape: ( nodeXml[i].getAttribute( "shape" ) !="" && nodeXml[i].getAttribute( "shape" ) ) ? nodeXml[i].getAttribute( "shape" ) : "none",
-							symbol: ( nodeXml[i].getAttribute( "symbol" ) ) ? nodeXml[i].getAttribute( "symbol" ) : "",
-							color: ( nodeXml[i].getAttribute( "color" ) ) ? nodeXml[i].getAttribute( "color" ) : "",
-							image: ( nodeXml[i].getAttribute( "image" ) ) ? nodeXml[i].getAttribute( "image" ) : "",
+							symbol: nodeXml[i].getAttribute( "symbol" ) ? nodeXml[i].getAttribute( "symbol" ) : "",
+							color: nodeXml[i].getAttribute( "color" ) ? nodeXml[i].getAttribute( "color" ) : "",
+							image: nodeXml[i].getAttribute( "image" ) ? nodeXml[i].getAttribute( "image" ) : "",
 							staticLabel: ( nodeXml[i].getAttribute( "staticLabel" ) == "true" ),
-							rotateLabel: ( nodeXml[i].getAttribute( "rotateLabel" ) ) ? parseFloat( nodeXml[i].getAttribute( "rotateLabel" ) ) : 0.0,
+							rotateLabel: nodeXml[i].getAttribute( "rotateLabel" ) ? parseFloat( nodeXml[i].getAttribute( "rotateLabel" ) ) : 0.0,
 							popup: getOptionalContent( nodeXml[i], "popup" ),
 							sidebar: getOptionalContent( nodeXml[i], "sidebar" ),
 							footnote: getOptionalContent( nodeXml[i], "footnote" ),
@@ -79,7 +79,7 @@ function mapDataArray() {
 							for( var p = 0; p < attributionXml.length; p++ ) {
 								nodes[group][n].attributions[p] = {
 									name: attributionXml[p].getAttribute( "name" ),
-									url: ( attributionXml[p].getAttribute( "url" ) ) ? attributionXml[p].getAttribute( "url" ) : ""
+									url: attributionXml[p].getAttribute( "url" ) ? attributionXml[p].getAttribute( "url" ) : ""
 								}
 							}
 						}
@@ -101,12 +101,12 @@ function mapDataArray() {
 
 					if( !layerAttribs.chapter[group+1].length || chapters.findIndex( e => e == layerAttribs.chapter[group+1] ) > -1 ) {
 						paths[group][n] = { 
-							route: ( pathXml[i].getAttribute( "route" ) ) ? pathXml[i].getAttribute( "route" ) : "",
-							style: ( pathXml[i].getAttribute( "style" ) ) ? pathXml[i].getAttribute( "style" ) : "normal solid",
-							decoration: ( pathXml[i].getAttribute( "decoration" ) ) ? pathXml[i].getAttribute( "decoration" ) : "",
+							route: pathXml[i].getAttribute( "route" ) ? pathXml[i].getAttribute( "route" ) : "",
+							style: pathXml[i].getAttribute( "style" ) ? pathXml[i].getAttribute( "style" ) : "normal solid",
+							decoration: pathXml[i].getAttribute( "decoration" ) ? pathXml[i].getAttribute( "decoration" ) : "",
 							isPolygon: ( pathXml[i].getAttribute( "isPolygon" ) == "true" ),
-							symbol: ( pathXml[i].getAttribute( "symbol" ) ) ? pathXml[i].getAttribute( "symbol" ) : "",
-							color: ( pathXml[i].getAttribute( "color" ) ) ? pathXml[i].getAttribute( "color" ) : "",
+							symbol: pathXml[i].getAttribute( "symbol" ) ? pathXml[i].getAttribute( "symbol" ) : "",
+							color: pathXml[i].getAttribute( "color" ) ? pathXml[i].getAttribute( "color" ) : "",
 							symbolSize: parseInt( pathXml[i].getAttribute( "symbolSizePx" ) ),
 							symLocationY: parseFloat( pathXml[i].getAttribute( "symLocationY" ) ),
 							symLocationX: parseFloat( pathXml[i].getAttribute( "symLocationX" ) ),
@@ -118,15 +118,15 @@ function mapDataArray() {
 						// using iterative for loop because we need waypoints in order
 						for ( var p = 0; p < waypointXml.length; p++ ) {
 							paths[group][n].pathData[p] = {
-								label: ( waypointXml[p].getAttribute( "label" ) ) ?  waypointXml[p].getAttribute( "label" ) : "",
+								label: waypointXml[p].getAttribute( "label" ) ?  waypointXml[p].getAttribute( "label" ) : "",
 								waypoint: ( waypointXml[p].getAttribute( "waypoint" ) == "true" ),
 								location: [parseFloat( waypointXml[p].getAttribute( "positionY" ) ), parseFloat( waypointXml[p].getAttribute( "positionX" ) )],
 								shape: ( waypointXml[p].getAttribute( "shape" ) !="" && waypointXml[p].getAttribute( "shape" ) ) ? waypointXml[p].getAttribute( "shape" ) : "none",
-								symbol: ( waypointXml[p].getAttribute( "symbol" ) ) ? waypointXml[p].getAttribute( "symbol" ) : "",
-								color: ( waypointXml[p].getAttribute( "color" ) ) ? waypointXml[p].getAttribute( "color" ) : "",
-								image: ( waypointXml[p].getAttribute( "image" ) ) ? waypointXml[p].getAttribute( "image" ) : "",
+								symbol: waypointXml[p].getAttribute( "symbol" ) ? waypointXml[p].getAttribute( "symbol" ) : "",
+								color: waypointXml[p].getAttribute( "color" ) ? waypointXml[p].getAttribute( "color" ) : "",
+								image: waypointXml[p].getAttribute( "image" ) ? waypointXml[p].getAttribute( "image" ) : "",
 								staticLabel: ( waypointXml[p].getAttribute( "staticLabel" ) == "true" ),
-								rotateLabel: ( waypointXml[p].getAttribute( "rotateLabel" ) ) ? parseFloat( waypointXml[p].getAttribute( "rotateLabel" ) ) : 0.0,
+								rotateLabel: waypointXml[p].getAttribute( "rotateLabel" ) ? parseFloat( waypointXml[p].getAttribute( "rotateLabel" ) ) : 0.0,
 								popup: getOptionalContent( waypointXml[p], "popup" ),
 								sidebar: getOptionalContent( waypointXml[p], "sidebar" ),
 								footnote: getOptionalContent( waypointXml[p], "footnote" ),
@@ -140,7 +140,7 @@ function mapDataArray() {
 								for( var q = 0; q < attributionXml.length; q++ ) {
 									paths[group][n].pathData[p].attributions[q] = {
 										name: attributionXml[q].getAttribute( "name" ),
-										url: ( attributionXml[q].getAttribute( "url" ) ) ? attributionXml[q].getAttribute( "url" ) : ""
+										url: attributionXml[q].getAttribute( "url" ) ? attributionXml[q].getAttribute( "url" ) : ""
 									}
 								}
 							}
@@ -170,10 +170,12 @@ function mapDataArray() {
 				unitName: mapAttribsXml[0].getAttribute( "unitName" ),
 				unitsAcross: parseFloat( mapAttribsXml[0].getAttribute( "unitsAcross" ) ),
 				unitsPerGrid: parseFloat( mapAttribsXml[0].getAttribute( "unitsPerGrid" ) ),
-				gridType: ( mapAttribsXml[0].getAttribute( "gridType" ) ) ? mapAttribsXml[0].getAttribute( "gridType" ) : "hex",
-				mapAttribution:  ( mapAttribsXml[0].getAttribute( "mapAttribution" ) ) ? mapAttribsXml[0].getAttribute( "mapAttribution" ) : "",
-				mapAttributionUrl:  ( mapAttribsXml[0].getAttribute( "mapAttributionUrl" ) ) ? mapAttribsXml[0].getAttribute( "mapAttributionUrl" ) : "",
-				mapNameZh:  ( mapAttribsXml[0].getAttribute( "mapNameZh" ) ) ? mapAttribsXml[0].getAttribute( "mapNameZh" ) : "",
+				gridType: mapAttribsXml[0].getAttribute( "gridType" ) ? mapAttribsXml[0].getAttribute( "gridType" ) : "hex",
+				gridColor: mapAttribsXml[0].getAttribute( "gridColor" ) ? mapAttribsXml[0].getAttribute( "gridColor" ) : "black",
+				gridOpacity: mapAttribsXml[0].getAttribute( "gridOpacity" ) ? parseFloat( mapAttribsXml[0].getAttribute( "gridOpacity" ) ) : 0.075,
+				mapAttribution:  mapAttribsXml[0].getAttribute( "mapAttribution" ) ? mapAttribsXml[0].getAttribute( "mapAttribution" ) : "",
+				mapAttributionUrl:  mapAttribsXml[0].getAttribute( "mapAttributionUrl" ) ? mapAttribsXml[0].getAttribute( "mapAttributionUrl" ) : "",
+				mapNameZh:  mapAttribsXml[0].getAttribute( "mapNameZh" ) ? mapAttribsXml[0].getAttribute( "mapNameZh" ) : "",
 				regionBounds: [],
 				regionCenter: []
 			};
@@ -186,7 +188,7 @@ function mapDataArray() {
 			if ( regionXml.length ) {
 				for ( var i = 0; i < regionXml.length; i++ ) {
 					regions[i] = {
-						name: ( regionXml[i].getAttribute( "name" ) ) ? regionXml[i].getAttribute( "name" ) : "",
+						name: regionXml[i].getAttribute( "name" ) ? regionXml[i].getAttribute( "name" ) : "",
 						bounds: [[parseFloat( regionXml[i].getAttribute( "south" ) ), parseFloat( regionXml[i].getAttribute( "west" ) )], [parseFloat( regionXml[i].getAttribute( "north" ) ), parseFloat( regionXml[i].getAttribute( "east" ) )]],
 						// center is presently unused because we are using flyToBounds()
 						center: [parseFloat( regionXml[i].getAttribute( "north" ) ) + 0.5 * parseFloat( regionXml[i].getAttribute( "south" ) ), parseFloat( regionXml[i].getAttribute( "east" ) ) + 0.5 * parseFloat( regionXml[i].getAttribute( "west" ) )]
@@ -221,25 +223,7 @@ function mapDataArray() {
 			var labelAsset = buildLabelSvg( labels, mapAttribs.mapAssetWidth );
 
 			// ready to build map
-			buildMap( 
-				mapAttribs.modeCartograph,
-				mapAttribs.mapAsset,
-				mapAttribs.mapAssetWidth,
-				mapAttribs.mapAssetHeight,
-				mapAttribs.mapMaxZoomMultiplier,
-				mapAttribs.unitName,
-				mapAttribs.unitsAcross,
-				mapAttribs.unitsPerGrid,
-				mapAttribs.gridType,
-				labelAsset,
-				layers,
-				layerAttribs,
-				mapAttribs.mapAttribution,
-				mapAttribs.mapAttributionUrl,
-				mapAttribs.mapNameZh,
-				mapAttribs.regionBounds,
-				sidebar
-			);
+			buildMap( mapAttribs, labelAsset, layers, layerAttribs, sidebar );
 		}
 	};
 
@@ -568,45 +552,27 @@ function buildLayers( layerColors, sidebar, nodes, paths ) {
 }
 
 // map construction: layer xml extractor to map object constructor callback
-function buildMap(
-	modeCartograph = false,
-	mapAsset,
-	mapAssetWidth,
-	mapAssetHeight,
-	mapMaxZoomMultiplier,
-	unitName,
-	unitsAcross,
-	unitsPerGrid,
-	gridType,
-	labelAsset,
-	layers,
-	layerAttribs,
-	mapAttribution,
-	mapAttributionUrl,
-	mapNameZh,
-	regionBounds,
-	sidebar
-) {
-//	var mapWindowWidth = 400;
-//	var mapWindowHeight = Math.floor( mapWindowWidth / mapAssetWidth * mapAssetHeight );
-	var mapWindowWidth = Math.min( mapAssetWidth * mapMaxZoomMultiplier, window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth );
-	var mapWindowHeight = Math.min( mapAssetHeight * mapMaxZoomMultiplier, window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight );
-	var mapMinZoom = calcMapMinZoom( mapWindowWidth, mapWindowHeight, mapAssetWidth, mapAssetHeight, mapMaxZoomMultiplier );
-	var mapMaxZoom = Math.log10( mapMaxZoomMultiplier ) / Math.log10 ( 2 );
+function buildMap( m, labelAsset, layers, layerAttribs, sidebar ) {
+//	var m.mapWindowWidth = 400;
+//	var m.mapWindowHeight = Math.floor( mapWindowWidth / mapAssetWidth * mapAssetHeight );
+	m.mapWindowWidth = Math.min( m.mapAssetWidth * m.mapMaxZoomMultiplier, window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth );
+	m.mapWindowHeight = Math.min( m.mapAssetHeight * m.mapMaxZoomMultiplier, window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight );
+	m.mapMinZoom = calcMapMinZoom( m.mapWindowWidth, m.mapWindowHeight, m.mapAssetWidth, m.mapAssetHeight, m.mapMaxZoomMultiplier );
+	m.mapMaxZoom = Math.log10( m.mapMaxZoomMultiplier ) / Math.log10 ( 2 );
 
 	// set html dom elements
 	document.title = "Map of " + layerAttribs.name[0];
-	document.getElementById( "map" ).style.width = mapWindowWidth + "px";
-	document.getElementById( "map" ).style.height = mapWindowHeight + "px";
+	document.getElementById( "map" ).style.width = m.mapWindowWidth + "px";
+	document.getElementById( "map" ).style.height = m.mapWindowHeight + "px";
 	
 	// initialize main map
 	var landmap = L.tileLayer( "", { id: "mapbox.land" } );
-	var bounds = [[0, 0], [mapAssetHeight, mapAssetWidth]];
+	m.bounds = [[0, 0], [m.mapAssetHeight, m.mapAssetWidth]];
 	var map = L.map( "map", {
-		minZoom: mapMinZoom,
-		maxZoom: mapMaxZoom,
+		minZoom: m.mapMinZoom,
+		maxZoom: m.mapMaxZoom,
 		zoomSnap: 0.05,
-		maxBounds: bounds,
+		maxBounds: m.bounds,
 		maxBoundsViscosity: 1.0,
 		crs: L.CRS.Simple,
 		// disabled due to leaflet-textpath using canvas incompatible svg method
@@ -616,32 +582,32 @@ function buildMap(
 		attributionControl: false
 	} );
 	// not yet tiling base map images in this implementation version
-	var image = L.imageOverlay( mapAsset, bounds ).addTo( map );
+	var image = L.imageOverlay( m.mapAsset, m.bounds ).addTo( map );
 	var labelsPane = map.createPane( "labels" );
 	labelsPane.style.zIndex = 401;
-	var svg = L.svgOverlay( labelAsset, bounds, { pane: "labels", interactive: false } ).addTo( map );
+	var svg = L.svgOverlay( labelAsset, m.bounds, { pane: "labels", interactive: false } ).addTo( map );
 
 	// fit map
-	map.fitBounds( bounds );
+	map.fitBounds( m.bounds );
 
 	// do the rest only when map is ready
 	map.whenReady( function() {
 		// add attribution
-		var mapAttrString = '';
+		m.mapAttrString = '';
 		var mapAttr = L.control.attribution( { prefix: true } ).setPosition( "bottomleft" ).setPrefix("");
 
-		if( mapWindowWidth > 850 ) { mapAttr.setPrefix( "" ); }
-		else { mapAttr.setPrefix( unitsPerGrid + unitName + " per grid unit" ) };
+		if( m.mapWindowWidth > 850 ) { mapAttr.setPrefix( "" ); }
+		else { mapAttr.setPrefix( m.unitsPerGrid + m.unitName + " per grid unit" ) };
 
-		if( mapAttribution.length ) {
-			mapAttrString += 'Map by ';
-			if( mapAttributionUrl.length ) { mapAttrString += '<a href ="' + mapAttributionUrl + '" target="_blank">'; }
-			mapAttrString += mapAttribution;
-			if( mapAttributionUrl.length ) { mapAttrString += '</a>'; }
+		if( m.mapAttribution.length ) {
+			m.mapAttrString += 'Map by ';
+			if( m.mapAttributionUrl.length ) { m.mapAttrString += '<a href ="' + m.mapAttributionUrl + '" target="_blank">'; }
+			m.mapAttrString += m.mapAttribution;
+			if( m.mapAttributionUrl.length ) { m.mapAttrString += '</a>'; }
 		}
-		mapAttr.addAttribution( mapAttrString );
+		mapAttr.addAttribution( m.mapAttrString );
 
-		if( mapWindowWidth <= 850 || mapAttribution.length ) { mapAttr.addTo( map ); }
+		if( m.mapWindowWidth <= 850 || m.mapAttribution.length ) { mapAttr.addTo( map ); }
 
 		// override visibility if specified in Url
 		var options = getUrlParams();
@@ -685,35 +651,35 @@ function buildMap(
 
 		// add graphicScale
 		// see changes by Das123 @ https://gis.stackexchange.com/questions/151745/leafletjs-how-to-set-custom-map-scale-for-a-flat-image-map-crs-simple
-		var unitScale = unitsAcross * mapWindowWidth / ( mapAssetWidth * mapMaxZoomMultiplier ); // x units per 1000 pixels at max zoom. Metres is default. Has's note - how many units will the map scale within its window at max zoom?, or # of units covered by window width at max zoom
-		var scaleTextHtml = parse( "# " + ( ( mapNameZh.length ) ? mapNameZh + " /// " : "" ) + layerAttribs.name[0] + "\n" + unitsPerGrid + unitName + " per grid unit" );
+		m.unitScale = m.unitsAcross * m.mapWindowWidth / ( m.mapAssetWidth * m.mapMaxZoomMultiplier ); // x units per 1000 pixels at max zoom. Metres is default. Has's note - how many units will the map scale within its window at max zoom?, or # of units covered by window width at max zoom
+		m.scaleTextHtml = parse( "# " + ( ( m.mapNameZh.length ) ? m.mapNameZh + " /// " : "" ) + layerAttribs.name[0] + "\n" + m.unitsPerGrid + m.unitName + " per grid unit" );
 		var graphicScale = new L.control.graphicScale( {
 			doubleLine: true,
 			fill: "hollow",
 			showSubunits: true,
-			minUnitWidth: Math.min( 80, mapWindowWidth * 0.1 ), // recommended 30
-			maxUnitsWidth: Math.min( 300, mapWindowWidth * 0.5 ), // recommended 240
-			unitsPer1000px: unitScale, // x units per 1000 pixels at max zoom. Metres is default. Has's note - how many units will the map scale within its window at max zoom?, or # of units covered by window width at max zoom
-			scaleUnit: unitName // override with your own unit designation. null is default and will revert to m / km
+			minUnitWidth: Math.min( 80, m.mapWindowWidth * 0.1 ), // recommended 30
+			maxUnitsWidth: Math.min( 300, m.mapWindowWidth * 0.5 ), // recommended 240
+			unitsPer1000px: m.unitScale, // x units per 1000 pixels at max zoom. Metres is default. Has's note - how many units will the map scale within its window at max zoom?, or # of units covered by window width at max zoom
+			scaleUnit: m.unitName // override with your own unit designation. null is default and will revert to m / km
 		} );
 
-		if( mapWindowWidth > 850 ) {
+		if( m.mapWindowWidth > 850 ) {
 			graphicScale.addTo( map );
 
 			var scaleText = L.DomUtil.create( "div", "scaleText" );
 			graphicScale._container.insertBefore( scaleText, graphicScale._container.firstChild );
-			scaleText.innerHTML = scaleTextHtml;
+			scaleText.innerHTML = m.scaleTextHtml;
 		}
 
 		// add hex or square grid
-		loadTurfGrid( map, mapAssetWidth, mapAssetHeight, unitsAcross, unitsPerGrid, gridType );
+		loadTurfGrid( map, m.mapAssetWidth, m.mapAssetHeight, m.unitsAcross, m.unitsPerGrid, m.gridType, m.gridColor, m.gridOpacity );
 
 		// zoom and pan to region
 		//	map.flyTo( regionCenter, calcMapPanZoom( mapWindowWidth, mapWindowHeight, regionWidth, regionHeight, mapMaxZoomMultiplier ) );
 		// flyToBounds() is much nicer
-		if( regionBounds.length ) {
+		if( m.regionBounds.length ) {
 			map.whenReady( function () {
-				map.flyToBounds( regionBounds, { maxZoom: mapMaxZoom } );
+				map.flyToBounds( m.regionBounds, { maxZoom: m.mapMaxZoom } );
 			} );
 		}
 
@@ -724,11 +690,11 @@ function buildMap(
 			sidebar.close();
 			setSidebarInfo();
 
-			if ( modeCartograph == true ) {
-				var clipText = 'positionY="' + Math.round((e.latlng.lat + Number.EPSILON) * 100) / 100 + '" positionX="' + Math.round((e.latlng.lng + Number.EPSILON) * 100) / 100 + '"';
+			if ( m.modeCartograph == true ) {
+				var clipText = 'positionY="' + Math.round( ( e.latlng.lat + Number.EPSILON ) * 100 ) / 100 + '" positionX="' + Math.round( ( e.latlng.lng + Number.EPSILON ) * 100 ) / 100 + '"';
 				
 				navigator.clipboard.writeText( clipText ).then( function( ) {
-					console.log( "Copied:" + clipText.replace( /position/g, "") );
+					console.log( "Copied:" + clipText.replace( /position/g, "" ) );
 				}, function( err ) {
 					console.error( "Copy unsuccessful: ", err );
 				});
@@ -743,7 +709,7 @@ function buildMap(
 				.openOn( map );
 		}
 
-		if ( modeCartograph == true ) {
+		if ( m.modeCartograph == true ) {
 			map.on( "mouseover mousemove", onMapOver );
 			map.on( "mouseout", function( event ){ map.closePopup() } );
 		}
@@ -758,11 +724,11 @@ function buildMap(
 			var zoomOldMultiplier = Math.pow( 2, zoomOld );
 			
 			// get the width and height of the screen after the resize event
-			var widthNew = Math.min( mapAssetWidth * mapMaxZoomMultiplier, ( window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth ) );
-			var heightNew = Math.min( mapAssetHeight * mapMaxZoomMultiplier, ( window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight ) );
+			var widthNew = Math.min( m.mapAssetWidth * m.mapMaxZoomMultiplier, ( window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth ) );
+			var heightNew = Math.min( m.mapAssetHeight * m.mapMaxZoomMultiplier, ( window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight ) );
 			var boundsNew = [[0, 0], [heightNew, widthNew]];
-			var minZoomNew = calcMapMinZoom( widthNew, heightNew, mapAssetWidth, mapAssetHeight, mapMaxZoomMultiplier );
-			var unitScaleNew = unitsAcross * widthNew / ( mapAssetWidth * mapMaxZoomMultiplier );
+			var minZoomNew = calcMapMinZoom( widthNew, heightNew, m.mapAssetWidth, m.mapAssetHeight, m.mapMaxZoomMultiplier );
+			var unitScaleNew = m.unitsAcross * widthNew / ( m.mapAssetWidth * m.mapMaxZoomMultiplier );
 			
 			// set new window width and minZoom
 			map.setMinZoom( minZoomNew );
@@ -778,8 +744,8 @@ function buildMap(
 			// fix attribution
 			mapAttr.remove();
 			if( widthNew > 850 ) { mapAttr.setPrefix( "" ); }
-			else { mapAttr.setPrefix( unitsPerGrid + unitName + " per grid unit" ); }
-			if( widthNew <= 850 || mapAttribution.length ) { mapAttr.addTo( map ); }
+			else { mapAttr.setPrefix( m.unitsPerGrid + m.unitName + " per grid unit" ); }
+			if( widthNew <= 850 || m.mapAttribution.length ) { mapAttr.addTo( map ); }
 
 			// fix scale
 			graphicScale.remove();
@@ -790,7 +756,7 @@ function buildMap(
 				graphicScale.addTo( map );
 				var scaleText = L.DomUtil.create( "div", "scaleText" );
 				graphicScale._container.insertBefore( scaleText, graphicScale._container.firstChild );
-				scaleText.innerHTML = scaleTextHtml;
+				scaleText.innerHTML = m.scaleTextHtml;
 			}
 		};
 
@@ -816,17 +782,19 @@ function buildMap(
 }
 
 // hex grid
-function loadTurfGrid( map, mapAssetWidth, mapAssetHeight, unitsAcross, unitsPerGrid, gridType ) {
-	var gridExtent = Math.max( mapAssetWidth, mapAssetHeight );
+function loadTurfGrid( map, mapAssetWidth, mapAssetHeight, unitsAcross, unitsPerGrid, gridType, gridColor, gridOpacity ) {
+	var c = getColors();
 	var gridCellSide = mapAssetWidth * unitsPerGrid / unitsAcross / 2;
-	var bbox = [-2 * gridCellSide, -2 * gridCellSide, gridExtent + 2 * gridCellSide, gridExtent + 2 * gridCellSide];
+//	var bbox = [-2 * gridCellSide, -2 * gridCellSide, mapAssetWidth + 2 * gridCellSide, mapAssetHeight + 2 * gridCellSide];
+	var bbox = [0, 0, mapAssetWidth + 2 * gridCellSide, mapAssetHeight + 2 * gridCellSide];
 	var geojson = ( gridType == "hex" ) ? turf.hexGrid( bbox, gridCellSide, { options: { units: "miles" } } ) : turf.squareGrid( bbox, gridCellSide, { options: { units: "miles" } } );
+
 	var gridLayer = L.geoJson( geojson, {
 		style: {
 			weight: 3,
 			fillOpacity: 0,
-			color: '#000000',
-			opacity: 0.075,
+			color: c[gridColor],
+			opacity: gridOpacity,
 			interactive: false
 		}
 	} );
@@ -1106,17 +1074,14 @@ function LightenDarkenColor( col, amt ) {
 	var num = parseInt( col, 16 );
 
 	var r = ( num >> 16 ) + amt;
-
 	if ( r > 255 ) r = 255;
 	else if( r < 0 ) r = 0;
 
 	var b = ( ( num >> 8 ) & 0x00FF ) + amt;
-
 	if( b > 255 ) b = 255;
 	else if( b < 0 ) b = 0;
 
 	var g = ( num & 0x0000FF ) + amt;
-
 	if ( g > 255 ) g = 255;
 	else if  ( g < 0 ) g = 0;
 
