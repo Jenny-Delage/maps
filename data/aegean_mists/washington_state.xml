@@ -13,7 +13,7 @@
 		gridType="hex"
 	/>
 	<regions>
-		<region name="rainier_triangle" south="1534.57" west="614.37" north="2719.63" east="2606.72" />
+		<region label="Rainier Triangle" south="1534.57" west="614.37" north="2719.63" east="2606.72" />
 	</regions>
 	<layers>
 		<layer name="Washington State" type="basemap" visibility="true" color="" />
