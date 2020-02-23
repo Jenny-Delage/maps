@@ -28,7 +28,7 @@
 	<nodes>
 		<node group="0" label="Xie Lair Entrance" positionY="1971.33" positionX="1577.33" shape="shield-large" symbol="dungeon" staticLabel="true">
 			<popup>
-				<![CDATA[Close to the location of __Xie Jia__'s murder is a boathouse owned by __Xie__ clan. Inside, a secret entrance is hidden behind a thick wooden wall panel and barred by powerful magic.]]>
+				<![CDATA[Close to the location of __Xie Jia__'s murder is a boathouse owned by __[[Xie|xiemanor]]__ clan. Inside, a secret entrance is hidden behind a thick wooden wall panel and barred by powerful magic.]]>
 			</popup>
 		</node>
 		<node group="0" label="Xie Jia's Murder" positionY="2006" positionX="1618" shape="pin-large" symbol="skull-crossbones" image="https://i.imgur.com/53YeKgV.jpg" staticLabel="false">
@@ -62,12 +62,12 @@
 		</node>
 		<node group="0" label="Xie Manor" positionY="2086" positionX="1230" shape="shield-large" symbol="vihara" staticLabel="true">
 			<popup>
-				<![CDATA[Main residence of the __Xie__ clan. Here the Knights of Schedule visit __Xie Jo Jia__, __Xie Jia__'s son and successor. The atmosphere inside the mansion gives off strange vibes - silver, preserved skulls; gothic artwork; grotesque poses; a black table with a reflecting surface like a mirror. Xie Jo Jia abandons this manor after Xie Jia is found mysteriously alive in the lair beneath __Xie boathouse__.]]>
+				<![CDATA[Main residence of the __Xie__ clan. Here the Knights of Schedule visit __Xie Jo Jia__, __Xie Jia__'s son and  successor. The atmosphere inside the mansion gives off strange vibes - silver, preserved skulls; gothic artwork; grotesque poses; a black table with a reflecting surface like a mirror. Xie Jo Jia abandons this manor after Xie Jia is found mysteriously alive in the lair beneath __Xie boathouse__.]]>
 			</popup>
 		</node>
 		<node group="0" label="Naval Academy" positionY="2370.67" positionX="1420" shape="shield-large" symbol="anchor" staticLabel="true">
 			<popup>
-				<![CDATA[Though __Gankou__ clan controls the city administration, the Naval Academy is under the control of __Xie__ clan.]]>
+				<![CDATA[Though __Gankou__ clan controls the city administration, the Naval Academy is under the control of __[[Xie|xiemanor]]__ clan.]]>
 			</popup>
 		</node>
 		<node group="0" label="Sewer Entrance" positionY="1982" positionX="1332" shape="pin-small" symbol="eyeball" staticLabel="false">

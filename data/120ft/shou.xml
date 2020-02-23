@@ -14,6 +14,15 @@
 		mapAttribution="Mark Taylor"
 		mapAttributionUrl="https://www.deviantart.com/markustay"
 	/>
+	<regions>
+		<region label="Pyint'sien Locality" id="pyintsien" south="3624.51" west="1110.63" north="4273.8" east="1851.77" />
+		<region label="Chukei" south="3876.53" west="508.33" north="4963.67" east="1858.17" />
+		<region label="Kozakura" south="3872.26" west="3152.49" north="4408.36" east="3810.32" />
+		<region label="Koryo" south="4325.06" west="3299.86" north="5145.22" east="3816.73" />
+		<region label="Wai" south="1503.63" west="2018.36" north="2462.61" east="3041.42" />
+		<region label="Bashan Do" south="1185.39" west="2031.18" north="1977.78" east="3028.61" />
+		<region label="Laothan" south="1208.88" west="2975.21" north="2071.76" east="3867.99" />
+	</regions>
 	<layers>
 		<layer name="Shou" type="basemap" visibility="true" color="" />
 		<layer name="Locations" type="overlay" visibility="true" color="brown" />
@@ -29,7 +38,7 @@
 	<nodes>
 		<node group="0" label="Shanlu" positionY="4448" positionX="1448" shape="circle-large" symbol="wheats" image="https://i.imgur.com/6r4pJ2U.jpg" staticLabel="true">
 			<sidebar>
-				<![CDATA[Black Chao was raised in the farming village of 山麓 /// Shanlu. It is situated in the foothills of the Pazruki mountain range which culminates in eastern Chukei. Shanlu produces rice, wheat, millet, and livestock which are taken south via Kuang Chu Road for trade and tribute.
+				<![CDATA[Black Chao was raised in the farming village of 山麓 /// Shanlu. It is situated in the foothills of the Pazruki mountain range which culminates in eastern @[[Chukei]]. Shanlu produces rice, wheat, millet, and livestock which are taken south via Kuang Chu Road for trade and tribute.
 
 				![Xero](https://i.imgur.com/zwotpfS.jpg)
 				## 芷若 /// Li Zhi Ruo (Xero)
@@ -47,7 +56,7 @@
 		</node>
 		<node group="0" label="Night Tigers Barracks" positionY="2048" positionX="2147" shape="flag-large" symbol="tiger-head" image="https://i.imgur.com/zYvvAK7.jpg" staticLabel="true">
 			<sidebar>
-				<![CDATA[The 暗夜之虎 /// Night Tigers is a company of soldiers of the Shou government, reporting to a 剑圣 /// *jiàn shèng* named Chao Ping. Their barracks are on a promontory overlooking the cliffs that descend into Wai.]]>
+				<![CDATA[The 暗夜之虎 /// Night Tigers is a company of soldiers of the Shou government, reporting to a 剑圣 /// *jiàn shèng* named Chao Ping. Their barracks are on a promontory overlooking the cliffs that descend into [[Wai]].]]>
 			</sidebar>
 			<attributions>
 				<attribution name="David Benzal" url="https://www.artstation.com/davidbenzal" />
@@ -55,8 +64,8 @@
 		</node>
 		<node group="0" label="Yu Tai Shuni" positionY="3842" positionX="1480" shape="circle-large" symbol="anchor" image="https://i.imgur.com/t41c4Az.jpg" staticLabel="false">
 			<sidebar>
-				<![CDATA[A port town under the control of __Gankou__ and __Xie__ clans. The Knights of Schedule expose the corruption of Xie clan, undeath and vampirism, and pursue __Xie Jo Jia__ who is en route to Linshung where Princess Orihime is being taken.
-				[Click to see city map.](./index.html?campaign=120ft&map=yu_tai_shuni)]]>
+				<![CDATA[A port town under the control of __Gankou__ and __[[Xie|xiemanor]](yu_tai_shuni)__ clans. The Knights of Schedule expose the corruption of Xie clan, undeath and vampirism, and pursue __Xie Jo Jia__ who is en route to Linshung where Princess Orihime is being taken.
+				[Click to see city map.](./?campaign=120ft&map=yu_tai_shuni)]]>
 			</sidebar>
 			<attributions>
 				<attribution name="John Stevenson" url="https://www.artstation.com/johnstevenson" />
@@ -64,8 +73,8 @@
 		</node>
 		<node group="0" label="Minlow" positionY="3685" positionX="1213" shape="circle-large" symbol="steam" image="https://i.imgur.com/MekxHe7.jpg" staticLabel="false">
 			<sidebar>
-				<![CDATA[Minlow is a resort city known as the "hot springs city". Minlow’s proximity to rice paddy fields makes rice wine abundant here. A famous __Green Mansion__ named __Petal's View__ is located here. The headquarters of __Ministry of Spirituality and Preservation__ is also located here.
-				[Click to see city map.](./index.html?campaign=120ft&map=minlow)]]>
+				<![CDATA[Minlow is a resort city known as the "hot springs city". Minlow's proximity to rice paddy fields makes rice wine abundant here. A famous __Green Mansion__ named __[[Petal's View]](minlow)__ is located here. The headquarters of __[[Ministry of Spirituality & Preservation]](minlow)__ is also located here.
+				[Click to see city map.](./?campaign=120ft&map=minlow)]]>
 			</sidebar>
 			<attributions>
 				<attribution name="Ricky Lee" url="https://www.artstation.com/moudaye" />
@@ -73,7 +82,7 @@
 		</node>
 		<node group="0" label="Tai Tung" positionY="3282" positionX="1450" shape="circle-large" symbol="torii-gate" staticLabel="false">
 			<popup>
-				<![CDATA[Tai Tung was once the capital of Shou, in old times. It is the city that never sleeps. Information, goods, entertainment, back room deals, all such can be found here. Tai Tung is a hub for seedier goods and services. Humans are not as dominant in Tai Tung as the rest of Shou. The mayor has a deal with the Shou government that no birds are allowed within city limits. There is an amusement park here.]]>
+				<![CDATA[Tai Tung was once the capital of Shou, in old times. It is the city that never sleeps. Information, goods, entertainment, back room deals, all such can be found here. Tai Tung is a hub for seedier goods and services. Humans are not as dominant in Tai Tung as the rest of Shou. The mayor has a deal with the Shou government that no state controlled birds are allowed within city limits. There is an amusement park here.]]>
 			</popup>
 		</node>
 		<node group="0" label="Linshung" positionY="3057" positionX="1581" shape="circle-large" symbol="manacles" staticLabel="false">
@@ -88,7 +97,7 @@
 		</node>
 		<node group="1" label="Hanwei Lee-Ung" positionY="3759" positionX="1941" shape="pin-large" symbol="sea-dragon" image="https://i.imgur.com/ul1vuKk.jpg" staticLabel="false">
 			<sidebar>
-				<![CDATA[The great sea dragon Hanwei Lee-Ung is blockading the waters by Yu Tai Shuni, as retribution for the kidnapping of his granddaughter __Orihime__.]]>
+				<![CDATA[The great sea dragon Hanwei Lee-Ung is blockading the waters by [[Yu Tai Shuni]], as retribution for the kidnapping of his granddaughter __Orihime__.]]>
 			</sidebar>
 			<attributions>
 				<attribution name="Houwai Leung" url="https://www.artstation.com/leunghouwai" />
@@ -159,7 +168,7 @@
 			<waypoint label="Jo Jia Chase route 1" waypoint="true" positionY="3691" positionX="1516" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="Xie Jo Jia's Caravan" waypoint="true" positionY="3451" positionX="1514" shape="pin-large" symbol="wagon-covered" staticLabel="false">
 				<popup>
-					<![CDATA[Xie Jo Jia has escaped Yu Tai Shuni and the Knights of Schedule chase him down to bring him to justice and save Princess Orehime. A *chain lightning* spell from Lythara irrevocably turns Jo Jia to ash, preventing the Knights from questioning him further.]]>
+					<![CDATA[Xie Jo Jia has escaped [[Yu Tai Shuni]] and the Knights of Schedule chase him down to bring him to justice and save Princess Orehime. A *chain lightning* spell from Lythara irrevocably turns Jo Jia to ash, preventing the Knights from questioning him further.]]>
 				</popup>
 			</waypoint>
 		</path>

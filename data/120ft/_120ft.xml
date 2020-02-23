@@ -16,9 +16,10 @@
 		<xlink type="roll20" url="https://app.roll20.net/campaigns/details/4137230/kara-tur" />
 		<xlink type="gdrive" url="https://docs.google.com/document/d/1gE57c2e92r-P2-sYIbAXXWRldoVXiHq0RWics4fsyb8/edit?usp=sharing" />
 	</xlinks>
-	<mlinks image="" imageAttribution="" imageAttributionUrl="">
-		<mlink name="Shou" type="world" url="shou" />
-		<mlink name="Yu Tai Shuni, a port town" type="city" url="yu_tai_shuni" />
-		<mlink name='Minlow, the "hot springs" city' type="city" url="minlow" />
-	</mlinks>
+	<xmaps image="" imageAttribution="" imageAttributionUrl="">
+		<xmap name="Shou" type="world" url="shou" />
+		<xmap name='Minlow, the "hot springs" city' type="city" url="minlow" />
+		<xmap name='Tai Tung' type="city" url="tai_tung" />
+		<xmap name="Yu Tai Shuni, a port town" type="city" url="yu_tai_shuni" />
+	</xmaps>
 </data>

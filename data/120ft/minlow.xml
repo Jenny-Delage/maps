@@ -22,7 +22,7 @@
 		<label positionY="1718" positionX="365">
 			<text><![CDATA[# Minlow]]></text>
 		</label>
-		<label positionY="1668" positionX="365">
+		<label positionY="1658" positionX="365">
 			<text><![CDATA[### "Hot Springs City"]]></text>
 		</label>
 	</labels>
@@ -31,7 +31,7 @@
 		<node group="0" label="Branch of Ch'ing Tung River" positionY="2161.08" positionX="1632.4" shape="none" symbol="" image="https://i.imgur.com/URatlz1.jpg" staticLabel="true" rotateLabel="358" />
 		<node group="0" label="Festival Square" positionY="1150" positionX="1608.67" shape="pin-large" symbol="water-fountain" image="https://i.imgur.com/URatlz1.jpg" staticLabel="true">
 			<sidebar>
-				<![CDATA[Minlow's center square is crowded during the daytime, and has an open market. This is where the Festival will be held. New Moon’s festival, like New Year's, is celebrated on 18th day of first month, lasting fifteen days. First nine days are special with respect paid to ancestors. Fourth day involves prayers to ward off evil spirits.]]>
+				<![CDATA[Minlow's center square is crowded during the daytime, and has an open market. This is where the Festival will be held. New Moon's festival, like New Year's, is celebrated on 18th day of first month, lasting fifteen days. First nine days are special with respect paid to ancestors. Fourth day involves prayers to ward off evil spirits.]]>
 			</sidebar>
 			<attributions>
 				<attribution name="Andreas Rocha" url="https://www.artstation.com/andreasrocha" />
@@ -63,7 +63,7 @@
 
 				Just inside the entrace, men and women in nature-themed bath robes patterned with flowers, trees, and autumn colors. A short-haired plain female receptionist is looking through books, noting down names.
 
-				Lythara's contact, named __Shager__, is a particularly charismatic korobokuru and the head courtesan of the __Petal’s View__, a Mansion with many patrons. The Knights meet Shager and are told of a contact at the Aviary who can help Chao reach out to Red Rat. Shager also provides an underground contact in __Linshung__.]]>
+				Lythara's contact, named __Shager__, is a particularly charismatic korobokuru and the head courtesan of the __Petal’s View__, a Mansion with many patrons. The Knights meet Shager and are told of a contact at the Aviary who can help Chao reach out to __Red Rat__. Shager also provides an underground contact in __Linshung__.]]>
 			</sidebar>
 			<attributions>
 				<attribution name="foald eleven" url="https://www.artstation.com/foaldeleven" />
