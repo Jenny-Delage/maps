@@ -32,7 +32,7 @@
 		<node group="0" label="鹈 Tí Road" positionY="1767.19" positionX="244.49" shape="none" symbol="" staticLabel="true" rotateLabel="6.5" />
 		<node group="0" label="Precinct" positionY="1439.81" positionX="1926.27" shape="shield-large" symbol="ra-knight-helmet" image="https://i.imgur.com/LUfljIz.jpg" staticLabel="true">
 			<sidebar>
-				<![CDATA[缅 /// Mian government sentries are posted at Sanjiazi since the incursion event two years ago.]]>
+				<![CDATA[缅 /// Mian government sentries are posted at Sanjiazi since the [[incursion event|sanjiaziplaza]] two years ago.]]>
 			</sidebar>
 			<attributions>
 				<attribution name="Jia How" url="https://www.artstation.com/jiahow" />
@@ -45,12 +45,12 @@
 		</node>
 		<node group="0" label="Narrows" positionY="1194.92" positionX="1094.64" shape="pin-large" symbol="home-lg-alt" staticLabel="true">
 			<popup>
-				<![CDATA[Many in Sanjiazi were affected negatively by the incursion two years ago. Poverty is common and is accompanied by opium use, crime, and sex trade. Most of the survivors of Vex's slaughter at the Plaza, Sanjiazi's original people, live in the Narrows.]]>
+				<![CDATA[Many in Sanjiazi were affected negatively by the [[incursion|sanjiaziplaza]] two years ago. Poverty is common and is accompanied by opium use, crime, and sex trade. Most of the survivors of Vex's slaughter at the Plaza, Sanjiazi's original people, live in the Narrows.]]>
 			</popup>
 		</node>
 		<node group="0" label="ZYZ Safe House" positionY="1368.73" positionX="2053.89" shape="pin-large" symbol="mask" image="https://i.imgur.com/pwk5mZE.jpg" staticLabel="true">
 			<sidebar>
-				<![CDATA[A new criminal element has entered Sanjiazi following the tragedy of the incursion. 在阴影中 /// Zài Yinying Zhong (meaning "in the shadows"), or ZYZ operate in plain sight of the precinct. Bribery, forgery, and petty crimes are their typical *modus operandi*.]]>
+				<![CDATA[A new criminal element has entered Sanjiazi following the tragedy of the [[incursion|sanjiaziplaza]]. 在阴影中 /// Zài Yinying Zhong (meaning "in the shadows"), or ZYZ operate in plain sight of the precinct. Bribery, forgery, and petty crimes are their typical *modus operandi*.]]>
 			</sidebar>
 			<attributions>
 				<attribution name="Hugh Pindur" url="https://www.artstation.com/pindurski" />
@@ -58,7 +58,7 @@
 		</node>
 		<node group="0" label="Fenghuang Tower" positionY="982.73" positionX="1015.15" shape="pin-large" symbol="wizard-staff" image="https://i.imgur.com/hH4Qx5q.jpg" staticLabel="true">
 			<sidebar>
-				<![CDATA[凤凰 /// Fenghuang (meaning "phoenix") is a 缅 /// Mian government shadow order of sorcery. They have established a quiet presence in Sanjiazi since the incursion. The tower is rarely approached by locals.]]>
+				<![CDATA[凤凰 /// Fenghuang (meaning "phoenix") is a 缅 /// Mian government shadow order of sorcery. They have established a quiet presence in Sanjiazi since the [[incursion|sanjiaziplaza]]. The tower is rarely approached by locals.]]>
 			</sidebar>
 			<attributions>
 				<attribution name="Jun Osone / 大曽根純" url="https://www.artstation.com/osonejun" />
@@ -75,7 +75,7 @@
 		</node>
 		<node group="1" label="Fang Citadel" positionY="1477.26" positionX="1818.15" shape="shield-large" symbol="ra-tower-demolish" staticLabel="true">
 			<popup>
-				<![CDATA[Sanjiazi used to be a summer residence for ennobled 方 /// Fangs (at best indirect relation to Fang Ro's bloodline). Vex and his marauders destroyed the citadel during the incursion and executed any Fangs barricaded inside. The citadel was never rebuilt, and the Fangs never returned to Sanjiazi.]]>
+				<![CDATA[Sanjiazi used to be a summer residence for ennobled 方 /// Fangs (at best indirect relation to Fang Ro's bloodline). Vex and his marauders destroyed the citadel during the [[incursion|sanjiaziplaza]] and executed any Fangs barricaded inside. The citadel was never rebuilt, and the Fangs never returned to Sanjiazi.]]>
 			</popup>
 		</node>
 		<node group="2" label="Pan Chicken Farm" positionY="549.28" positionX="2709.26" shape="pin-large" symbol="rooster" staticLabel="true">
