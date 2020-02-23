@@ -1,25 +1,22 @@
+// Code by ghybs
+// See https://stackoverflow.com/questions/45412056/find-leaflet-map-object-after-initialisation/45435508#45435508
+// Before map(s) is(are) being initialized
+var maps = [];
+var layers = [];
+var regions = {};
+var mLinksList = {};
+
+L.Map.addInitHook( function () {
+	maps.push( this ); // Using the map array (maps) global scope variable
+} );
+
 window.addEventListener( "load", function() {
-// get params
-function getUrlParams() {
-    var params = window.location.search.substring( 1 ).split( "&" );
-    var options = {};
-    for ( var i in params ) {
-		if ( params.hasOwnProperty( i ) ) {
-			var keyvalue = params[i].toLowerCase().split( "=" );
-			options[keyvalue[0]] = decodeURI( keyvalue[1] );
-		}
-    }
-
-    return options;
-}
-
 /* Layers */		
 function mapDataArray() {
 	var group = 0;
 	var n = 0;
 	var options = getUrlParams();
 	var chapters = ( options.chapter ) ? options.chapter.toLowerCase().split( "|" ) : [];
-	var region = ( options.region ) ? options.region.toLowerCase() : "";
 
 	var fileMap = "./data/" + ( ( options.campaign ) ? options.campaign.toLowerCase() + "/" : "" ) + ( ( options.map ) ? options.map.toLowerCase() + ".xml" : "" );
 	var loadXmlMapData = new XMLHttpRequest();
@@ -65,7 +62,7 @@ function mapDataArray() {
 							color: nodeXml[i].getAttribute( "color" ) ? nodeXml[i].getAttribute( "color" ) : "",
 							image: nodeXml[i].getAttribute( "image" ) ? nodeXml[i].getAttribute( "image" ) : "",
 							staticLabel: ( nodeXml[i].getAttribute( "staticLabel" ) == "true" ),
-							rotateLabel: nodeXml[i].getAttribute( "rotateLabel" ) ? parseFloat( nodeXml[i].getAttribute( "rotateLabel" ) ) : 0.0,
+							rotateLabel: nodeXml[i].getAttribute( "rotateLabel" ) ? ( -1 * parseFloat( nodeXml[i].getAttribute( "rotateLabel" ) ) ) : 0.0,
 							popup: getOptionalContent( nodeXml[i], "popup" ),
 							sidebar: getOptionalContent( nodeXml[i], "sidebar" ),
 							footnote: getOptionalContent( nodeXml[i], "footnote" ),
@@ -104,9 +101,10 @@ function mapDataArray() {
 							route: pathXml[i].getAttribute( "route" ) ? pathXml[i].getAttribute( "route" ) : "",
 							style: pathXml[i].getAttribute( "style" ) ? pathXml[i].getAttribute( "style" ) : "normal solid",
 							decoration: pathXml[i].getAttribute( "decoration" ) ? pathXml[i].getAttribute( "decoration" ) : "",
-							isPolygon: ( pathXml[i].getAttribute( "isPolygon" ) == "true" ),
-							symbol: pathXml[i].getAttribute( "symbol" ) ? pathXml[i].getAttribute( "symbol" ) : "",
 							color: pathXml[i].getAttribute( "color" ) ? pathXml[i].getAttribute( "color" ) : "",
+							isPolygon: ( pathXml[i].getAttribute( "isPolygon" ) == "true" ),
+							polyColor: pathXml[i].getAttribute( "polyColor" ) ? pathXml[i].getAttribute( "polyColor" ) : "",
+							symbol: pathXml[i].getAttribute( "symbol" ) ? pathXml[i].getAttribute( "symbol" ) : "",
 							symbolSize: parseInt( pathXml[i].getAttribute( "symbolSizePx" ) ),
 							symLocationY: parseFloat( pathXml[i].getAttribute( "symLocationY" ) ),
 							symLocationX: parseFloat( pathXml[i].getAttribute( "symLocationX" ) ),
@@ -126,7 +124,7 @@ function mapDataArray() {
 								color: waypointXml[p].getAttribute( "color" ) ? waypointXml[p].getAttribute( "color" ) : "",
 								image: waypointXml[p].getAttribute( "image" ) ? waypointXml[p].getAttribute( "image" ) : "",
 								staticLabel: ( waypointXml[p].getAttribute( "staticLabel" ) == "true" ),
-								rotateLabel: waypointXml[p].getAttribute( "rotateLabel" ) ? parseFloat( waypointXml[p].getAttribute( "rotateLabel" ) ) : 0.0,
+								rotateLabel: waypointXml[p].getAttribute( "rotateLabel" ) ? ( -1 * parseFloat( waypointXml[p].getAttribute( "rotateLabel" ) ) ) : 0.0,
 								popup: getOptionalContent( waypointXml[p], "popup" ),
 								sidebar: getOptionalContent( waypointXml[p], "sidebar" ),
 								footnote: getOptionalContent( waypointXml[p], "footnote" ),
@@ -154,9 +152,14 @@ function mapDataArray() {
 			// add sidebar because we will need it to add marker onClick event
 			var sidebar = buildSidebar();
 
-			// ready to build layers
-			var layers = new Array();
-			layers = buildLayers( layerAttribs.color, sidebar, nodes, paths );
+			// ready to build layers & xlinks
+			// the function below will fill "layers" array
+			// note: layers is a global variable
+			buildLayers( layerAttribs.color, sidebar, nodes, paths );
+
+			// set sidebar content, including mlinks from mLinksList we created while building layers
+			// note: mLinksList is a global variable
+			setSidebarContent();
 
 			// get map attributes
 			var mapAttribs = new Array();
@@ -183,20 +186,25 @@ function mapDataArray() {
 			if( window.location.hostname == "localhost" && mapAttribsXml[0].getAttribute( "mapAssetLocal" ) ) { console.log( "Using local basemap: " + mapAttribsXml[0].getAttribute( "mapAssetLocal" ) ); }
 
 			// get regions and set desired region, if specified
+			var region = ( options.region ) ? options.region.toLowerCase() : "";
+			var regionId;
 			var regionXml = mapXml.getElementsByTagName( "region" );
-			var regions = new Array();
+
 			if ( regionXml.length ) {
 				for ( var i = 0; i < regionXml.length; i++ ) {
-					regions[i] = {
-						name: regionXml[i].getAttribute( "name" ) ? regionXml[i].getAttribute( "name" ) : "",
+					// note: regions is a global variable
+					var regionId = regionXml[i].getAttribute( "id" ) ? regionXml[i].getAttribute( "id" ) : regionXml[i].getAttribute( "label" ).replace( /[^A-za-z0-9]/g, "" ).toLowerCase();
+					regions[regionId] = {
+						label: regionXml[i].getAttribute( "label" ),
+						group: -1, // this means this region is not bound to any layer
 						bounds: [[parseFloat( regionXml[i].getAttribute( "south" ) ), parseFloat( regionXml[i].getAttribute( "west" ) )], [parseFloat( regionXml[i].getAttribute( "north" ) ), parseFloat( regionXml[i].getAttribute( "east" ) )]],
 						// center is presently unused because we are using flyToBounds()
 						center: [parseFloat( regionXml[i].getAttribute( "north" ) ) + 0.5 * parseFloat( regionXml[i].getAttribute( "south" ) ), parseFloat( regionXml[i].getAttribute( "east" ) ) + 0.5 * parseFloat( regionXml[i].getAttribute( "west" ) )]
 					}
 
-					if( region == regions[i].name ) {
-						mapAttribs.regionBounds = regions[i].bounds;
-						mapAttribs.regionCenter = regions[i].center;
+					if( region == regionId ) {
+						mapAttribs.regionBounds = regions[regionId].bounds;
+						mapAttribs.regionCenter = regions[regionId].center;
 					}
 				}
 			}
@@ -214,7 +222,8 @@ function mapDataArray() {
 					labels.label[i] = {
 						text: getOptionalContent( labelXml[i], "text" ),
 						positionY: mapAttribs.mapAssetHeight - parseFloat( labelXml[i].getAttribute( "positionY" ) ), 
-						positionX: parseFloat( labelXml[i].getAttribute( "positionX" ) )
+						positionX: parseFloat( labelXml[i].getAttribute( "positionX" ) ),
+						rotateLabel: labelXml[i].getAttribute( "rotateLabel" ) ? ( -1 * parseFloat( labelXml[i].getAttribute( "rotateLabel" ) ) ) : 0.0
 					};
 				}
 			}
@@ -223,7 +232,9 @@ function mapDataArray() {
 			var labelAsset = buildLabelSvg( labels, mapAttribs.mapAssetWidth );
 
 			// ready to build map
-			buildMap( mapAttribs, labelAsset, layers, layerAttribs, sidebar );
+			// this function expects the "layers" array to be filled
+			// note: layers is a global variable
+			buildMap( mapAttribs, labelAsset, layerAttribs, sidebar );
 		}
 	};
 
@@ -321,6 +332,10 @@ function buildIcon( shapeSize, markerObject, iconUrl ) {
 function buildMarkers( color, sidebar, layerGroup, nodeObject, isPath = false, pathAttribs = { group: 0, style: "normal solid" } ) {
 	var paths = new Array();
 	var c = getColors();
+	var oColor;
+	// set up path specific override 
+	var pColor = pathAttribs.color ? pathAttribs.color : color;
+	var r = { south: 0, west: 0, north: 0, east: 0 };
 
 	if( nodeObject.length ) {
 		var marker;
@@ -334,33 +349,42 @@ function buildMarkers( color, sidebar, layerGroup, nodeObject, isPath = false, p
 		} );
 
 		for ( var i = 0; i < nodeObject.length; i++ ) {
+			// set up node or waypoint specific override 
+			oColor = nodeObject[i].color.length ? nodeObject[i].color : color;
+
 			// choose between interactive or non interactive marker
 			if( nodeObject[i].shape == "none" || ( nodeObject[i].staticLabel == true && !nodeObject[i].popup.length && !nodeObject[i].sidebar.length ) ) {
 				marker = L.marker( nodeObject[i].location, { icon: iconNone, interactive: false } ).addTo( layerGroup ); 
 			} else {
-				marker = L.marker( nodeObject[i].location, { 
-					icon: iconNone, 
-					sidebar: {
-						label: nodeObject[i].label,
-						symbol: nodeObject[i].symbol,
-						image: nodeObject[i].image,
-						text: nodeObject[i].sidebar,
-						attributions: nodeObject[i].attributions
-					} 
-				} ).addTo( layerGroup ); 
+				marker = L.marker( nodeObject[i].location, { icon: iconNone } ).addTo( layerGroup ); 
+			}
+
+			// add mlink
+			if( nodeObject[i].staticLabel == true || nodeObject[i].popup.length || nodeObject[i].sidebar.length ) {
+				marker.options.mLink = {
+					label: nodeObject[i].label,
+					id: nodeObject[i].label.replace( /[^A-za-z0-9]/g, "" ).toLowerCase()
+				};
 			}
 
 			// assemble polyline for connected waypoints in a path
 			if( isPath == true && nodeObject[i].waypoint == true ) { 
-				paths.push( nodeObject[i].location ); 
-				// do something with pathAttribs.route
+				paths.push( nodeObject[i].location );
+
+				// determine extremities of polygon, only if it has a symbol (thus qualifying as a region)
+				if( pathAttribs.isPolygon == true && pathAttribs.symbol.length ) {
+					if( nodeObject[i].location[0] < r.south || i == 0 ) { r.south = nodeObject[i].location[0]; }
+					if( nodeObject[i].location[1] < r.west || i == 0 ) { r.west = nodeObject[i].location[1]; }
+					if( nodeObject[i].location[0] > r.north ) { r.north = nodeObject[i].location[0]; }
+					if( nodeObject[i].location[1] > r.east ) { r.east = nodeObject[i].location[1]; }
+				}
 			}
 
 			if( nodeObject[i].shape != "none" )
 			{
 				// build marker icon
-				// use node or path object specific override nodeObject[i].color, if present
-				iconDataUri( ( ( nodeObject[i].color.length ) ? nodeObject[i].color : color ), nodeObject[i].shape, nodeObject[i].symbol, marker, buildIcon );
+				// use node or waypoint specific override oColor
+				iconDataUri( oColor, nodeObject[i].shape, nodeObject[i].symbol, marker, buildIcon );
 
 				// assign popup content
 				// replacement with Rrose popup
@@ -378,12 +402,23 @@ function buildMarkers( color, sidebar, layerGroup, nodeObject, isPath = false, p
 				}
 				
 				// add a sidebar event if relevant
+				if( nodeObject[i].sidebar.length ) {
+					marker.options.sidebar = {
+						label: nodeObject[i].label,
+						symbol: nodeObject[i].symbol,
+						image: nodeObject[i].image,
+						text: nodeObject[i].sidebar,
+						attributions: nodeObject[i].attributions
+					};
+				}
+
 				marker.on( "click", function( event ) {
-					if( this.options.sidebar.text.length ) { 
-						setSidebarInfo( true, this.options.sidebar ); 
-						sidebar.open( "info" ); 
+					if( this.options.sidebar ) {
+						setSidebarInfo( true, this.options.sidebar );
+						sidebar.open( "info" );
 					} else {
-						sidebar.close();
+						// don't close sidebar if mlinks is open
+						if( L.DomUtil.hasClass( L.DomUtil.get( "info" ), "active" ) ) { sidebar.close(); }
 						setSidebarInfo();
 					}
 				} );
@@ -393,7 +428,7 @@ function buildMarkers( color, sidebar, layerGroup, nodeObject, isPath = false, p
 			if( nodeObject[i].label.length ) {
 				if( nodeObject[i].staticLabel == true ) {
 					// additional option to rotate label if static
-					marker.bindTooltip( '<div style="transform:rotate(-' + nodeObject[i].rotateLabel + 'deg);-webkit-transform:rotate(-' + nodeObject[i].rotateLabel + 'deg);-moz-transform:rotate(-' + nodeObject[i].rotateLabel + 'deg);">' + parse( nodeObject[i].label ) + '</div>', { permanent: true, pane: "permanentTooltips", offset: [0, -36], opacity: 1.0, direction: "center", className: "leaflet-tooltip-static" } );
+					marker.bindTooltip( '<div style="transform:rotate(' + ( -1 * nodeObject[i].rotateLabel ) + 'deg);-webkit-transform:rotate(' + nodeObject[i].rotateLabel + 'deg);-moz-transform:rotate(' + nodeObject[i].rotateLabel + 'deg);">' + parse( nodeObject[i].label ) + '</div>', { permanent: true, pane: "permanentTooltips", offset: [0, -36], opacity: 1.0, direction: "center", className: "leaflet-tooltip-static" } );
 				} else if ( nodeObject[i].shape != "none" ) {
 					// no parse() for tooltip label. I don't expect line feeds for such labels!
 					marker.bindTooltip( nodeObject[i].label + '<div style="margin-bottom:-4px;font-size:0;"</div>&nbsp;</div>' ); // contains css fix for font size change
@@ -403,14 +438,16 @@ function buildMarkers( color, sidebar, layerGroup, nodeObject, isPath = false, p
 	}
 
 	// build crest for polygon if needed
+	// use path specific override pColor
 	if( isPath == true && pathAttribs.isPolygon == true && pathAttribs.symbol.length ) {
-		crestSvg( color, pathAttribs.symbol, layerGroup, pathAttribs.symbolSize, pathAttribs.symbolBounds, addCrest );
+		crestSvg( pColor, pathAttribs.symbol, layerGroup, pathAttribs.symbolSize, pathAttribs.symbolBounds, addCrest );
 	}
 
 	// construct paths
 	if( paths.length ) {
 		var pathPolyline;
 		var pathStyle = {};
+
 		// pathAttribs.style = normal / thin + separated by a space + solid / dotted / dashed
 		// splitting style into weight and stroke 
 		pathStyle.weight = ( pathAttribs.style.split( " " )[0] == "normal" ) ? 6 : 3;
@@ -429,21 +466,36 @@ function buildMarkers( color, sidebar, layerGroup, nodeObject, isPath = false, p
 			case "cross": pathStyle.decoration = "\u271A"; break;
 			case "x-mark": pathStyle.decoration = "\u2A2F"; break;
 			case "asterisk": pathStyle.decoration = "\u2731"; break;
+			case "spike": pathStyle.decoration = "\u25bc"; break;
 		}
-		if( color == "grey" || color == "redLight" || color == "goldLight" || color == "blueLight" || color == "greenLight" || color == "purpleLight" || color == "brownLight" )
+
+		// use path specific override pColor
+		if( pColor == "grey" || pColor == "redLight" || pColor == "goldLight" || pColor == "blueLight" || pColor == "greenLight" || pColor == "purpleLight" || pColor == "brownLight" )
 		{
-			pathStyle.color = LightenDarkenColor( c[color], -40 );
-			pathStyle.decorationColor = LightenDarkenColor( c[color], -80 );
+			pathStyle.color = LightenDarkenColor( c[pColor], -40 );
+			pathStyle.decorationColor = LightenDarkenColor( c[pColor], -80 );
 		} else {
-			pathStyle.color = c[color];
-			if( color == "black" ) { pathStyle.decorationColor = LightenDarkenColor( c[color], 120 ); }
-			else if( color == "green" ) { pathStyle.decorationColor = LightenDarkenColor( c[color], -80 ); }
-			else { pathStyle.decorationColor = LightenDarkenColor( c[color], -40 ); }
+			pathStyle.color = c[pColor];
+			if( pColor == "black" ) { pathStyle.decorationColor = LightenDarkenColor( c[pColor], 120 ); }
+			else if( pColor == "green" ) { pathStyle.decorationColor = LightenDarkenColor( c[pColor], -80 ); }
+			else { pathStyle.decorationColor = LightenDarkenColor( c[pColor], -40 ); }
 		}
 
 		if( pathAttribs.isPolygon == true ) {
-			pathPolyline = L.polygon( paths, { pane: "polygons", color: pathStyle.color, opacity: 0.4, weight: pathStyle.weight, dashArray: pathStyle.stroke, fill: true, fillColor: c[pathAttribs.color], fillOpacity: 0.3, interactive: false } );
+			pathPolyline = L.polygon( paths, { pane: "polygons", color: pathStyle.color, opacity: 0.7, weight: pathStyle.weight, dashArray: pathStyle.stroke, fill: true, fillColor: c[pathAttribs.polyColor], fillOpacity: 0.5, interactive: false } );
 			pathPolyline.addTo( layerGroup );
+
+			// add a region, if the polygon qualifies as one
+			if( pathAttribs.symbol.length ) {
+				// note: regions is a global variable
+				regions[pathAttribs.route.replace( /[^A-za-z0-9]/g, "" ).toLowerCase()] = {
+					label: pathAttribs.route,
+					group: pathAttribs.group,
+					bounds: [[r.south, r.west], [r.north, r.east]],
+					// center is presently unused because we are using flyToBounds()
+					center: [r.north + 0.5 * r.south, r.east + 0.5 * r.west]
+				};
+			}
 		} else {
 			pathPolyline = L.polyline( paths, { pane: "paths" + pathAttribs.group, color: pathStyle.color, opacity: 0.9, weight: pathStyle.weight, dashArray: pathStyle.stroke, interactive: false } );
 			pathPolyline.addTo( layerGroup );
@@ -470,6 +522,7 @@ function crestSvg( color, symbol, layerGroup, size, bounds, crestCallback ) {
 			if( svgPaths ) {
 				for( var i = 0; i < svgPaths.length; i++ ) {
 					svgPaths[i].setAttribute( "fill", c[color] );
+					svgPaths[i].setAttribute( "opacity", "0.8" );
 				}
 			}
 
@@ -507,7 +560,7 @@ function buildLabelSvg( labels, mapAssetWidth ) {
 
 	if( labels.label.length ) {
 		for( var i = 0; i < labels.label.length; i++ ) {
-			svgElement.innerHTML += '<text text-anchor="middle" x="' + labels.label[i].positionX + '" y="' + labels.label[i].positionY + '" class="all">' + svgParse( labels.label[i].text ) + '</text>';
+			svgElement.innerHTML += '<text text-anchor="middle" dominant-baseline="central" x="' + labels.label[i].positionX + '" y="' + labels.label[i].positionY + '" transform="rotate(' + labels.label[i].rotateLabel + ',' + labels.label[i].positionX + ',' + labels.label[i].positionY + ')" class="all">' + svgParse( labels.label[i].text ) + '</text>';
 		}
 	}
 
@@ -516,7 +569,8 @@ function buildLabelSvg( labels, mapAssetWidth ) {
 
 // layer construction: layer xml extractor to layer object constructor callback
 function buildLayers( layerColors, sidebar, nodes, paths ) {
-	var layers = new Array();
+	// this function will fill "layers" array
+	// note: layers is a global variable
 	var pathAttribs = {};
 
 	// initialize layer array object
@@ -538,7 +592,9 @@ function buildLayers( layerColors, sidebar, nodes, paths ) {
 				for ( var p = 0; p < paths[i].length; p++ ) { 
 					// transfer path attributes
 					for( var key in paths[i][p] ) {
-						if( key != "pathData" ) { pathAttribs[key] = paths[i][p][key]; }
+						if( paths[i][p].hasOwnProperty( key ) ) {
+							if( key != "pathData" ) { pathAttribs[key] = paths[i][p][key]; }
+						}
 					}
 					pathAttribs["group"] = i;
 
@@ -547,12 +603,28 @@ function buildLayers( layerColors, sidebar, nodes, paths ) {
 			}
 		}
 	}
-	
-	return layers;
+
+	// populate & parse xlinks
+	if( layers.length ) {
+		for ( var i = 0; i < layers.length; i++ ) {
+			layers[i].eachLayer( function( layer ) {
+				// note: mLinksList is a global variable
+				if( layer instanceof L.Marker && layer.options.mLink ) {
+					mLinksList[layer.options.mLink.id] = {
+						label: layer.options.mLink.label,
+						group: i,
+						layer: layer
+					};
+				}
+			} );
+		}
+	}
 }
 
 // map construction: layer xml extractor to map object constructor callback
-function buildMap( m, labelAsset, layers, layerAttribs, sidebar ) {
+function buildMap( m, labelAsset, layerAttribs, sidebar ) {
+// this function expects the "layers" array to be filled
+// note: layers is a global variable
 //	var m.mapWindowWidth = 400;
 //	var m.mapWindowHeight = Math.floor( mapWindowWidth / mapAssetWidth * mapAssetHeight );
 	m.mapWindowWidth = Math.min( m.mapAssetWidth * m.mapMaxZoomMultiplier, window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth );
@@ -584,7 +656,7 @@ function buildMap( m, labelAsset, layers, layerAttribs, sidebar ) {
 	// not yet tiling base map images in this implementation version
 	var image = L.imageOverlay( m.mapAsset, m.bounds ).addTo( map );
 	var labelsPane = map.createPane( "labels" );
-	labelsPane.style.zIndex = 401;
+	labelsPane.style.zIndex = 402;
 	var svg = L.svgOverlay( labelAsset, m.bounds, { pane: "labels", interactive: false } ).addTo( map );
 
 	// fit map
@@ -625,11 +697,11 @@ function buildMap( m, labelAsset, layers, layerAttribs, sidebar ) {
 		var paneZIndices = new Array();
 
 		var polygonsPane = map.createPane( "polygons" );
-		polygonsPane.style.zIndex = 402;
+		polygonsPane.style.zIndex = 401;
 		var permanentTooltipsPane = map.createPane( "permanentTooltips" );
 		permanentTooltipsPane.style.zIndex = 499;
 
-
+		// note: layers is a global variable
 		for ( var i = 0; i < layers.length; i++ ) {
 			panes[i] = map.createPane( "paths" + i );
 			if( layerAttribs.visibility[i+1] == true ) { layers[i].addTo( map ); }
@@ -638,6 +710,7 @@ function buildMap( m, labelAsset, layers, layerAttribs, sidebar ) {
 		}
 
 		// layer control
+		// note: layers is a global variable
 		var baseLayers = new Array();
 		var overlays = new Array();
 		var chapters = ( options.chapter ) ? options.chapter.toLowerCase().split( "|" ) : [];
@@ -647,7 +720,7 @@ function buildMap( m, labelAsset, layers, layerAttribs, sidebar ) {
 			if( !layerAttribs.chapter[i+1].length || chapters.findIndex( e => e == layerAttribs.chapter[i+1] ) > -1 ) { overlays[layerAttribs.name[i+1]] = layers[i]; }
 		}
 
-		L.control.layers( baseLayers, overlays, { collapsed: true, hideSingleBase: true } ).addTo( map );	
+		L.control.layers( baseLayers, overlays, { collapsed: true, hideSingleBase: true } ).addTo( map );
 
 		// add graphicScale
 		// see changes by Das123 @ https://gis.stackexchange.com/questions/151745/leafletjs-how-to-set-custom-map-scale-for-a-flat-image-map-crs-simple
@@ -674,15 +747,6 @@ function buildMap( m, labelAsset, layers, layerAttribs, sidebar ) {
 		// add hex or square grid
 		loadTurfGrid( map, m.mapAssetWidth, m.mapAssetHeight, m.unitsAcross, m.unitsPerGrid, m.gridType, m.gridColor, m.gridOpacity );
 
-		// zoom and pan to region
-		//	map.flyTo( regionCenter, calcMapPanZoom( mapWindowWidth, mapWindowHeight, regionWidth, regionHeight, mapMaxZoomMultiplier ) );
-		// flyToBounds() is much nicer
-		if( m.regionBounds.length ) {
-			map.whenReady( function () {
-				map.flyToBounds( m.regionBounds, { maxZoom: m.mapMaxZoom } );
-			} );
-		}
-
 		// add sidebar and map onClick event
 		setSidebarInfo();
 		sidebar.addTo( map );
@@ -701,6 +765,25 @@ function buildMap( m, labelAsset, layers, layerAttribs, sidebar ) {
 			}
 		} );
 
+		// zoom and pan to location or region. Note that location takes preference if both are specified.
+		// this must be done after sidebar is initialized, so that we can close sidebar if a marker with a popup is specified as desired location
+		//	map.flyTo( regionCenter, calcMapPanZoom( mapWindowWidth, mapWindowHeight, regionWidth, regionHeight, mapMaxZoomMultiplier ) );
+		// flyToBounds() is much nicer
+		var location;
+
+		if( options.location ) {
+			location = options.location.replace( /[^A-za-z0-9]/g, "" ).toLowerCase();
+			if( mLinksList[location] ) {
+				if( !map.hasLayer( layers[mLinksList[location].group] ) ) { map.addLayer( layers[mLinksList[location].group] ); }
+				map.flyTo( mLinksList[location].layer.getLatLng(), m.mapMaxZoom, { animate: true } );
+				mLinksList[location].layer.fire( "click" );
+			}
+		} else if( m.regionBounds.length ) {
+			map.whenReady( function () {
+				map.flyToBounds( m.regionBounds, { maxZoom: m.mapMaxZoom } );
+			} );
+		}
+
 		// popup to give coordinates
 		function onMapOver( eventCoordinate ) {
 			var popup = new L.Rrose( { offset: new L.Point( 0, -10 ), maxWidth: 200, closeButton: false, autoPan: false } )
@@ -711,7 +794,7 @@ function buildMap( m, labelAsset, layers, layerAttribs, sidebar ) {
 
 		if ( m.modeCartograph == true ) {
 			map.on( "mouseover mousemove", onMapOver );
-			map.on( "mouseout", function( event ){ map.closePopup() } );
+			map.on( "mouseout", function( event ){ map.closePopup(); } );
 		}
 		
 		// listen for screen resize events
@@ -768,6 +851,7 @@ function buildMap( m, labelAsset, layers, layerAttribs, sidebar ) {
 			var layerToTop = layerAttribs.name.findIndex( e => e == eventLayer.name ) - 1;
 
 			// using iterative for loop because we need layers in order
+			// note: layers is a global variable
 			for ( var i = 0; i < layers.length; i++ ) {
 				if ( paneZIndices[i] > paneZIndices[layerToTop] ) {
 					panes[i].style.zIndex = --paneZIndices[i];
@@ -810,11 +894,17 @@ function buildSidebar() {
 		container: "sidebar",	// the DOM container or #ID of a predefined sidebar container that should be used
 		position: "right"			// left or right
 	} );
+
+	return sidebar;
+}
+
+function setSidebarContent() {
 	var options = getUrlParams();
 
-	// set icons
+	// set info icon
 	document.getElementById( "info_button" ).innerHTML = '<img src="./images/symbols/book-cover.svg">';
 
+	// get data from campaign xml
 	var fileCampaign = "./data/" + ( ( options.campaign ) ? options.campaign.toLowerCase() + "/" : "" ) + "_" + ( ( options.campaign ) ? options.campaign.toLowerCase() + ".xml" : "" );
 	var loadXmlCampaignData = new XMLHttpRequest();
 	loadXmlCampaignData.overrideMimeType( "application/xml" );
@@ -834,13 +924,13 @@ function buildSidebar() {
 				image: ( campaignAttribsXml[0].getAttribute( "image" ) ) ? campaignAttribsXml[0].getAttribute( "image" ) : "",
 				description: getOptionalContent( campaignAttribsXml[0], "description" ),
 				attributions: [],
-				xlinks: [],
-				xmaps: {
+				xMaps: {
 					world: [],
 					region: [],
 					city: [],
 					dungeon: []
-				}					
+				},
+				xLinks: []
 			};
 
 			var attributionXml = campaignAttribsXml[0].getElementsByTagName( "attribution" );
@@ -891,41 +981,41 @@ function buildSidebar() {
 
 			if ( xLinksXml.length ) {
 				for ( var i = 0; i < xLinksXml.length; i++ ) {
-					campaignAttribs.xlinks[i] = {
+					campaignAttribs.xLinks[i] = {
 						type: ( xLinksXml[i].getAttribute( "type" ) ) ? xLinksXml[i].getAttribute( "type" ) : "",
 						url: ( xLinksXml[i].getAttribute( "url" ) ) ? xLinksXml[i].getAttribute( "url" ) : ""
 					}
 				}
 			}
 
-			for( var i = 0; i < campaignAttribs.xlinks.length; i++ ) {
-				switch( campaignAttribs.xlinks[i].type ) {
+			for( var i = 0; i < campaignAttribs.xLinks.length; i++ ) {
+				switch( campaignAttribs.xLinks[i].type ) {
 					case "wiki":
-						document.getElementById( "xlink_wiki" ).innerHTML = '<a href="' + campaignAttribs.xlinks[i].url + '" target="_blank"><img src="./images/wikipedia-w.svg"></a>';
+						document.getElementById( "xlink_wiki" ).innerHTML = '<a href="' + campaignAttribs.xLinks[i].url + '" target="_blank"><img src="./images/wikipedia-w.svg"></a>';
 						document.getElementById( "xlink_wiki" ).style = "";
 						break;
 					case "roll20":
-						document.getElementById( "xlink_roll20" ).innerHTML = '<a href="' + campaignAttribs.xlinks[i].url + '" target="_blank"><img src="./images/symbols/dice-d20.svg"></a>';
+						document.getElementById( "xlink_roll20" ).innerHTML = '<a href="' + campaignAttribs.xLinks[i].url + '" target="_blank"><img src="./images/symbols/dice-d20.svg"></a>';
 						document.getElementById( "xlink_roll20" ).style = "";
 						break;
 					case "ddb":
-						document.getElementById( "xlink_ddb" ).innerHTML = '<a href="' + campaignAttribs.xlinks[i].url + '" target="_blank"><img src="./images/d-and-d.svg"></a>';
+						document.getElementById( "xlink_ddb" ).innerHTML = '<a href="' + campaignAttribs.xLinks[i].url + '" target="_blank"><img src="./images/d-and-d.svg"></a>';
 						document.getElementById( "xlink_ddb" ).style = "";
 						break;
 					case "discord":
-						document.getElementById( "xlink_discord" ).innerHTML = '<a href="' + campaignAttribs.xlinks[i].url + '" target="_blank"><img src="./images/discord.svg"></a>';
+						document.getElementById( "xlink_discord" ).innerHTML = '<a href="' + campaignAttribs.xLinks[i].url + '" target="_blank"><img src="./images/discord.svg"></a>';
 						document.getElementById( "xlink_discord" ).style = "";
 						break;
 					case "gdrive":
-						document.getElementById( "xlink_gdrive" ).innerHTML = '<a href="' + campaignAttribs.xlinks[i].url + '" target="_blank"><img src="./images/google-drive.svg"></a>';
+						document.getElementById( "xlink_gdrive" ).innerHTML = '<a href="' + campaignAttribs.xLinks[i].url + '" target="_blank"><img src="./images/google-drive.svg"></a>';
 						document.getElementById( "xlink_gdrive" ).style = "";
 						break;
 				}
 			}
 
 			// add linklist to other campaign maps on sidebar
-			if( campaignXml.getElementsByTagName( "mlinks" ).length ) {
-				var mlinks = document.getElementById( "mlinks_content" );
+			if( campaignXml.getElementsByTagName( "xmaps" ).length ) {
+				var xMaps = document.getElementById( "xmaps_content" );
 				var xMapType;
 				var xMapTypes = {
 					world: "World",
@@ -935,7 +1025,7 @@ function buildSidebar() {
 				}
 				var xMapLink;
 				var xMapsImageDefault = "https://i.imgur.com/2QuZiMg.jpg";
-				var xMapsImage = ( campaignXml.getElementsByTagName( "mlinks" )[0].getAttribute( "image" ) ) ? campaignXml.getElementsByTagName( "mlinks" )[0].getAttribute( "image" ) : xMapsImageDefault;
+				var xMapsImage = ( campaignXml.getElementsByTagName( "xmaps" )[0].getAttribute( "image" ) ) ? campaignXml.getElementsByTagName( "xmaps" )[0].getAttribute( "image" ) : xMapsImageDefault;
 				var xMapsAttribution;
 				var xMapsAttributionUrl;
 
@@ -943,51 +1033,101 @@ function buildSidebar() {
 					xMapsAttribution = "Alex Pushilin";
 					xMapsAttributionUrl = "https://www.behance.net/plannit";
 				} else {
-					xMapsAttribution = ( campaignXml.getElementsByTagName( "mlinks" )[0].getAttribute( "imageAttribution" ) ) ? campaignXml.getElementsByTagName( "mlinks" )[0].getAttribute( "imageAttribution" ) : "";
-					xMapsAttributionUrl = ( campaignXml.getElementsByTagName( "mlinks" )[0].getAttribute( "xMapsAttributionUrl" ) ) ? campaignXml.getElementsByTagName( "mlinks" )[0].getAttribute( "xMapsAttributionUrl" ) : "";
+					xMapsAttribution = ( campaignXml.getElementsByTagName( "xmaps" )[0].getAttribute( "imageAttribution" ) ) ? campaignXml.getElementsByTagName( "xmaps" )[0].getAttribute( "imageAttribution" ) : "";
+					xMapsAttributionUrl = ( campaignXml.getElementsByTagName( "xmaps" )[0].getAttribute( "xMapsAttributionUrl" ) ) ? campaignXml.getElementsByTagName( "xmaps" )[0].getAttribute( "xMapsAttributionUrl" ) : "";
 				}
 
-				mlinks.innerHTML = '';
-				var xMapsXml = campaignXml.getElementsByTagName( "mlink" );
+				xMaps.innerHTML = '';
+				var xMapsXml = campaignXml.getElementsByTagName( "xmap" );
 
 				if ( xMapsXml.length ) {
-					document.getElementById( "mlinks_button" ).innerHTML = '<img src="./images/symbols/compass.svg">';
-					document.getElementById( "mlinks_tab" ).style = ""; // make mlinks tab visible
-					mlinks.innerHTML += '<img src="' + xMapsImage + '">';
-					mlinks.innerHTML += '<p style="font-size: 0.8em; font-variant: small-caps; opacity: 0.8;">Artwork by <a href="' + xMapsAttributionUrl + '" target="_blank">' + xMapsAttribution + '</a></p>';
+					document.getElementById( "xmaps_button" ).innerHTML = '<img src="./images/symbols/compass.svg">';
+					document.getElementById( "xmaps_tab" ).style = ""; // make xmaps tab visible
+					xMaps.innerHTML += '<img src="' + xMapsImage + '">';
+					xMaps.innerHTML += '<p style="font-size: 0.8em; font-variant: small-caps; opacity: 0.8;">Artwork by <a href="' + xMapsAttributionUrl + '" target="_blank">' + xMapsAttribution + '</a></p>';
 
 					for ( var i = 0; i < xMapsXml.length; i++ ) {
 						xMapType = ( xMapsXml[i].getAttribute( "type" ) ) ? xMapsXml[i].getAttribute( "type" ) : "city";
-						if( !campaignAttribs.xmaps[xMapType] ) { campaignAttribs.xmaps[xMapType] = []; }
+						if( !campaignAttribs.xMaps[xMapType] ) { campaignAttribs.xMaps[xMapType] = []; }
 
-						campaignAttribs.xmaps[xMapType].push( {
+						campaignAttribs.xMaps[xMapType].push( {
 							name: ( xMapsXml[i].getAttribute( "name" ) ) ? xMapsXml[i].getAttribute( "name" ) : "",
 							url: ( xMapsXml[i].getAttribute( "url" ) ) ? xMapsXml[i].getAttribute( "url" ) : ""
 						} );
 					}
 				}
 
-				for ( var type in campaignAttribs.xmaps ) {
-					if ( campaignAttribs.xmaps.hasOwnProperty( type ) && campaignAttribs.xmaps[type].length ) {
+				for ( var type in campaignAttribs.xMaps ) {
+					if ( campaignAttribs.xMaps.hasOwnProperty( type ) && campaignAttribs.xMaps[type].length ) {
 						xMapLink = '';
 						xMapLink += '<h1>' + xMapTypes[type] + '</h1><ul>';
-						for( var i = 0; i < campaignAttribs.xmaps[type].length; i++ ) {
-							xMapLink += '<li><a href="' + window.location.href.split('?')[0] + '?campaign=' + options.campaign + '&map=' + campaignAttribs.xmaps[type][i].url + '" target="_blank">' + campaignAttribs.xmaps[type][i].name + '</a></li>';
+						for( var i = 0; i < campaignAttribs.xMaps[type].length; i++ ) {
+							xMapLink += '<li><a href="' + window.location.href.split('?')[0] + '?campaign=' + options.campaign.toLowerCase() + '&map=' + campaignAttribs.xMaps[type][i].url + '" target="_blank">' + campaignAttribs.xMaps[type][i].name + '</a></li>';
 						}
 						xMapLink += '</ul>'
-						mlinks.innerHTML += xMapLink;
+						xMaps.innerHTML += xMapLink;
 					}
 				}
 			}
 
-			// add xlinks
-			// document.getElementById( "xmaps_button" ).innerHTML = '<img src="./images/symbols/map-signs.svg">';
+			// add linklist to locations in the map
+			if( Object.keys( regions ).length || Object.keys( mLinksList ).length ) {
+				document.getElementById( "mlinks_button" ).innerHTML = '<img src="./images/symbols/map-signs.svg">';
+				document.getElementById( "mlinks_tab" ).style = ""; // make mlinks tab visible
+
+				var mLinks = document.getElementById( "mlinks_content" );
+				var mLinksImageDefault = "https://i.imgur.com/fN8ytdK.jpg";
+				var mLinksImage;
+				var mLinksItems = '';
+				if( campaignXml.getElementsByTagName( "mlinks" ).length ) {
+					mLinksImage = ( campaignXml.getElementsByTagName( "mlinks" )[0].getAttribute( "image" ) ) ? campaignXml.getElementsByTagName( "mlinks" )[0].getAttribute( "image" ) : mLinksImageDefault;
+				} else {
+					mLinksImage = mLinksImageDefault;
+				}
+				var mLinksAttribution;
+				var mLinksAttributionUrl;
+
+				if( mLinksImage == mLinksImageDefault ) {
+					mLinksAttribution = "Sylvain Sarrailh";
+					mLinksAttributionUrl = "https://www.artstation.com/tohad";
+				} else {
+					mLinksAttribution = ( campaignXml.getElementsByTagName( "mlinks" )[0].getAttribute( "imageAttribution" ) ) ? campaignXml.getElementsByTagName( "mlinks" )[0].getAttribute( "imageAttribution" ) : "";
+					mLinksAttributionUrl = ( campaignXml.getElementsByTagName( "mlinks" )[0].getAttribute( "xMapsAttributionUrl" ) ) ? campaignXml.getElementsByTagName( "mlinks" )[0].getAttribute( "xMapsAttributionUrl" ) : "";
+				}
+
+				mLinks.innerHTML = '';
+				mLinks.innerHTML += '<img src="' + mLinksImage + '">';
+				mLinks.innerHTML += '<p style="font-size: 0.8em; font-variant: small-caps; opacity: 0.8;">Artwork by <a href="' + mLinksAttributionUrl + '" target="_blank">' + mLinksAttribution + '</a></p>';
+
+				// add regions
+				if( Object.keys( regions ).length ) {
+					mLinksItems += '<h1>Regions</h1><ul>';
+					// note: regions is a global variable
+					Object.keys( regions )
+						.sort()
+						.forEach( function( v, i ) {
+							mLinksItems += '<li><a href="#" onclick="mLinkFire( \'region\', \'' + v + '\' );">' + regions[v].label + '</a></li>';
+						} );
+					mLinksItems += '</ul>'
+				}
+
+				// add locations
+				if( Object.keys( mLinksList ).length ) {
+					mLinksItems += '<h1>Locations</h1><ul>';
+					// note: mLinksList is a global variable
+					Object.keys( mLinksList )
+						.sort()
+						.forEach( function( v, i ) {
+							mLinksItems += '<li><a href="#" onclick="mLinkFire( \'location\', \'' + v + '\' );">' + mLinksList[v].label + '</a></li>';
+						} );
+					mLinksItems += '</ul>'
+					mLinks.innerHTML += mLinksItems;
+				}
+			}
 		}
 	};
 	loadXmlCampaignData.open( "GET", fileCampaign, true );
 	loadXmlCampaignData.send();
-
-	return sidebar;
 }
 
 function setSidebarInfo( click = false, sidebarData ) {
@@ -1120,3 +1260,30 @@ function sleep( ms ) {
 mapDataArray();
 
 } );
+
+function mLinkFire( scope, target ) {
+	if ( !Array.prototype.last ){
+		Array.prototype.last = function() {
+			return this[this.length - 1];
+		};
+	};
+
+	if( scope == "location" && mLinksList[target] ) {	
+		// if condition necessary only if interested in targets within viewing window
+		//	if( maps.last().getBounds().contains( mLinksList[target].layer.getLatLng() ) ) {
+				maps.last().whenReady( function () {
+					maps.last().closePopup();
+					if( !maps.last().hasLayer( layers[mLinksList[target].group] ) ) { maps.last().addLayer( layers[mLinksList[target].group] ); }
+					maps.last().flyTo( mLinksList[target].layer.getLatLng(), maps.last().options.maxZoom, { animate: true } );
+					mLinksList[target].layer.fire( "click" );
+				} );
+		//	}
+	} else if( scope == "region" && regions[target] ) {
+		maps.last().whenReady( function () {
+			if( regions[target].group > -1 ) {
+				if( !maps.last().hasLayer( layers[regions[target].group] ) ) { maps.last().addLayer( layers[regions[target].group] ); }
+			}
+			maps.last().flyToBounds( regions[target].bounds, { maxZoom: maps.last().options.maxZoom } );
+		} );
+	}
+}

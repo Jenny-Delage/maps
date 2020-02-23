@@ -1,6 +1,19 @@
+// get params
+function getUrlParams() {
+    var params = window.location.search.substring( 1 ).split( "&" );
+    var options = {};
+    for ( var i in params ) {
+		if ( params.hasOwnProperty( i ) ) {
+			var keyvalue = params[i].toLowerCase().split( "=" );
+			options[keyvalue[0]] = decodeURI( keyvalue[1] );
+		}
+    }
+
+    return options;
+}
+
 <!-- Courtesy of Koen Vendrik -->
 <!-- found at https://codepen.io/kvendrik/pen/Gmefv -->
-
 function parse( md ) {
 	// ul
 	md = md.replace( /^\s*\n\*/gm, '<ul>\n*' );
@@ -44,6 +57,25 @@ function parse( md ) {
 	// ![Tux, the Linux mascot](/assets/images/tux.png)
 	md = md.replace( /\!\[([^\]]+)\]\(([^\)]+)\)/g, '<img src="$2" alt="$1" />' );
 
+	// mlinks
+	// For locations within the same map: [[Link with 㧏 -unwanted characters]] is translated to [[linkwithunwantedcharacters]]
+	// Locations with custom text: [[Custom text|locationlink]]
+	// Locations on a different map: [[
+	// For regions within same map: @[[[[Link with 㧏 -unwanted characters]] is translated to [[linkwithunwantedcharacters]]
+	md = md.replace( /([@]?)[\[]{2}([^\]\|]+)\|?([^\]\|]+)?[\]]{2}[\(]([^\)]+)[\)]/g, function( match, p1, p2, p3, p4 ) {
+		var options = getUrlParams();
+
+		if( p3 ) { return '<a href="' + window.location.href.split('?')[0] + '?campaign=' + options.campaign.toLowerCase() + '&map=' + p4.replace( /[^A-za-z0-9]/g, "" ).toLowerCase() + '&' + ( p1 ? 'region' : 'location' ) + '=' + p3.replace( /[^A-za-z0-9]/g, "" ).toLowerCase() + '" target="_blank">' + p2 + '</a>'; }
+		else { return '<a href="' + window.location.href.split('?')[0] + '?campaign=' + options.campaign.toLowerCase() + '&map=' + p4.replace( /[^A-za-z0-9]/g, "" ).toLowerCase() + '&' + ( p1 ? 'region' : 'location' ) + '=' + p2.replace( /[^A-za-z0-9]/g, "" ).toLowerCase() + '" target="_blank">' + p2 + '</a>'; }
+	} );
+
+	md = md.replace( /([@]?)[\[]{2}([^\]\|]+)\|?([^\]\|]+)?[\]]{2}/g, function( match, p1, p2, p3, p4 ) {
+		var options = getUrlParams();
+
+		if( p3 ) { return '<a href="#" onclick="mLinkFire( \'' + ( p1 ? 'region' : 'location' ) + '\', \'' + p3.replace( /[^A-za-z0-9]/g, "" ).toLowerCase() + '\');">' + p2 + '</a>'; }
+		else { return '<a href="#" onclick="mLinkFire( \'' + ( p1 ? 'region' : 'location' ) + '\', \'' + p2.replace( /[^A-za-z0-9]/g, "" ).toLowerCase() + '\');">' + p2 + '</a>'; }
+	} );
+
 	// links
 	// [Duck Duck Go](https://duckduckgo.com)
 	md = md.replace( /[\[]{1}([^\]]+)[\]]{1}[\(]{1}([^\)\"]+)(\"(.+)\")?[\)]{1}/g, '<a href="$2" title="$4" target="_blank">$1</a>' );
@@ -51,8 +83,10 @@ function parse( md ) {
 	// font styles
 	// bold: **text** or __text__
 	// italics: (space)*text*(space) or (space)_text_(space)
-	md = md.replace( /[\*\_]{2}([^\*\_]+)[\*\_]{2}/g, '<b>$1</b>' );
-	md = md.replace( /\s+[\*\_]{1}([^\*\_]+)[\*\_]{1}\s+/g, ' <i>$1</i> ' );
+	//	md = md.replace( /[\*\_]{2}([^\*\_]+)[\*\_]{2}/g, '<b>$1</b>' );
+	md = md.replace( /([\'\"\(\s]|^)[\*\_]{2}([^\*]+?)[\*\_]{2}([\'\"\)\,\.\s]|$)/g, '$1<b>$2</b>$3' );
+	// md = md.replace( /\s+[\*\_]{1}([^\*\_]+)[\*\_]{1}\s+/g, ' <i>$1</i> ' );
+	md = md.replace( /([\'\"\(\s]|^)[\*\_]{1}([^\*\_]+)[\*\_]{1}([\'\"\)\,\.\s]|$)/g, '$1<i>$2</i>$3' );
 	md = md.replace( /[\~]{2}([^\~]+)[\~]{2}/g, '<del>$1</del>' );
 
 	// all chinese filter:
