@@ -14,117 +14,84 @@
 		gridColor="blue"
 		gridOpacity="0.25"
 	/>
+	<labels>
+		<label positionY="1883.73" positionX="1986.4" rotateLabel="-90">
+			<text><![CDATA[### 30 ft elevation (DC 15)]]></text>
+		</label>
+		<label positionY="2135.47" positionX="1060.27">
+			<text><![CDATA[### 15 ft high (DC 10)]]></text>
+		</label>
+		<label positionY="2816" positionX="1440">
+			<text><![CDATA[### 30 ft high (DC 10)]]></text>
+		</label>
+		<label positionY="2816" positionX="1440">
+			<text><![CDATA[### 30 ft high (DC 10)]]></text>
+		</label>
+		<label positionY="2385.07" positionX="392.53">
+			<text><![CDATA[### 30 ft high (DC 10)]]></text>
+		</label>
+		<label positionY="663.47" positionX="537.6">
+			<text><![CDATA[### 30 ft high]]></text>
+		</label>
+		<label positionY="603.47" positionX="537.6">
+			<text><![CDATA[### (DC 10)]]></text>
+		</label>
+		<label positionY="2956.8" positionX="2519.47">
+			<text><![CDATA[### Rubble (Difficult Terrain)]]></text>
+		</label>
+		<label positionY="2715.73" positionX="2568.53">
+			<text><![CDATA[### Partial Cover (+2 AC)]]></text>
+		</label>
+		<label positionY="2365.87" positionX="1721.6">
+			<text><![CDATA[### Partial Cover]]></text>
+		</label>
+		<label positionY="2305.87" positionX="1721.6">
+			<text><![CDATA[### (+2 AC)]]></text>
+		</label>
+		<label positionY="855.47" positionX="1721.6">
+			<text><![CDATA[### Partial Cover]]></text>
+		</label>
+		<label positionY="795.47" positionX="1721.6">
+			<text><![CDATA[### (+2 AC)]]></text>
+		</label>
+		<label positionY="407.47" positionX="2568.53">
+			<text><![CDATA[### Partial Cover (+2 AC)]]></text>
+		</label>
+	</labels>
 	<layers>
 		<layer name="Paukauna" type="basemap" visibility="true" color="" />
-		<layer name="Present Day - Year Zero" type="overlay" visibility="true" color="black" />
-		<layer name="Roofs" type="overlay" visibility="false" color="red" />
-		<layer name="Amenities" type="overlay" visibility="true" color="greenLight" />
+		<layer name="Elevations" type="overlay" visibility="true" color="red" />
 	</layers>
 	<nodes>
-		<node group="0" label="Cohong Trade Bldg" positionY="1685.19" positionX="1031.56" shape="shield-large" symbol="pagoda" image="https://i.imgur.com/LEb60D8.jpg" staticLabel="true">
-			<sidebar>
-				<![CDATA[公行 /// Cohong Trade Building is used as temporary storage for caravans and goods in transit through Sanjiazi. It is rumored some rare treasures are kept here, but Cohong bosses keep tight security in the area.]]>
-			</sidebar>
-			<attributions>
-				<attribution name="Ryan Vinson" url="https://www.artstation.com/ryanvinson" />
-			</attributions>
-		</node>
-		<node group="0" label="鹈 Tí Road" positionY="1767.19" positionX="244.49" shape="none" symbol="" staticLabel="true" rotateLabel="6.5" />
-		<node group="0" label="Precinct" positionY="1439.81" positionX="1926.27" shape="shield-large" symbol="ra-knight-helmet" image="https://i.imgur.com/LUfljIz.jpg" staticLabel="true">
-			<sidebar>
-				<![CDATA[缅 /// Mian government sentries are posted at Sanjiazi since the incursion event two years ago.]]>
-			</sidebar>
-			<attributions>
-				<attribution name="Jia How" url="https://www.artstation.com/jiahow" />
-			</attributions>
-		</node>
-		<node group="0" label="Qiandian" positionY="1512.88" positionX="1489.62" shape="shield-large" symbol="ra-gold-bar" staticLabel="true">
-			<popup>
-				<![CDATA[錢店 /// *Qiandian* "exchange house" is part of a local banking network not connected to 缅 /// Mian government. This local *qiandian* is heavily protected by the Mian government sentry presence, however.]]>
-			</popup>
-		</node>
-		<node group="0" label="Narrows" positionY="1194.92" positionX="1094.64" shape="pin-large" symbol="home-lg-alt" staticLabel="true">
-			<popup>
-				<![CDATA[Many in Sanjiazi were affected negatively by the incursion two years ago. Poverty is common and is accompanied by opium use, crime, and sex trade. Most of the survivors of Vex's slaughter at the Plaza, Sanjiazi's original people, live in the Narrows.]]>
-			</popup>
-		</node>
-		<node group="0" label="ZYZ Safe House" positionY="1368.73" positionX="2053.89" shape="pin-large" symbol="mask" image="https://i.imgur.com/pwk5mZE.jpg" staticLabel="true">
-			<sidebar>
-				<![CDATA[A new criminal element has entered Sanjiazi following the tragedy of the incursion. 在阴影中 /// Zài Yinying Zhong (meaning "in the shadows"), or ZYZ operate in plain sight of the precinct. Bribery, forgery, and petty crimes are their typical *modus operandi*.]]>
-			</sidebar>
-			<attributions>
-				<attribution name="Hugh Pindur" url="https://www.artstation.com/pindurski" />
-			</attributions>
-		</node>
-		<node group="0" label="Fenghuang Tower" positionY="982.73" positionX="1015.15" shape="pin-large" symbol="wizard-staff" image="https://i.imgur.com/hH4Qx5q.jpg" staticLabel="true">
-			<sidebar>
-				<![CDATA[凤凰 /// Fenghuang (meaning "phoenix") is a 缅 /// Mian government shadow order of sorcery. They have established a quiet presence in Sanjiazi since the incursion. The tower is rarely approached by locals.]]>
-			</sidebar>
-			<attributions>
-				<attribution name="Jun Osone / 大曽根純" url="https://www.artstation.com/osonejun" />
-			</attributions>
-		</node>
-		<node group="0" label="潘 Pan Inlet" positionY="931.26" positionX="1351.1" shape="none" symbol="" staticLabel="true" rotateLabel="75.0" />
-		<node group="1" label="Sanjiazi Plaza" positionY="1802.67" positionX="1686.67" shape="flag-large" symbol="magic-gate" image="https://i.imgur.com/pWIc5r9.jpg" staticLabel="true">
-			<sidebar>
-				<![CDATA[In year 2 BYZ, Ulysses Vex and a band of Erinyes descend on Sanjiazi, slaughtering the villagers to a man. No one is left alive, including Fang Ro's parents. The Night Tigers, a kensei 缅 /// Mian soldier unit rushes in to defend the civilians but they are captured. Some are killed, others crucified. Present day Sanjiazi is settled by outsiders.]]>
-			</sidebar>
-			<attributions>
-				<attribution name="Sifan Wang" url="https://www.artstation.com/swang492" />
-			</attributions>
-		</node>
-		<node group="1" label="Fang Citadel" positionY="1477.26" positionX="1818.15" shape="shield-large" symbol="ra-tower-demolish" staticLabel="true">
-			<popup>
-				<![CDATA[Sanjiazi used to be a summer residence for ennobled 方 /// Fangs (at best indirect relation to Fang Ro's bloodline). Vex and his marauders destroyed the citadel during the incursion and executed any Fangs barricaded inside. The citadel was never rebuilt, and the Fangs never returned to Sanjiazi.]]>
-			</popup>
-		</node>
-		<node group="2" label="Pan Chicken Farm" positionY="549.28" positionX="2709.26" shape="pin-large" symbol="rooster" staticLabel="true">
-			<popup>
-				<![CDATA[A chicken and livestock farm owned by the 潘 /// Pan family, whom the river inlet is named after.]]>
-			</popup>
-		</node>
-		<node group="2" label="Grain Farms" positionY="1503.6" positionX="3016.52" shape="pin-large" symbol="wheat" image="https://i.imgur.com/ThKxtyC.jpg" staticLabel="false">
-			<sidebar>
-				<![CDATA[Millet farms, wheat farms, and rice paddies owned by various families.]]>
-			</sidebar>
-			<attributions>
-				<attribution name="Nils Arenz" url="https://www.artstation.com/nilsarenz" />
-			</attributions>
-		</node>
-		<node group="2" label="Boat House" positionY="2062.2" positionX="2183.24" shape="pin-large" symbol="fishing-boat" image="https://i.imgur.com/t41c4Az.jpg" staticLabel="true">
-			<sidebar>
-				<![CDATA[Local manufacture of fishing boats and rowboats for use on the 玄济 /// Xuán Ji river.]]>
-			</sidebar>
-			<attributions>
-				<attribution name="John Stevenson" url="https://www.artstation.com/johnstevenson" />
-			</attributions>
-		</node>
-		<node group="2" label="Sturgeon Fishing" positionY="2269.76" positionX="2564.95" shape="pin-large" symbol="ra-fish" staticLabel="false">
-			<popup>
-				<![CDATA[Fishing and hunting are common professions in Sanjiazi, and the 玄济 /// Xuán Ji river is teeming with activity, especially in the warmer months.]]>
-			</popup>
-		</node>
+		<node group="0" label="Collapsible column..." positionY="1563.73" positionX="1418.93" shape="pin-large" symbol="ionic-column" color="black" staticLabel="false" />
+		<node group="0" label="Collapsible column..." positionY="155.73" positionX="1418.93" shape="pin-large" symbol="ionic-column" color="black" staticLabel="false" />
+		<node group="0" label="Collapsible column..." positionY="2966.6" positionX="1301.33" shape="pin-large" symbol="ionic-column" color="black" staticLabel="false" />
+		<node group="0" label="Collapsible column..." positionY="2966.33" positionX="1559.47" shape="pin-large" symbol="ionic-column" color="black" staticLabel="false" />
+		<node group="0" label="Collapsible column..." positionY="2188.8" positionX="2201.6" shape="pin-large" symbol="ionic-column" color="black" staticLabel="false" />
+		<node group="0" label="Collapsible column..." positionY="919.47" positionX="2201.6" shape="pin-large" symbol="ionic-column" color="black" staticLabel="false" />
+		<node group="0" label="Collapsible column..." positionY="1941.33" positionX="2457.6" shape="pin-large" symbol="ionic-column" color="black" staticLabel="false" />
+		<node group="0" label="Collapsible column..." positionY="1175.47" positionX="2453.33" shape="pin-large" symbol="ionic-column" color="black" staticLabel="false" />
 	</nodes>
 	<paths>
-		<path group="1" route="Roof 1" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 1" isPolygon="true" polyColor="grey">
 			<waypoint label="R1 1" waypoint="true" positionY="3068.43" positionX="110.16" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R1 2" waypoint="true" positionY="3014.61" positionX="110.16" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R1 3" waypoint="true" positionY="3015.45" positionX="671.04" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R1 4" waypoint="true" positionY="3068.43" positionX="671.88" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 2" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 2" isPolygon="true" polyColor="grey">
 			<waypoint label="R2 1" waypoint="true" positionY="2876.71" positionX="111" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R2 2" waypoint="true" positionY="2454.58" positionX="112.68" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R2 3" waypoint="true" positionY="2457.1" positionX="676.08" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R2 4" waypoint="true" positionY="2875.02" positionX="676.08" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 3" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 3" color="purple" isPolygon="true" polyColor="grey">
 			<waypoint label="R3 1" waypoint="true" positionY="2454.58" positionX="112.68" shape="none" symbol="" color="purple" staticLabel="false" />
 			<waypoint label="R3 2" waypoint="true" positionY="2309.94" positionX="116.04" shape="none" symbol="" color="purple" staticLabel="false" />
 			<waypoint label="R3 3" waypoint="true" positionY="2312.47" positionX="674.4" shape="none" symbol="" color="purple" staticLabel="false" />
 			<waypoint label="R3 4" waypoint="true" positionY="2457.1" positionX="676.08" shape="none" symbol="" color="purple" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 4" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 4" isPolygon="true" polyColor="grey">
 			<waypoint label="R4 1" waypoint="true" positionY="2240.15" positionX="114.36" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R4 2" waypoint="true" positionY="2024.88" positionX="114.36" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R4 3" waypoint="true" positionY="2020.67" positionX="534.81" shape="none" symbol="" staticLabel="false" />
@@ -132,7 +99,7 @@
 			<waypoint label="R4 5" waypoint="true" positionY="1604.43" positionX="676.92" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R4 6" waypoint="true" positionY="2237.63" positionX="674.4" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 5" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 5" isPolygon="true" polyColor="grey">
 			<waypoint label="R5 1" waypoint="true" positionY="1464.84" positionX="538.17" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R5 2" waypoint="true" positionY="1255.46" positionX="537.33" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R5 3" waypoint="true" positionY="1252.09" positionX="469.22" shape="none" symbol="" staticLabel="false" />
@@ -142,7 +109,7 @@
 			<waypoint label="R5 7" waypoint="true" positionY="901.44" positionX="678.6" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R5 8" waypoint="true" positionY="1464" positionX="679.44" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 6" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 6" isPolygon="true" polyColor="grey">
 			<waypoint label="R6 1" waypoint="true" positionY="617.22" positionX="114.36" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R6 2" waypoint="true" positionY="5.89" positionX="114.36" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R6 3" waypoint="true" positionY="5.89" positionX="676.08" shape="none" symbol="" staticLabel="false" />
@@ -156,19 +123,19 @@
 			<waypoint label="R6 11" waypoint="true" positionY="548.26" positionX="328.79" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R6 12" waypoint="true" positionY="619.74" positionX="326.27" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 7" color="purple" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 7" color="purple" isPolygon="true" polyColor="grey">
 			<waypoint label="R7 1" waypoint="true" positionY="758.49" positionX="398.58" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R7 2" waypoint="true" positionY="476.79" positionX="396.9" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R7 3" waypoint="true" positionY="480.15" positionX="676.92" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R7 4" waypoint="true" positionY="757.65" positionX="676.92" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 8" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 8" isPolygon="true" polyColor="grey">
 			<waypoint label="R8 1" waypoint="true" positionY="50.45" positionX="751.76" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R8 2" waypoint="true" positionY="7.57" positionX="749.24" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R8 3" waypoint="true" positionY="7.57" positionX="893.03" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R8 4" waypoint="true" positionY="52.98" positionX="892.19" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 9" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 9" isPolygon="true" polyColor="grey">
 			<waypoint label="R9 1" waypoint="true" positionY="830.81" positionX="750.92" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R9 2" waypoint="true" positionY="191.46" positionX="751.58" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R9 3" waypoint="true" positionY="190.27" positionX="959.69" shape="none" symbol="" staticLabel="false" />
@@ -176,7 +143,7 @@
 			<waypoint label="R9 5" waypoint="true" positionY="692.12" positionX="1384.24" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R9 6" waypoint="true" positionY="828.88" positionX="1385.43" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 10" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 10" isPolygon="true" polyColor="grey">
 			<waypoint label="R10 1" waypoint="true" positionY="1460.35" positionX="750.39" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R10 2" waypoint="true" positionY="903.8" positionX="752.77" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R10 3" waypoint="true" positionY="903.8" positionX="1384.24" shape="none" symbol="" staticLabel="false" />
@@ -184,7 +151,7 @@
 			<waypoint label="R10 5" waypoint="true" positionY="1041.75" positionX="970.39" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R10 6" waypoint="true" positionY="1463.91" positionX="960.88" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 11" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 11" isPolygon="true" polyColor="grey">
 			<waypoint label="R11 1" waypoint="true" positionY="2243" positionX="750" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R11 2" waypoint="true" positionY="1605" positionX="750" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R11 3" waypoint="true" positionY="1609" positionX="892" shape="none" symbol="" staticLabel="false" />
@@ -192,7 +159,7 @@
 			<waypoint label="R11 5" waypoint="true" positionY="2029" positionX="1384" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R11 6" waypoint="true" positionY="2240" positionX="1386" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 12" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 12" isPolygon="true" polyColor="grey">
 			<waypoint label="R12 1" waypoint="true" positionY="2874" positionX="751" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R12 2" waypoint="true" positionY="2312" positionX="748" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R12 3" waypoint="true" positionY="2313" positionX="961" shape="none" symbol="" staticLabel="false" />
@@ -200,63 +167,89 @@
 			<waypoint label="R12 5" waypoint="true" positionY="2593" positionX="1032" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R12 6" waypoint="true" positionY="2873" positionX="1031" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 13" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 13" isPolygon="true" polyColor="grey">
 			<waypoint label="R13 1" waypoint="true" positionY="2521.01" positionX="1031.78" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R13 2" waypoint="true" positionY="2311.62" positionX="1032.62" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R13 3" waypoint="true" positionY="2311.62" positionX="1383.27" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R13 4" waypoint="true" positionY="2521.85" positionX="1384.12" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 14" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 14" isPolygon="true" polyColor="grey">
 			<waypoint label="R14 1" waypoint="true" positionY="3057.5" positionX="748.4" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R14 2" waypoint="true" positionY="3012.93" positionX="748.4" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R14 3" waypoint="true" positionY="3016.3" positionX="1030.1" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R14 4" waypoint="true" positionY="3055.82" positionX="1031.78" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 15" color="purple" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 15" color="purple" isPolygon="true" polyColor="grey">
 			<waypoint label="R15 1" waypoint="true" positionY="3069.27" positionX="1170.53" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R15 2" waypoint="true" positionY="2666.48" positionX="1173.05" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R15 3" waypoint="true" positionY="2663.96" positionX="1735.61" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R15 4" waypoint="true" positionY="3068.43" positionX="1733.09" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 16" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 16" isPolygon="true" polyColor="grey">
 			<waypoint label="R16 1" waypoint="true" positionY="3070.11" positionX="1807.09" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R16 2" waypoint="true" positionY="3012.09" positionX="1807.93" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R16 3" waypoint="true" positionY="3012.93" positionX="2086.26" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R16 4" waypoint="true" positionY="3066.75" positionX="2088.79" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Slums 1" color="gold" isPolygon="true" polyColor="grey">
+		<path group="0" route="Slums 1" color="gold" isPolygon="true" polyColor="grey">
 			<waypoint label="S1 1" waypoint="true" positionY="3070.95" positionX="2229.22" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="S1 2" waypoint="true" positionY="3019.66" positionX="2229.58" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="S1 3" waypoint="true" positionY="3018.82" positionX="2354.51" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="S1 4" waypoint="true" positionY="3070.11" positionX="2354.51" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Slums 2" color="gold" isPolygon="true" polyColor="grey">
+		<path group="0" route="Slums 2" color="gold" isPolygon="true" polyColor="grey">
 			<waypoint label="S2 1" waypoint="true" positionY="3069.27" positionX="2510.92" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="S2 2" waypoint="true" positionY="3016.3" positionX="2509.23" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="S2 3" waypoint="true" positionY="3016.3" positionX="2933.89" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="S2 4" waypoint="true" positionY="3069.27" positionX="2933.89" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 17" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 17" isPolygon="true" polyColor="grey">
 			<waypoint label="R17 1" waypoint="true" positionY="52.14" positionX="1953.4" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R17 2" waypoint="true" positionY="3.36" positionX="1953.4" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R17 3" waypoint="true" positionY="3.36" positionX="2093.83" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R17 4" waypoint="true" positionY="52.14" positionX="2093.83" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 18" isPolygon="true" polyColor="grey">
+		<path group="0" route="Roof 18" isPolygon="true" polyColor="grey">
 			<waypoint label="R18 1" waypoint="true" positionY="54.66" positionX="2233.42" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R18 2" waypoint="true" positionY="5.89" positionX="2234.26" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R18 3" waypoint="true" positionY="6.73" positionX="2444.49" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R18 4" waypoint="true" positionY="54.66" positionX="2444.49" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Roof 19" isPolygon="true" color="grey">
+		<path group="0" route="Roof 19" isPolygon="true" polyColor="grey">
 			<waypoint label="R19 1" waypoint="true" positionY="54.66" positionX="2591.64" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R19 2" waypoint="true" positionY="12.61" positionX="2591.64" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R19 3" waypoint="true" positionY="12.61" positionX="2800.19" shape="none" symbol="" staticLabel="false" />
 			<waypoint label="R19 4" waypoint="true" positionY="54.66" positionX="2800.19" shape="none" symbol="" staticLabel="false" />
 		</path>
-		<path group="1" route="Ziggurat 1" color="red" decoration="spike">
-			<waypoint label="Z 1" waypoint="true" positionY="709.72" positionX="2034.97" shape="none" symbol="" staticLabel="false" />
-			<waypoint label="Z 1" waypoint="true" positionY="1476.61" positionX="2034.13" shape="none" symbol="" staticLabel="false" />
+		<path group="0" route="Ziggurat 1" color="red" decoration="spike">
+			<waypoint label="Z1 1" waypoint="true" positionY="1476.61" positionX="2034.13" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Z1 2" waypoint="true" positionY="709.72" positionX="2034.13" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Z1 3" waypoint="true" positionY="709.72" positionX="3031.47" shape="none" symbol="" staticLabel="false" />
+		</path>
+		<path group="0" route="Ziggurat 2" color="red" decoration="spike">
+			<waypoint label="Z2 1" waypoint="true" positionY="2355.2" positionX="3046.4" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Z2 2" waypoint="true" positionY="2355.2" positionX="2034.13" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Z2 3" waypoint="true" positionY="1587.2" positionX="2034.13" shape="none" symbol="" staticLabel="false" />
+		</path>
+		<path group="0" route="Ziggurat 3" color="red" decoration="spike">
+			<waypoint label="Z3 1" waypoint="true" positionY="1467.73" positionX="2293.33" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Z3 2" waypoint="true" positionY="974.93" positionX="2293.33" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Z3 3" waypoint="true" positionY="974.93" positionX="3069.87" shape="none" symbol="" staticLabel="false" />
+		</path>
+		<path group="0" route="Ziggurat 4" color="red" decoration="spike">
+			<waypoint label="Z4 1" waypoint="true" positionY="2092.8" positionX="3069.87" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Z4 2" waypoint="true" positionY="2092.8" positionX="2293.33" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Z4 3" waypoint="true" positionY="1587.2" positionX="2293.33" shape="none" symbol="" staticLabel="false" />
+		</path>
+		<path group="0" route="Ziggurat 5" color="red" decoration="spike">
+			<waypoint label="Z5 1" waypoint="true" positionY="1469.87" positionX="2560" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Z5 2" waypoint="true" positionY="1235.2" positionX="2560" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Z5 3" waypoint="true" positionY="1235.2" positionX="3061.33" shape="none" symbol="" staticLabel="false" />
+		</path>
+		<path group="0" route="Ziggurat 6" color="red" decoration="spike">
+			<waypoint label="Z6 1" waypoint="true" positionY="1830.4" positionX="3061.33" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Z6 2" waypoint="true" positionY="1832.53" positionX="2560" shape="none" symbol="" staticLabel="false" />
+			<waypoint label="Z6 3" waypoint="true" positionY="1589.33" positionX="2560" shape="none" symbol="" staticLabel="false" />
 		</path>
 	</paths>
 </data>
