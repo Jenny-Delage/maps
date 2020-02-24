@@ -27,7 +27,7 @@
 		</label>
 	</labels>
 	<nodes>
-		<node group="0" label="Branch of Ch'ing Tung River" positionY="948.13" positionX="788.9" shape="none" symbol="" image="https://i.imgur.com/URatlz1.jpg" staticLabel="true" rotateLabel="30.5" />
+		<node group="0" label="Branch of Ch'ing Tung River" id="branchofchingtungriverwest" positionY="948.13" positionX="788.9" shape="none" symbol="" image="https://i.imgur.com/URatlz1.jpg" staticLabel="true" rotateLabel="30.5" />
 		<node group="0" label="Branch of Ch'ing Tung River" positionY="2161.08" positionX="1632.4" shape="none" symbol="" image="https://i.imgur.com/URatlz1.jpg" staticLabel="true" rotateLabel="358" />
 		<node group="0" label="Festival Square" positionY="1150" positionX="1608.67" shape="pin-large" symbol="water-fountain" image="https://i.imgur.com/URatlz1.jpg" staticLabel="true">
 			<sidebar>
