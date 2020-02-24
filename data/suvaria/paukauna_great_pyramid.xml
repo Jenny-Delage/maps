@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <data>
 	<map 
-		modeCartograph="true"
+		modeCartograph="false"
 		mapAsset="https://i.imgur.com/nKqdhXe.jpg"
 		mapAssetLocal="./images/suvaria/paukauna_great_pyramid.jpg"
 		mapAssetWidth="3072"
