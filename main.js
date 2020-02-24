@@ -16,6 +16,7 @@ function mapDataArray() {
 	var group = 0;
 	var n = 0;
 	var options = getUrlParams();
+	var doSidebarLocations = false;
 	var chapters = ( options.chapter ) ? options.chapter.toLowerCase().split( "|" ) : [];
 
 	var fileMap = "./data/" + ( ( options.campaign ) ? options.campaign.toLowerCase() + "/" : "" ) + ( ( options.map ) ? options.map.toLowerCase() + ".xml" : "" );
@@ -69,6 +70,9 @@ function mapDataArray() {
 							footnote: getOptionalContent( nodeXml[i], "footnote" ),
 							attributions: []
 						};
+
+						// see if sidebar > locations is needed
+						if( nodes[group][n].sidebar.length ) { doSidebarLocations = true; }
 
 						// populate attributions array
 						attributionXml = nodeXml[i].getElementsByTagName( "attribution" );
@@ -134,6 +138,9 @@ function mapDataArray() {
 								attributions: []
 							};
 
+							// see if sidebar > locations is needed
+							if( paths[group][n].pathData[p].sidebar.length ) { doSidebarLocations = true; }
+
 							// populate attributions array
 							attributionXml = waypointXml[p].getElementsByTagName( "attribution" );
 
@@ -162,7 +169,7 @@ function mapDataArray() {
 
 			// set sidebar content, including mlinks from mLinksList we created while building layers
 			// note: mLinksList is a global variable
-			setSidebarContent();
+			setSidebarContent( doSidebarLocations );
 
 			// get map attributes
 			var mapAttribs = new Array();
@@ -901,11 +908,14 @@ function buildSidebar() {
 	return sidebar;
 }
 
-function setSidebarContent() {
+function setSidebarContent( doSidebarLocations ) {
 	var options = getUrlParams();
 
 	// set info icon
 	document.getElementById( "info_button" ).innerHTML = '<img src="./images/symbols/book-cover.svg">';
+	if( doSidebarLocations ) {
+		document.getElementById( "info_tab" ).style = ""; // make info tab visible
+	}
 
 	// get data from campaign xml
 	var fileCampaign = "./data/" + ( ( options.campaign ) ? options.campaign.toLowerCase() + "/" : "" ) + "_" + ( ( options.campaign ) ? options.campaign.toLowerCase() + ".xml" : "" );
