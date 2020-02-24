@@ -56,6 +56,7 @@ function mapDataArray() {
 					if( !layerAttribs.chapter[group+1].length || chapters.findIndex( e => e == layerAttribs.chapter[group+1] ) > -1 ) {
 						nodes[group][n] = {
 							label: nodeXml[i].getAttribute( "label" ) ? nodeXml[i].getAttribute( "label" ) : "",
+							id: nodeXml[i].getAttribute( "id" ) ? nodeXml[i].getAttribute( "id" ).replace( /[^A-za-z0-9]/g, "" ).toLowerCase() : nodeXml[i].getAttribute( "label" ).replace( /[^A-za-z0-9]/g, "" ).toLowerCase(),
 							location: [parseFloat( nodeXml[i].getAttribute( "positionY" ) ), parseFloat( nodeXml[i].getAttribute( "positionX" ) )],
 							shape: ( nodeXml[i].getAttribute( "shape" ) !="" && nodeXml[i].getAttribute( "shape" ) ) ? nodeXml[i].getAttribute( "shape" ) : "none",
 							symbol: nodeXml[i].getAttribute( "symbol" ) ? nodeXml[i].getAttribute( "symbol" ) : "",
@@ -99,13 +100,14 @@ function mapDataArray() {
 					if( !layerAttribs.chapter[group+1].length || chapters.findIndex( e => e == layerAttribs.chapter[group+1] ) > -1 ) {
 						paths[group][n] = { 
 							route: pathXml[i].getAttribute( "route" ) ? pathXml[i].getAttribute( "route" ) : "",
+							id: pathXml[i].getAttribute( "id" ) ? pathXml[i].getAttribute( "id" ).replace( /[^A-za-z0-9]/g, "" ).toLowerCase() : pathXml[i].getAttribute( "route" ).replace( /[^A-za-z0-9]/g, "" ).toLowerCase(),
 							style: pathXml[i].getAttribute( "style" ) ? pathXml[i].getAttribute( "style" ) : "normal solid",
 							decoration: pathXml[i].getAttribute( "decoration" ) ? pathXml[i].getAttribute( "decoration" ) : "",
 							color: pathXml[i].getAttribute( "color" ) ? pathXml[i].getAttribute( "color" ) : "",
 							isPolygon: ( pathXml[i].getAttribute( "isPolygon" ) == "true" ),
 							polyColor: pathXml[i].getAttribute( "polyColor" ) ? pathXml[i].getAttribute( "polyColor" ) : "",
 							symbol: pathXml[i].getAttribute( "symbol" ) ? pathXml[i].getAttribute( "symbol" ) : "",
-							symbolSize: parseInt( pathXml[i].getAttribute( "symbolSizePx" ) ),
+							symbolSize: pathXml[i].getAttribute( "symbolSizePx" ) ? parseInt( pathXml[i].getAttribute( "symbolSizePx" ) ) : 100,
 							symLocationY: parseFloat( pathXml[i].getAttribute( "symLocationY" ) ),
 							symLocationX: parseFloat( pathXml[i].getAttribute( "symLocationX" ) ),
 							pathData: []
@@ -117,6 +119,7 @@ function mapDataArray() {
 						for ( var p = 0; p < waypointXml.length; p++ ) {
 							paths[group][n].pathData[p] = {
 								label: waypointXml[p].getAttribute( "label" ) ?  waypointXml[p].getAttribute( "label" ) : "",
+								id: waypointXml[p].getAttribute( "id" ) ? waypointXml[p].getAttribute( "id" ).replace( /[^A-za-z0-9]/g, "" ).toLowerCase() : waypointXml[p].getAttribute( "label" ).replace( /[^A-za-z0-9]/g, "" ).toLowerCase(),
 								waypoint: ( waypointXml[p].getAttribute( "waypoint" ) == "true" ),
 								location: [parseFloat( waypointXml[p].getAttribute( "positionY" ) ), parseFloat( waypointXml[p].getAttribute( "positionX" ) )],
 								shape: ( waypointXml[p].getAttribute( "shape" ) !="" && waypointXml[p].getAttribute( "shape" ) ) ? waypointXml[p].getAttribute( "shape" ) : "none",
@@ -170,7 +173,7 @@ function mapDataArray() {
 				mapAssetWidth: parseInt( mapAttribsXml[0].getAttribute( "mapAssetWidth" ) ),
 				mapAssetHeight: parseInt( mapAttribsXml[0].getAttribute( "mapAssetHeight" ) ),
 				mapMaxZoomMultiplier: parseFloat( mapAttribsXml[0].getAttribute( "mapMaxZoomMultiplier" ) ),
-				unitName: mapAttribsXml[0].getAttribute( "unitName" ),
+				unitName: mapAttribsXml[0].getAttribute( "unitName" ) ? mapAttribsXml[0].getAttribute( "unitName" ) : "mi",
 				unitsAcross: parseFloat( mapAttribsXml[0].getAttribute( "unitsAcross" ) ),
 				unitsPerGrid: parseFloat( mapAttribsXml[0].getAttribute( "unitsPerGrid" ) ),
 				gridType: mapAttribsXml[0].getAttribute( "gridType" ) ? mapAttribsXml[0].getAttribute( "gridType" ) : "hex",
@@ -193,7 +196,7 @@ function mapDataArray() {
 			if ( regionXml.length ) {
 				for ( var i = 0; i < regionXml.length; i++ ) {
 					// note: regions is a global variable
-					var regionId = regionXml[i].getAttribute( "id" ) ? regionXml[i].getAttribute( "id" ) : regionXml[i].getAttribute( "label" ).replace( /[^A-za-z0-9]/g, "" ).toLowerCase();
+					var regionId = regionXml[i].getAttribute( "id" ) ? regionXml[i].getAttribute( "id" ).replace( /[^A-za-z0-9]/g, "" ).toLowerCase() : regionXml[i].getAttribute( "label" ).replace( /[^A-za-z0-9]/g, "" ).toLowerCase();
 					regions[regionId] = {
 						label: regionXml[i].getAttribute( "label" ),
 						group: -1, // this means this region is not bound to any layer
@@ -360,10 +363,10 @@ function buildMarkers( color, sidebar, layerGroup, nodeObject, isPath = false, p
 			}
 
 			// add mlink
-			if( nodeObject[i].staticLabel == true || nodeObject[i].popup.length || nodeObject[i].sidebar.length ) {
+			if( ( nodeObject[i].staticLabel == true || nodeObject[i].popup.length || nodeObject[i].sidebar.length ) && nodeObject[i].id.length ) {
 				marker.options.mLink = {
 					label: nodeObject[i].label,
-					id: nodeObject[i].label.replace( /[^A-za-z0-9]/g, "" ).toLowerCase()
+					id: nodeObject[i].id
 				};
 			}
 
@@ -466,7 +469,7 @@ function buildMarkers( color, sidebar, layerGroup, nodeObject, isPath = false, p
 			case "cross": pathStyle.decoration = "\u271A"; break;
 			case "x-mark": pathStyle.decoration = "\u2A2F"; break;
 			case "asterisk": pathStyle.decoration = "\u2731"; break;
-			case "spike": pathStyle.decoration = "\u25bc"; break;
+			case "spike": pathStyle.decoration = "\u25b2"; pathStyle.decorationDy = -8; break;
 		}
 
 		// use path specific override pColor
@@ -486,9 +489,9 @@ function buildMarkers( color, sidebar, layerGroup, nodeObject, isPath = false, p
 			pathPolyline.addTo( layerGroup );
 
 			// add a region, if the polygon qualifies as one
-			if( pathAttribs.symbol.length ) {
+			if( pathAttribs.symbol.length && pathAttribs.id.length ) {
 				// note: regions is a global variable
-				regions[pathAttribs.route.replace( /[^A-za-z0-9]/g, "" ).toLowerCase()] = {
+				regions[pathAttribs.id] = {
 					label: pathAttribs.route,
 					group: pathAttribs.group,
 					bounds: [[r.south, r.west], [r.north, r.east]],
