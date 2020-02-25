@@ -2,17 +2,17 @@
 <data>
    <map 
 		modeCartograph="false"
-		mapAsset="https://i.imgur.com/4RmkRsk.jpg"
+		mapAsset="https://i.imgur.com/1gi94Qs.jpg"
 		mapAssetLocal="./images/120ft/shou.jpg"
-		mapAssetWidth="4560"
-		mapAssetHeight="6060"
+		mapAssetWidth="5844"
+		mapAssetHeight="5580"
 		mapMaxZoomMultiplier="1"
 		unitName="mi"
 		unitsAcross="3751.49"
 		unitsPerGrid="120"
 		gridType="hex"
-		mapAttribution="Mark Taylor"
-		mapAttributionUrl="https://www.deviantart.com/markustay"
+		mapAttribution="Lucas Lambert"
+		mapAttributionUrl="https://app.roll20.net/users/2597195/lucas"
 	/>
 	<regions>
 		<region label="Pyint'sien Locality" id="pyintsien" south="3624.51" west="1110.63" north="4273.8" east="1851.77" />
