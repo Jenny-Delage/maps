@@ -4,8 +4,8 @@
 		modeCartograph="false"
 		mapAsset="https://i.imgur.com/1gi94Qs.jpg"
 		mapAssetLocal="./images/shadow_over_solum/aetras.jpg"
-		mapAssetWidth="5844"
-		mapAssetHeight="5580"
+		mapAssetWidth="4675"
+		mapAssetHeight="4464"
 		mapMaxZoomMultiplier="1"
 		unitName="mi"
 		unitsAcross="3751.49"
@@ -16,12 +16,6 @@
 	/>
 	<regions>
 		<region label="Pyint'sien Locality" id="pyintsien" south="3624.51" west="1110.63" north="4273.8" east="1851.77" />
-		<region label="Chukei" south="3876.53" west="508.33" north="4963.67" east="1858.17" />
-		<region label="Kozakura" south="3872.26" west="3152.49" north="4408.36" east="3810.32" />
-		<region label="Koryo" south="4325.06" west="3299.86" north="5145.22" east="3816.73" />
-		<region label="Wai" south="1503.63" west="2018.36" north="2462.61" east="3041.42" />
-		<region label="Bashan Do" south="1185.39" west="2031.18" north="1977.78" east="3028.61" />
-		<region label="Laothan" south="1208.88" west="2975.21" north="2071.76" east="3867.99" />
 	</regions>
 	<layers>
 		<layer name="Shou" type="basemap" visibility="true" color="" />
